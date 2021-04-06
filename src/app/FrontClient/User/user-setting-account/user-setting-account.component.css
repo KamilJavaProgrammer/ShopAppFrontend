@@ -1,0 +1,21 @@
+.labelInput
+{
+  font-size: 17px;
+}
+.formGroup
+{
+  padding-bottom: 5px;
+}
+.description
+{
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  color: rgb(112, 112, 112);
+  margin-top: 4px;
+}
+
+.dataInput
+{
+  text-align: right;
+}

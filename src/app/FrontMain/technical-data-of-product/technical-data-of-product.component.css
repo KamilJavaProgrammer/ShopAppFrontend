@@ -1,0 +1,59 @@
+.colImg
+{
+  width: 350px;
+  height: 350px;
+  margin-top: 35px;
+  margin-left: 120px;
+  box-shadow:0px 0px 6px black;
+
+
+}
+.nameProduct
+{
+  text-align: left;
+  color: blue;
+  font-size: 24px;
+  font-weight: 600;
+
+}
+
+.priceProduct
+{
+  text-align: left;
+  color: blue;
+  font-size: 24px;
+  font-weight: bold;
+}
+.descriptionContainer
+{
+  margin-top: 30px;
+}
+.descriptionData
+{
+  font-weight: 600;
+  font-size:18px;
+}
+
+.addBasketButton
+{
+  margin-top: 10px;
+}
+
+.data
+{
+  text-align: left;
+  margin-bottom: 1px;
+}
+.bottomRow
+{
+  margin-top: 22px;
+}
+.returnButton
+{
+  margin-left: 135px;
+  width: 120px;
+}
+.addToBasketButton
+{
+  margin-top: 30px;
+}

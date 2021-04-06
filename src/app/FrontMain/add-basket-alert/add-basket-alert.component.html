@@ -1,0 +1,45 @@
+
+<div  style="text-align: center;" class="alert  fade show" role="alert">
+
+  <button  (click)="CloseAlertModal()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+  <div class="row">
+    <div class="col-12" style="text-align: center;font-size: 24px;">
+
+      <strong> Dodałeś przedmiot do koszyka</strong>
+    </div>
+  </div>
+
+
+  <div class="row" style="margin-top: 30px;">
+    <div class="col-6">
+      <img [src]="product.imageByte" style="width: 140px;height: 140px;">
+    </div>
+
+
+    <div class="col-6 " style="text-align: left; color: blue;  font-size: 22px; font-weight: 600;">
+      <span>{{product.productName}}</span>
+      <br>
+      <span>Ilość: 1</span>
+      <br>
+      <span>Cena: {{product.productPrice}} zł</span>
+    </div>
+  </div>
+
+
+  <div class="row " style="margin-top: 30px; margin-right: auto; margin-left: auto;">
+
+
+    <div class="col">
+      <button (click)="GoToBasket()"  type="button" class="btn btn-outline-danger"> Do koszyka</button>
+    </div>
+
+    <div class="col">
+      <button (click)="CloseAlertModal()" type="button" class="btn btn-outline-success"> Kontynuuj zakupy</button>
+    </div>
+
+
+  </div>
+</div>

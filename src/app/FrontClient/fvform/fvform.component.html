@@ -1,0 +1,236 @@
+<div class="container-fluid ContainerAddForm">
+  <div class="row justify-content-around">
+    <div class="col-12 align-self-center">
+     <form>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="document">Rodzaj dokumentu</label>
+            <select id="document" class="form-control">
+            <option>Faktura Vat</option>
+            <option>Faktura Proforma</option>
+            <option>Paragon Fiskalny</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="money">Termin płatności(w dniach)</label>
+            <input type="number" name="money" id="money" class="form-control" [(ngModel)]="paymentDeadline" >
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6" (keyup.enter)="AddCliente()">
+            <label for="nabywca">Nabywca</label>
+            <input [(ngModel)]="buyer" type="text" list="list" name="money" id="nabywca" class="form-control" autocomplete="off">
+            <datalist id="list">
+
+              <ng-container *ngFor="let c of clients">
+                <option>{{c.buyer}}</option>
+
+              </ng-container>
+
+
+            </datalist>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="NIP">NIP</label>
+            <input [(ngModel)]="nip" type="text" name="NIP" id="NIP" class="form-control" >
+
+          </div>
+
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="odbiorca">Odbiorca</label>
+            <input [(ngModel)]="recipient" type="text" id="odbiorca" name="odbiorca" class="form-control">
+          </div>
+          <button (click)="Send()" class="btn btn-danger">wyslij</button>
+          <div class="form-group col-md-6">
+            <label for="adres">Adres</label>
+            <input [(ngModel)]="address" class="form-control" id="adres" name="adreess" >
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="odbiorca">Konto</label>
+            <input [(ngModel)]="account" type="text" id="konto" name="konto" class="form-control">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="form">Forma płatności</label>
+            <select [(ngModel)]="payForm" class="form-control" id="form" name="form" >
+              <option>Gotówka</option>
+              <option>Przelew</option>
+            </select>
+          </div>
+        </div>
+
+       <div class="form-row">
+         <div class="col-md-6 form-group ">
+           <label for="date">Data Wystawienia</label>
+           <input [(ngModel)]="date" type="text" class="form-control" id="date" name="date">
+         </div>
+
+         <div class="col-md-6 form-group ">
+           <label for="phonenumber">Numer Telefonu</label>
+           <input [(ngModel)]="phoneNumber" type="text" class="form-control" id="phonenumber" name="phonenumber">
+         </div>
+
+       </div>
+
+       <div class="form-row">
+         <div class="col-md-6 form-group ">
+           <label for="zapłacono">Zapłacono</label>
+           <input [(ngModel)]="paid"  type="text" class="form-control" id="zapłacono" name="zapłacono">
+         </div>
+
+       </div>
+
+       <div class="form-row">
+         <div class="col-md-6 form-group ">
+        <label for="magazyn">Wydaj z magazynu</label>
+           <select [(ngModel)]="spendFromStock" name="spendMagazine" id="magazyn" class="form-control">
+           <option>Główny magazyn</option>
+           <option>Nie wydawaj z magazynu</option>
+           </select>
+         </div>
+       </div>
+
+       <div class="form-row">
+         <div class="col-md-6 form-group" (keyup.enter)="AddSearch()">
+           <label for="search">Znajdz produkt</label>
+           <input [(ngModel)]="search"    type="text" id="search" name="search" class="form-control" list="lista"  autocomplete="off">
+           <datalist id="lista" >
+             <ng-container *ngFor="let p of products">
+             <option>{{p.name}} - {{p.numberOfItems}}-sztuk         - {{p.id}}</option>
+
+             </ng-container>
+           </datalist>
+         </div>
+       </div>
+
+       <div class="form-row rowCurr">
+         <div class="col-1 form-group rowHelp">
+             Lp
+         </div>
+
+         <div class="col-1 form-group rowHelp">
+             Nazwa
+         </div>
+         <div class="col-1 form-group rowHelp">
+             Kod
+         </div>
+
+         <div class="col-1 form-group rowHelp">
+             Ilość
+         </div>
+         <div class="col-1 form-group rowHelp">
+             Jedn
+         </div>
+       <div class="col-1 form-group rowHelp">
+            Cena Netto
+       </div>
+         <div class="col-1 form-group rowHelp">
+              Rabat
+         </div>
+         <div class="col-1 form-group rowHelp">
+            Stawka Vat
+       </div>
+         <div class="col-1 form-group rowHelp ">
+            Wart. Netto
+         </div>
+         <div class="col-1 form-group rowHelp">
+             Wart. Vat
+         </div>
+         <div class="col-1 form-group rowHelp">
+            Wart. Brutto
+       </div>
+         <div class="col-1 form-group rowHelp">
+           Action
+         </div>
+       </div>
+
+       <div class="form-row" *ngFor="let obj of dataarray; let i=index">
+          <input type="hidden" name="id{{i}}" class="form-control" [(ngModel)]="obj.id" >
+         <div class="col-1 form-group">
+           <input type="text" name="lp{{i}}" class="form-control" [(ngModel)]="obj.lp" readonly>
+         </div>
+
+         <div class="col-1 form-group">
+           <input type="text" name="nameProduct{{i}}" class="form-control" [(ngModel)]="obj.nameProduct">
+         </div>
+         <div class="col-1 form-group" >
+           <input type="text" name="cod{{i}}"  value="sasa" class="form-control" [(ngModel)]="obj.cod">
+         </div>
+         <div class="col-1 form-group">
+           <input type="text" name="quantity{{i}}" class="form-control" [(ngModel)]="obj.quantity">
+         </div>
+         <div class="col-1 form-group">
+           <input type="text" name="unit{{i}}" class="form-control" [(ngModel)]="obj.unit">
+         </div>
+         <div class="col-1 form-group">
+           <input type="text" name="nettoPrice{{i}}" class="form-control" [(ngModel)]=" obj.nettoPrice" (dblclick)="Oblicz()">
+         </div>
+         <div class="col-1 form-group">
+           <input type="text" name="discount{{i}}" class="form-control" [(ngModel)]="obj.discount">
+         </div>
+         <div class="col-1 form-group">
+           <select type="text" name="stawka{{i}}" class="form-control" [(ngModel)]="obj.rateVat">
+             <option>23%</option>
+             <option>8%</option>
+           </select>
+         </div>
+         <div class="col-1 form-group"  >
+           <input  type="text" name="nettoValue{{i}}" class="form-control" [(ngModel)]="obj.nettoValue">
+         </div>
+         <div class="col-1 form-group">
+           <input type="text" name="vatValue{{i}}" class="form-control" [(ngModel)]="obj.vatValue">
+         </div>
+         <div class="col-1 form-group">
+           <input type="text" name="bruttoValue{{i}}" class="form-control" [(ngModel)]="obj.bruttoValue">
+         </div>
+         <div class="col-1 form-group">
+           <button class="btn btn-danger" (click)="Remove(i)">usun</button>
+         </div>
+
+
+       </div>
+
+       <div class="form-row">
+         <div class="col-7" >
+
+
+         </div>
+         <div class="col-1" style="font-size: 20px;color: black; font-weight: bold; text-align: center" >
+           Suma
+
+         </div>
+         <div class="col-1 form-group" >
+           <input name="sumNettoValue" type="text" class="form-control" [(ngModel)]="sumNettoValue" >
+
+         </div>
+         <div class="col-1 form-group" >
+           <input name="sumVatValue" type="text" class="form-control" [(ngModel)]="sumVatValue">
+
+         </div>
+         <div class="col-1 form-group" >
+           <input name="sumBruttoValue" type="text" class="form-control" [(ngModel)]="sumBruttoValue">
+
+         </div>
+
+       </div>
+
+       <button class="btn btn-primary" (click)="Add()">Dodaj</button>
+     </form>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-12 ">
+   <a routerLink="/invoice">  <button class="btn btn-primary button" type="button" (click)="SaveInvoice()">Zapisz</button></a>
+
+    </div>
+
+  </div>
+
+</div>

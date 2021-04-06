@@ -1,0 +1,215 @@
+<div class="container" id="anchor">
+  <ng-container *ngIf="tokenJwt !== null && tokenJwt !=='null',else absent,then present"></ng-container>
+
+  <ng-template #absent >
+
+    <div id="selectOption">
+       <div class="row">
+         <div class="col-12">
+             <span class="spanButton"> 1.Dołącz do nas!</span>
+         </div>
+      </div>
+
+         <div class="row buttonDiv">
+           <div class="col-4">
+              <a [routerLink]="['/shop', {outlets: {route4: ['logowanie']}}]"> <button class="btn-outline-dark btn button" >Zaloguj się</button></a>
+          </div>
+
+          <div class="col-4">
+             <button (click)="BuyNoRegister()" class="btn-outline-dark btn button">Kup bez rejestracji</button>
+          </div>
+
+          <div class="col-4">
+            <a [routerLink]="['/shop', {outlets: {route4: ['rejestracja']}}]"> <button  class="btn-outline-dark btn button">Rejestracja</button></a>
+         </div>
+       </div>
+    </div>
+
+
+    <div id="OrderForm">
+      <ng-container *ngTemplateOutlet="form"></ng-container>
+    </div>
+
+  </ng-template>
+
+  <ng-template #present>
+
+    <ng-container *ngTemplateOutlet="form"></ng-container>
+
+  </ng-template>
+
+</div>
+
+
+
+
+<ng-template #form>
+
+    <div class="row formContainer">
+      <div class="col-12 ">
+
+        <div class="row descriptionPoint">
+          <div class="col-12">
+            <span class="spanButton"> 1.Dane odbiory przesyłki</span>
+          </div>
+       </div>
+
+      <div class="row inputRow">
+          <div class="col"></div>
+          <div class="col">
+            <input type="text" class="form-control colForm" placeholder="Imie" name="name"  [(ngModel)]="name" autocomplete="off">
+          </div>
+          <div class="col">
+            <input type="text" class="form-control colForm" placeholder="Nazwisko"  name="surname"  [(ngModel)]="surname" autocomplete="off">
+          </div>
+          <div class="col">
+            <input type="email" class="form-control colForm" placeholder="E-mail" name="email"  [(ngModel)]="email" autocomplete="off">
+          </div>
+          <div class="col"></div>
+      </div>
+
+
+
+        <div class="row descriptionPoint">
+           <div class="col-12">
+             <span class="spanButton" > 2.Adres dostawy</span>
+           </div>
+       </div>
+
+      <div class="row inputRow">
+         <div class="col"></div>
+         <div class="col">
+            <input type="text" class="form-control colForm" placeholder="Adres" name="address" [(ngModel)]="address"  autocomplete="off">
+        </div>
+        <div class="col">
+           <input type="text" class="form-control colForm" placeholder="Kod Pocztowy" name="postCode" [(ngModel)]="postCode"  autocomplete="off">
+        </div>
+        <div class="col">
+           <input type="text" class="form-control colForm" placeholder="Miejscowość" name="town" [(ngModel)]="town"  autocomplete="off">
+        </div>
+        <div class="col"></div>
+      </div>
+
+
+
+        <div class="row buttonRow">
+          <div class="col-12">
+            <input #invoiceForm id="checkboxInvoice" type="checkbox" name="InvoiceCheckbox" [(ngModel)]="invoiceCheckbox" (change)="AddFormInvoice()"> Chcę otrzymać fakturę
+          </div>
+        </div>
+
+        <div id="invoiceForm">
+          <div class="row descriptionPoint">
+            <div class="col-12">
+              <span class="spanButton" > 3.Dane do faktury</span>
+            </div>
+          </div>
+
+          <div class="row inputRow">
+            <div class="col"></div>
+            <div class="col">
+              <input type="text" class="form-control colForm" placeholder="Nazwa Firmy" name="businessName" [(ngModel)]="businessName"  autocomplete="off">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control colForm" placeholder="NIP" name="NIP" (input)="Check()" [(ngModel)]="NIP"  autocomplete="off">
+            </div>
+            <div class="col">
+              <input type="email" class="form-control colForm" placeholder="E-mail" name="businessEmail" [(ngModel)]="businessEmail"  autocomplete="off">
+            </div>
+            <div class="col"></div>
+          </div>
+
+
+          <div class="row inputRow">
+            <div class="col"></div>
+            <div class="col">
+              <input type="text" class="form-control colForm" placeholder="Adres" name="businessAddress" [(ngModel)]="businessAddress"  autocomplete="off">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control colForm" placeholder="Kod pocztowy" name="businessPostCode" [(ngModel)]="businessPostCode"  autocomplete="off">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control colForm" placeholder="Miejscowość" name="town" [(ngModel)]="businessTown"   autocomplete="off">
+            </div>
+            <div class="col"></div>
+          </div>
+        </div>
+
+
+          <div class="row descriptionPoint">
+            <div class="col-12">
+              <span class="spanButton" > {{i}}.Dostawa</span>
+            </div>
+        </div>
+
+      <div class="row">
+        <div class="col-4 deliveryOption" id="personalPickupButton"  (click)="ChangeStyleForPersonalPickup()">
+          Odbiór osobisty
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 deliveryOption" id="parcelCourierButton"  (click)="ChangeStyleForParcelCourier()">
+          Przesyłka Kurierska
+        </div>
+      </div>
+
+
+
+      <div id="parcelCourierOption">
+        <div class="row descriptionPoint">
+          <div class="col-12">
+            <span class="spanButton" >  {{h}}.Metody Płatności</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4 paymentMethodOption">
+            <input type="radio" name="paymentMethod" value="Pobranie" (click)="ChangePaymentMethodToHome()"> Za pobraniem
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4 paymentMethodOption">
+            <input type="radio" name="paymentMethod" value="Przelew Bankowy" (click)="ChangePaymentMethodOnTransfer()"> Przelew Bankowy
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 colButtonOrder">
+            <button (click)="Order()" class="btn btn-outline-primary buttonOrder">Zamawiam z obowiązkiem zapłaty</button>
+          </div>
+        </div>
+      </div>
+
+
+
+
+          <div id="personalPickupOption">
+
+             <div class="row">
+               <div class="col-6 personalPickupOptionDiv">
+                Nowy Sącz
+                <br>
+               ul.Elektrodowa 34
+              </div>
+            </div>
+
+              <div class="row">
+                 <div class="col-6 colButtonOrder">
+                    <button (click)="Order()" class="btn btn-outline-danger buttonOrder">Zamawiam z obowiązkiem zapłaty</button>
+                 </div>
+              </div>
+
+          </div>
+
+
+
+      </div>
+    </div>
+</ng-template>
+
+
+
+<ng-template #orderAlert>
+  <app-order-alert></app-order-alert>
+</ng-template>

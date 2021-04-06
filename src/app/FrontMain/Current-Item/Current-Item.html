@@ -1,0 +1,163 @@
+<header>
+    <div id="titleItem" class="article-title">
+      {{idTable[idTable.length - 1] |categories}}
+    </div>
+  </header>
+
+
+
+
+
+  <!--Article Start-->
+  <article>
+    <div class="row">
+        <ng-container *ngIf="products.length > 0; then correct; else incorrect"></ng-container>
+           <ng-template #correct>
+
+
+
+             <div  class="col-3 mainCategoryField">
+               <div class="row">
+                 <div class="col-10 colCentreMainCategoryField ">
+
+                   <div class="inscription">
+                    Kategorie:
+                    </div>
+
+                      <ul *ngFor="let category of categories|keyvalue;let p = index;">
+
+                    <li class="panelCategories" >
+                      <span [routerLink]="['/shop', { outlets: {'route4': ['details',idTable[0]+'/'+category.key] }}]">
+                      {{category.key|categories}} ({{category.value}})</span>
+                    </li>
+                      </ul>
+
+            <div class="bottomInscription" (click)="OpenModal(template)" >
+               Wszystkie kategorie
+           </div>
+
+
+
+                   <div class="sortPrice">
+                        <div style="font-size: 18px; padding-top: 30px; color: blue;">
+                            Sortuj wg ceny:
+                        </div>
+
+                        <div style="padding-top: 15px;">
+                            <ngx-slider  [(value)]="value12" [(highValue)]="highValue12" [options]="options"></ngx-slider>
+                        </div>
+
+                         <div style=" padding-top: 10px;">
+                           <span> Cena :</span> <span> {{value12}} zł</span> - <span> {{highValue12}} zł</span>
+                         </div>
+
+                        <div style="padding-top: 15px; margin-bottom: 30px;">
+                          <button  (click)="ReadValues()"  class="btn btn-outline-primary">Filtruj</button>
+                        </div>
+                     </div>
+
+                 </div>
+               </div>
+          </div>
+
+
+
+
+             <div class="col-9">
+
+          <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col">
+              <div class="form-group" style="margin-top: 10px; margin-right: 25px;">
+
+                <select autocomplete="off" id="sorting"  (change)="Sort()" [(ngModel)]="sorting" class="form-control">
+                     <option>Sortuj wg</option>
+                     <option>Alfabetycznie</option>
+                     <option>Cena rosnąco</option>
+                     <option>Cena malejąco</option>
+                    </select>
+              </div>
+          </div>
+        </div>
+
+
+
+           <div class="row">
+          <ng-container *ngFor="let product of products | paginate:{id:'listing_pagination',itemsPerPage:12, currentPage:page,totalItems:totalRecords}">
+            <div class="col-3 imgContainer" >
+               <img  class="image" [src]="product.imageByte"  (click)="RedirectToTechnicalDataComponent(product.id)" alt="ImageProblem">
+
+               <div class="imageDescription">
+                 <span>  {{product.productName}}</span>
+                 <br>
+                 <span  class="spanProductPrice">{{+product.productPrice}} zł </span>
+                 <br>
+                 <span class="addBasketButton" (click)="AddToBasket(product)">Dodaj do koszyka</span> | <span class="detailsButton" (click)="RedirectToTechnicalDataComponent(product.id)">Szczegóły</span>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+
+        <ng-container *ngIf="products.length > 16; then exists; else noexists"></ng-container>
+
+        <ng-template #exists >
+        <div class="paginationContainer">
+          <pagination-controls id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="page=$event"></pagination-controls>
+        </div>
+        </ng-template>
+
+        <ng-template #noexists>
+
+        </ng-template>
+
+      </div>
+     </ng-template>
+
+     <ng-template #incorrect>
+      <div class="col-12 noProductInscription" >
+        Brak produktów
+      </div>
+    </ng-template>
+
+  </div>
+</article>
+<!--Article End-->
+
+
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Szukaj</h4>
+    <input [(ngModel)]="modalInput" type="text" class="form-control modalSearchListInput" (keyup)="Search($event)">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row modalBodyRow">
+      <div class="modalColumn">
+        <ul class="categoryList" id="list" *ngFor="let category of categories|keyvalue">
+          <li class="modalLi" [routerLink]="['/shop', { outlets: {'route4': ['details',idTable[0]+'/'+category.key] }}]"   style="color: blue;"> {{category.key|categories}} ({{category.value}})</li>
+        </ul>
+      </div>
+    </div>  </div>
+</ng-template>
+
+
+
+<ng-template  #alert>
+  <app-amount-product-alert [maxValue]="maxValue"></app-amount-product-alert>
+</ng-template>
+
+<ng-template  #addProductBasket>
+  <app-add-basket-alert [product]="product"></app-add-basket-alert>
+</ng-template>
+
+
+
+
+
+

@@ -1,0 +1,41 @@
+<div class="container-fluid ContainerAddForm">
+  <div class="row justify-content-around">
+    <div class="col-4 align-self-center">
+      <form>
+        <div class="form-group">
+          <label for="nip">Nip</label>
+          <input type="text" name="nip" id="nip" class="form-control"  [(ngModel)]="nip">
+        </div>
+        <div class="form-group">
+          <label for="nabywca">Nabywca</label>
+          <input type="number" name="nabywca" id="nabywca" class="form-control" [(ngModel)]="buyer">
+        </div>
+        <div class="form-group">
+          <label for="recipient">Odbiorca</label>
+          <input type="text" name="recipient" id="recipient" class="form-control" [(ngModel)]="recipient">
+        </div>
+
+        <div class="form-group">
+          <label for="account">Konto</label>
+          <input type="text" name="account" id="account" class="form-control" [(ngModel)]="account">
+        </div>
+        <div class="form-group">
+          <label for="adres">Adres</label>
+          <input type="text" name="adres" id="adres" class="form-control" [(ngModel)]="address">
+        </div>
+
+        <div class="form-group">
+          <label for="tel">Numer telefonu</label>
+          <input type="text" name="tel" id="tel" class="form-control" [(ngModel)]="phoneNumber">
+        </div>
+
+
+
+        <button type="submit" class="btn btn-primary buttonSave" value="Save" (click)="AddProductToDatabase()">Save</button>
+        <button type="submit" class="btn btn-danger buttonClear" value="Clear" (click)="Clear()">Clear</button>
+      </form>
+    </div>
+
+  </div>
+
+</div>

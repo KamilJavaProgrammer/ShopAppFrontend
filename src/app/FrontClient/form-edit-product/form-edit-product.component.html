@@ -1,0 +1,38 @@
+<div class="container-fluid ContainerAddForm">
+  <div class="row justify-content-around">
+    <div class="col-4 align-self-center">
+      <form>
+        <div class="form-group">
+          <label for="CommodityName">Commodity Name:</label>
+          <input type="text" name="commodityname" id="CommodityName" class="form-control"  [(ngModel)]="name" >
+        </div>
+        <div class="form-group">
+          <label for="NumberOfItems">Number of items:</label>
+          <input type="number" name="numberofitem" id="NumberOfItems" class="form-control" [(ngModel)]="numberofitems" >
+        </div>
+        <div class="form-group">
+          <label for="Location">Location</label>
+          <input type="text" name="location" id="Location" class="form-control" [(ngModel)]="location"  >
+        </div>
+
+        <div class="form-group">
+          <label for="cod">Kod</label>
+          <input type="text" name="cod" id="cod" class="form-control" [(ngModel)]="cod"  >
+        </div>
+        <div class="form-group">
+          <label for="CurrentState">Current state:</label>
+          <select  name="currentstate" id="CurrentState" class="form-control"  [(ngModel)]="state"  >
+            <option>Dostępny</option>
+            <option>Niedostępny</option>
+            <option>Oczekiwanie</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary buttonSave" (click)="PatchProduct()" value="Save" >Save</button>
+        <button type="submit" class="btn btn-danger buttonClear"  value="Clear" >Clear</button>
+      </form>
+    </div>
+
+  </div>
+
+</div>

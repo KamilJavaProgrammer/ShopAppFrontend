@@ -1,0 +1,83 @@
+
+.right-content
+{
+  background-color: #5e72e4;
+  height: 50vh;
+
+}
+.under-right-content
+{
+  background-color:#d3d9df;
+  height: 100vh;
+
+}
+
+.card-container
+{
+  height: 120px;
+  background-color: #f3f3f3;
+  width: 22%;
+  margin-left: 30px;
+  border-radius: 6px;
+
+}
+.cards-main-container
+{
+  margin-top: 80px;
+}
+.icon-container
+{
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  color: #f3f3f3;
+  text-align: center;
+  margin-top: 20px;
+}
+.icon-card
+{
+  padding-top: 16px;
+}
+.name-card
+{
+  padding-left: 38px;
+  font-size: .8125rem;
+  text-transform: uppercase !important;
+  color: #8898aa !important;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.data-card
+{
+  padding-left: 38px;
+  font-weight: 600 !important;
+  color: #32325d;
+  font-size: 1.25rem;
+
+}
+.card-container-col8
+{
+  padding-top: 16px;
+}
+#icon1
+{
+  padding-top:10px;
+  background: linear-gradient(87deg,#f5365c 0,#f56036 100%) !important;
+}
+
+ #icon2
+ {
+   padding-top:10px;
+   background: linear-gradient(87deg,#fb6340 0,#fbb140 100%) !important;
+ }
+
+ #icon3
+ {
+   background: linear-gradient(87deg,#2dce89 0,#2dcecc 100%) !important;
+ }
+
+#icon4
+{
+  background: linear-gradient(87deg,#11cdef 0,#1171ef 100%) !important;
+}

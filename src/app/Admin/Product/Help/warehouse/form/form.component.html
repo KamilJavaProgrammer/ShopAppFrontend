@@ -1,0 +1,170 @@
+<div class="container-fluid ContainerAddForm">
+
+  <div class="row">
+    <div class="col-12 ">
+      <div class="title" >
+        {{titlename}}
+      </div>
+      <form>
+        <div class="row">
+
+          <div class="col">
+
+            <div class="form-group">
+              <label  for="Group">Kategoria Towaru</label>
+
+              <select (change)="AddDynamicallyForm()" id="Group" class="form-control" name="commodityGroup" [(ngModel)]="product.productCategory">
+                <option>Kawa</option>
+                <option>Herbata</option>
+                <option>Dodatki</option>
+                <option>Ekspresy automatyczne</option>
+                <option>Ekspresy kolbowe</option>
+                <option>Części zamienne</option>
+                <option>Akcesoria</option>
+                <option>Inne</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col">
+            <div  class="form-group">
+              <label for="category">Podkategoria Towaru</label>
+              <input autocomplete="off" id="category" type="text" list="categories" class="form-control" name="subCategory"   [(ngModel)]="product.productSubCategory">
+              <datalist  id="categories">
+                <option *ngFor="let category of subcategories"> {{category}}</option>
+              </datalist>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="productName">Nazwa Towaru</label>
+              <input type="text" name="productName" id="productName" class="form-control"  [(ngModel)]="product.productName">
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div id="dataCofeMachine" class="hiddenFormCoffeMachine">
+
+          <div  class="row">
+            <div class="col-4">
+              <label for="Manufacturer">Producent</label>
+              <input class="form-control"   type="text" name="Manufacturer" id="Manufacturer" [(ngModel)]="product.manufacturer">
+            </div>
+
+            <div class="col-4">
+              <label for="modelCoffeMachine">Model Ekspresu</label>
+              <input class="form-control"   type="text" name="modelCoffeMachine" id="modelCoffeMachine" [(ngModel)]="product.model">
+            </div>
+
+            <div class="col-4">
+              <label for="SerialNumber">Numer Seryjny</label>
+              <input class="form-control"   type="text" name="Manufacturer" id="SerialNumber" [(ngModel)]="product.serialNumber">
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="row">
+
+          <div class="col">
+            <div class="form-group">
+              <label for="price">Cena</label>
+              <input type="text" name="price" id="price" class="form-control" [(ngModel)]="product.productPrice">
+            </div>
+          </div>
+
+
+          <div class="col">
+            <div class="form-group">
+              <label for="NumberOfItems">Liczba sztuk</label>
+              <input type="text" name="numberofitems" id="NumberOfItems" class="form-control" [(ngModel)]="product.numberOfItems">
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="Location">Lokacja</label>
+              <input type="text" name="location" id="Location" class="form-control" [(ngModel)]="product.location">
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <div class="row">
+
+          <div class="col">
+            <div class="form-group">
+              <label for="cod">Kod</label>
+              <input type="text" name="cod" id="cod" class="form-control" [(ngModel)]="product.cod">
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="CurrentState">Status:</label>
+              <select  name="currentstate" id="CurrentState" class="form-control" [(ngModel)]="product.status">
+                <option>Dostępny</option>
+                <option>Niedostępny</option>
+                <option>Oczekiwanie</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="placeWarehouse">Miejsce:</label>
+              <select  name="placeWarehouse" id="placeWarehouse" class="form-control" [(ngModel)]="product.wareHouseplace">
+                <option>Sklep</option>
+                <option>Serwis</option>
+                <option>Sklep i Serwis</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="technicData">Dane Techniczne</label>
+              <textarea type="text" name="technicData" id="technicData" class="form-control" [(ngModel)]="product.description"></textarea>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+        <div class="row">
+          <div class="col-4">
+            <input #fileInput type="file" class="form-control" name="fileupload" (change)="SelectFile($event)">
+          </div>
+        </div>
+
+
+        <div class="row" class="buttonsDiv">
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary buttonSave" value="Save" (click)="SendProductToDatabase()">Zapisz</button>
+            <button type="submit" class="btn btn-danger buttonClear" value="Clear" (click)="Clear()">Zeruj</button>
+          </div>
+        </div>
+
+
+
+
+      </form>
+
+
+    </div>
+  </div>
+
+</div>
+

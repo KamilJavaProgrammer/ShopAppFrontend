@@ -1,0 +1,29 @@
+.paginationContainer
+{
+  text-align: center;
+}
+.noProductInscription
+{
+  text-align: center;
+  font-size: 23px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 92px;
+
+}
+.tableHeader
+{
+  font-weight: bold;
+
+}
+.getInvoiceButton
+{
+  font-weight: 600;
+}
+.getInvoiceButton:hover
+
+{
+  cursor: pointer;
+  color: black;
+
+}

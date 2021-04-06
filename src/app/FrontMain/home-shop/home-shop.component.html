@@ -1,0 +1,365 @@
+
+<ngx-ui-loader fgsColor="black" fgsType="square-jelly-box" overlayColor="white"></ngx-ui-loader>
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+
+<div   id="anchor" class="container-fluid container_main">
+
+
+
+
+
+
+  <!--Header Start-->
+  <header>
+    <div   class="row">
+      <div class="col-10  header_navbar_col navbar-nav " >
+        Masz pytania dzwoń! 185556372
+      </div>
+      <div class="col-2  header_navbar_col3 navbar-nav ">
+
+        <span (click)="Login()"> <i class="fa fa-user-o"></i> {{account}}</span>
+      </div>
+    </div>
+  </header>
+  <!--Header End-->
+
+
+
+
+
+
+  <section >
+    <div class="row section_row_start">
+      <div class="col-6 section_col_start" >
+        <a routerLink="/shop"><img (click)="GoToHomePage()" class="logo" src="/assets/images/CafeLogo.PNG" /></a>
+      </div>
+      <div class="col-6 section_col_start">
+
+        <input style="box-shadow:0px 0px 4px black;" type="text" (keydown.enter)="RedirectToSearchingComponent()" [(ngModel)]="search" class="form-control col6_section_col_start_input" placeholder="  Szukaj" autocomplete="off" >
+        <div class="row" >
+          <div [routerLink]="['/shop', { outlets: {'route4': ['basket'] }}]" class="col-1 basket">
+            <i class="fa fa-shopping-basket basket_icon"></i>
+          </div>
+
+          <div [routerLink]="['/shop', { outlets: {'route4': ['basket'] }}]" class=" col basket_value" [ngSwitch]="productAmount">
+
+            <span #basket id="basket">{{basketSum}},00 zł </span>
+
+
+            <span class="basketProduct" *ngSwitchCase="0"> Twój koszyk jest pusty </span>
+            <span class="basketProduct" *ngSwitchCase="1"> {{productAmount}} Produkt </span>
+            <span class="basketProduct" *ngSwitchCase="2"> {{productAmount}} Produkty </span>
+            <span class="basketProduct" *ngSwitchCase="3"> {{productAmount}} Produkty </span>
+            <span class="basketProduct" *ngSwitchCase="4"> {{productAmount}} Produkty </span>
+            <span class="basketProduct" *ngSwitchDefault > {{productAmount}} Produktów </span>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!--Nav Start-->
+  <nav>
+    <div class="row nav_row_start align-items-center">
+      <div class="subpages"></div>
+      <div class="subpages"></div>
+
+      <div class="show-on-hover btn-group subpages" >
+    <a  class="subpages ">
+      <button [routerLink]="['/shop', { outlets: {'route4': ['details','Kawa'] }}]"    class=" btn btn-default subpages dropdown  " data-toggle="dropdown"  >Kawa</button>
+    </a>
+
+      <ul #abcde id="ule" class="dropdown-menu " role="menu">
+        <div class="row">
+          <div class="col-3 listMenu"> <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details','Kawa'] }}]" >Kawa</div>
+            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Kawa/Kawa ziarnista'] }}]" class="dropdown-item itemList" >Kawa ziarnista</li>
+            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Kawa/Kawa mielona'] }}]" class="dropdown-item itemList">Kawa mielona</li>
+            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Kawa/Kawa bezkofeinowa'] }}]" class="dropdown-item itemList" >Kawa bezkofeinowa</li>
+
+          </div>
+
+          <div class="col-3 listMenu"> <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details','Herbata'] }}]" >Herbata</div>
+            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Herbata/Herbata w saszetkach'] }}]"  class="dropdown-item itemList">Herbata zwykła</li>
+            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Herbata/Herbata sypana'] }}]"  class="dropdown-item itemList">Herbata sypana</li>
+            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Herbata/Yerba Mate'] }}]"  class="dropdown-item itemList">Yerba Mate</li>
+          </div>
+
+          <div class="col-3 listMenu"> <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details','Dodatki'] }}]" >Dodatki</div>
+            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Dodatki/Czekolady'] }}]"class="dropdown-item itemList">Czekolady</li>
+            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Dodatki/Słodycze'] }}]" class="dropdown-item itemList">Słodycze</li>
+            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Dodatki/Cukier'] }}]"class="dropdown-item itemList">Cukier</li>
+          </div>
+
+        </div>
+      </ul>
+  </div>
+
+
+
+
+      <div class="show-on-hover btn-group subpages" >
+        <a  class="subpages"[routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne'] }}]"> <button class="subpages  btn btn-default">Ekspresy automatyczne</button> </a>
+
+        <ul class="dropdown-menu " role="menu">
+          <div class="row">
+            <div  class="col-3 listMenu"> <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Domowe'] }}]" >Ekspresy Domowe</div>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Domowe/Saeco'] }}]" class="dropdown-item itemList" >Saeco</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Domowe/Jura'] }}]" class="dropdown-item itemList">Jura</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Domowe/Nivona'] }}]"class="dropdown-item itemList" >Nivona</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Domowe/Melitta'] }}]"class="dropdown-item itemList" >Melitta</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Domowe/Delonghi'] }}]"class="dropdown-item itemList" >Delonghi</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Domowe/Inne'] }}]"class="dropdown-item itemList" >Inne</li>
+
+            </div>
+
+
+            <div class="col-3 listMenu"> <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Przemysłowe'] }}]" >Ekspresy Przemysłowe</div>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Przemysłowe/Saeco Phedra'] }}]" class="dropdown-item itemList">Saeco Phedra</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Przemysłowe/Franke'] }}]" class="dropdown-item itemList">Franke</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Przemysłowe/Jura Giga'] }}]"class="dropdown-item itemList">Jura Giga</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Przemysłowe/Hendi'] }}]"class="dropdown-item itemList">Hendi</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Przemysłowe/Gaggia'] }}]"class="dropdown-item itemList">Gaggia</li>
+            </div>
+
+
+          </div>
+        </ul>
+      </div>
+
+      <div class="show-on-hover btn-group subpages" >
+        <a class="subpages" [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe'] }}]"> <button class="subpages  btn btn-default">Ekspresy kolbowe</button> </a>
+
+        <ul class="dropdown-menu " role="menu">
+          <div class="row">
+
+          <div class="col-3 listMenu"> <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Domowe'] }}]" >Ekspresy Domowe</div>
+
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Domowe/San Marco'] }}]" class="dropdown-item itemList" >San Marco</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Domowe/Gaggia '] }}]" class="dropdown-item itemList">Gaggia</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Domowe/Hendi '] }}]" class="dropdown-item itemList" >Hendi</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Domowe/Saeco'] }}]" class="dropdown-item itemList" >Saeco</li>
+            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Domowe/Delonghi'] }}]" class="dropdown-item itemList" >Delonghi</li>
+
+          </div>
+
+
+
+            <div class="col-3 listMenu"> <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Przemysłowe'] }}]" >Ekspresy Przemysłowe</div>
+
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Przemysłowe/San Marco'] }}]" class="dropdown-item itemList" >San Marco</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Przemysłowe/Gaggia '] }}]" class="dropdown-item itemList">Gaggia</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Przemysłowe/Hendi '] }}]" class="dropdown-item itemList" >Hendi</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Przemysłowe/Bartscher'] }}]" class="dropdown-item itemList" >Bartscher</li>
+              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Przemysłowe/Saeco'] }}]" class="dropdown-item itemList" >Saeco</li>
+
+            </div>
+
+
+
+          </div>
+        </ul>
+      </div>
+
+      <div class="show-on-hover btn-group subpages" >
+        <a  class="subpages"[routerLink]="['/shop', { outlets: {'route4': ['details','Części zamienne'] }}]"> <button class="subpages  btn btn-default">Części zamienne</button> </a>
+
+        <ul class="dropdown-menu " role="menu">
+
+          <li [routerLink]="['/shop', { outlets: {'route4': ['details','Części zamienne/Uszczelki'] }}]" class="dropdown-item itemList" >Uszczelki</li>
+          <li [routerLink]="['/shop', { outlets: {'route4': ['details','Części zamienne/Pojemniki'] }}]" class="dropdown-item itemList">Pojemniki</li>
+          <li [routerLink]="['/shop', { outlets: {'route4': ['details','Części zamienne/Zaparzacze'] }}]" class="dropdown-item itemList" >Zaparzacze</li>
+          <li [routerLink]="['/shop', { outlets: {'route4': ['details','Części zamienne/Czujniki'] }}]" class="dropdown-item itemList" >Czujniki</li>
+          <li [routerLink]="['/shop', { outlets: {'route4': ['details','Części zamienne/Inne'] }}]" class="dropdown-item itemList" >Inne</li>
+        </ul>
+      </div>
+
+      <div class="show-on-hover btn-group subpages" >
+        <a  class="subpages"[routerLink]="['/shop', { outlets: {'route4': ['details','Serwis'] }}]"> <button class="subpages  btn btn-default">Serwis</button> </a>
+
+        <ul class="dropdown-menu " role="menu">
+
+          <li [routerLink]="['/shop', { outlets: {'route4': ['details','Naprawa'] }}]"  class="dropdown-item itemList" >Zleć naprawe ekspresu</li>
+          <li  [routerLink]="['/shop', { outlets: {'route4': ['details','Cennik'] }}]"class="dropdown-item itemList">Cennik usług serwisowych</li>
+        </ul>
+      </div>
+
+
+      <div class="show-on-hover btn-group subpages" >
+        <button  class="subpages  btn btn-default"> <div [routerLink]="['/shop', { outlets: {'route4': ['details','Akcesoria'] }}]" >Akcesoria</div></button>
+
+        <ul class="dropdown-menu " role="menu">
+
+          <li [routerLink]="['/shop', { outlets: {'route4': ['details','Akcesoria/Filtry'] }}]" class="dropdown-item itemList" >Filtry</li>
+          <li [routerLink]="['/shop', { outlets: {'route4': ['details','Akcesoria/Odkamieniacze'] }}]" class="dropdown-item itemList">Odkamieniacze</li>
+          <li  [routerLink]="['/shop', { outlets: {'route4': ['details','Akcesoria/Tabletki'] }}]"class="dropdown-item itemList">Tabletki</li>
+          <li  [routerLink]="['/shop', { outlets: {'route4': ['details','Akcesoria/Pully Milk'] }}]"class="dropdown-item itemList">Pully Milk</li>
+        </ul>
+      </div>
+
+
+
+      <button  (click)="ScrollToContact()" class="subpages  btn btn-default">Kontakt</button>
+      <div class="subpages"></div>
+      <div class="subpages"></div>
+    </div>
+  </nav>
+
+  <!--Nav End-->
+  <div>
+  <router-outlet name="route4"></router-outlet>
+  </div>
+
+ <div id="article">
+  <!--Article Start-->
+
+  <article>
+    <div class="row article_row " >
+      <div class="col-12 article_col">
+        <app-carousel></app-carousel>
+      </div>
+    </div>
+
+  </article>
+
+  <!--Article End-->
+
+  <!--Article1 Start-->
+
+  <article>
+    <div class="row " >
+      <div class="col-12 article1_col12">
+        Ostatnio Dodane
+      </div>
+    </div>
+
+  </article>
+
+  <!--Article1 End-->
+
+  <!--Article2 Start-->
+
+  <article>
+
+    <div class="row">
+      <div class="col-12 ">
+
+        <div class="row unit_product">
+         <ng-container *ngFor="let product of products ">
+
+          <div class="col-3 ngcontainer_col_3" >
+
+            <img class="images_product" [src]="product.imageByte"  (click)="RedirectToTechnicalDataComponent(product.id)" alt="ImageProblem">
+
+            <div class="product_image_name">
+              <span>  {{product.productName}}</span>
+              <br>
+              <span  class="product_image_name_span_price">{{+product.productPrice}} zł </span>
+              <br>
+
+              <span class="details_span1" (click)="AddToBasket(product)">Dodaj do koszyka</span> | <span class="details_span" (click)="RedirectToTechnicalDataComponent(product.id)">Szczegóły</span>
+            </div>
+          </div>
+         </ng-container>
+        </div>
+      </div>
+    </div>
+  </article>
+   <!--Article2 End-->
+
+
+   <!--Article3 Start-->
+
+   <article>
+     <div class="row " >
+       <div class="col-12 article1_col12">
+         Popularne
+       </div>
+     </div>
+
+   </article>
+
+   <!--Article3 End-->
+
+   <!--Article4 Start-->
+
+   <article>
+
+     <div class="row">
+       <div class="col-12 ">
+
+         <div class="row unit_product">
+           <ng-container *ngFor="let product1 of products1 ">
+
+             <div class="col-3 ngcontainer_col_3" >
+
+               <img class="images_product" [src]="product1.imageByte"  (click)="RedirectToTechnicalDataComponent(product1.id)" alt="ImageProblem">
+
+               <div class="product_image_name">
+                 <span>  {{product1.productName}}</span>
+                 <br>
+                 <span  class="product_image_name_span_price">{{+product1.productPrice}} zł </span>
+                 <br>
+
+                 <span class="details_span1" (click)="AddToBasket(product1)">Dodaj do koszyka</span> | <span class="details_span" (click)="RedirectToTechnicalDataComponent(product1.id)">Szczegóły</span>
+               </div>
+             </div>
+           </ng-container>
+         </div>
+       </div>
+     </div>
+   </article>
+   <!--Article4 End-->
+
+ </div>
+  <!--Footer Start-->
+
+
+  <footer>
+    <div id="contact" class="row footer_start_row ">
+        <div class="col-6 footer_main_text" style="padding-left: 150px;">
+          Nawigacja
+          <div class="footer_icon" ><i class="fa fa-arrow-circle-right"></i><span style="padding-left: 15px;" class="footer_text"> Regulamin </span> </div>
+          <div class="footer_icon" ><i class="fa fa-arrow-circle-right"></i><span style="padding-left: 15px;" class="footer_text"> O firmie </span> </div>
+          <div class="footer_icon" ><i class="fa fa-arrow-circle-right"></i><span style="padding-left: 15px;" class="footer_text"> Współpraca </span> </div>
+        </div>
+
+      <div class="col-6 footer_main_text">Dane Kontaktowe
+          <div class="footer_icon" ><i class="fa fa-map-marker"></i><span style="padding-left: 15px;" class="footer_text"> Łącko </span> </div>
+          <div class="footer_icon" ><i class="fa fa-phone"></i><span class="footer_text">  184455523</span> <span (click)="ScrollToTop()"  style= "padding-left: 360px;"><i  class="fa fa-angle-up angle-up_icon"></i> </span></div>
+          <div class="footer_icon" ><i class="fa fa-envelope-o"></i><span class="footer_text"> cafekam@gmail.com</span></div>
+
+        </div>
+    </div>
+  </footer>
+
+  <div class="circle">
+    <i class="fa fa-commenting-o" aria-hidden="true"></i>
+  </div>
+
+
+
+</div>
+
+
+
+<ng-template  #alert>
+<app-amount-product-alert [maxValue]="maxValue"></app-amount-product-alert>
+</ng-template>
+
+<ng-template  #addProductBasket>
+<app-add-basket-alert [product]="product"></app-add-basket-alert>
+</ng-template>
+
+
+<ng-template #login>
+  <app-login-user></app-login-user>
+</ng-template>

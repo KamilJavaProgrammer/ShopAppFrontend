@@ -1,0 +1,123 @@
+.container
+{
+  margin-top: 50px;
+  padding-bottom: 50px;
+  height: 100%;
+  width: 1000px;
+  margin-right: auto;
+  margin-left: auto;
+  border: 3px solid #fad38e;
+  border-radius: 20px;
+  padding-top: 25px;
+}
+
+#OrderForm
+{
+  display: none;
+}
+
+.spanButton
+{
+  margin-left: 50px;
+  font-weight: bold;
+  font-size: 20px;
+
+}
+
+.button
+{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.buttonDiv
+{
+ margin-top: 50px;
+}
+
+
+.colForm
+{
+  width: 200px;
+}
+
+.deliveryOption
+{
+
+
+  border: 3px solid #fad38e;
+  border-radius: 20px;
+  height: 50px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  margin-left: 5vw;
+  margin-top:30px;
+  padding-top: 7px;
+}
+.deliveryOption:hover
+{
+  cursor: pointer;
+}
+a
+{
+  text-decoration: none;
+}
+
+.inputRow
+{
+  font-weight: bold;
+  margin-top: 40px;
+}
+.descriptionPoint
+{
+ margin-top: 40px;
+}
+
+.formContainer
+{
+  margin-top: 40px;
+}
+.buttonRow
+{
+  margin-left: 40px;
+  margin-top: 120px;
+}
+
+#invoiceForm
+{
+  display: none;
+}
+
+#parcelCourierOption
+{
+  display: none;
+}
+#personalPickupOption
+{
+  display: none;
+}
+.paymentMethodOption
+{
+  margin-left: 50px;
+  margin-top: 20px;
+  font-size: 20px;
+}
+.colButtonOrder
+{
+  margin-left: 50px;
+  margin-top: 20px;
+  text-align: left
+}
+
+.buttonOrder
+{
+  font-size: 20px;
+}
+.personalPickupOptionDiv
+{
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-left: 50px;
+}

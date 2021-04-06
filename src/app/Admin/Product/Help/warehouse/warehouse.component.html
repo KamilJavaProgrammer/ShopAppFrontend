@@ -1,0 +1,267 @@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
+
+
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 page-title">
+        {{tableTitle}}
+      </div>
+    </div>
+
+    <div class="row buttons-line-row">
+      <div class="col-9 buttons-line-col">
+
+        <button  class="btn btn-table" id="button-one" [routerLink]="['/admin', { outlets: {'administrator': ['asortyment','dodaj']}}]">Dodaj nowy</button>
+        <button  class="btn btn-table btn-table-left " id="button-two" (click)="ExportSelected()">Eksportuj zaznaczone</button>
+        <button  class="btn btn-table btn-table-left" id="button-three" (click)="GeneratePdf()" >Pobierz do Pdf</button>
+        <button class="btn btn-table btn-table-left" id="button-four" (click)="ShowModalDeleteItem()">Usuń zaznaczone</button>
+
+        <div class="btn-table-left"  style=" display: inline-block;  ">
+          <select class="select-option form-control"  style="margin-top: 20px;" autocomplete="off" (change)="Sort()" [(ngModel)]="sorting">
+            <option>Sortuj wg</option>
+            <option>Alfabetycznie</option>
+            <option>Cena rosnąco</option>
+            <option>Cena malejąco</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="col-3 search-line-col">
+        <input  type="text" placeholder="Szukaj" class="form-control" style="border:none; border-bottom: 1px solid gray; border-radius: 0px;" (keyup)="Search($event)">
+      </div>
+    </div>
+
+
+
+    <div class="row table-row">
+      <div class="col-12">
+
+
+        <table class="table" id="table" #tableScreen>
+          <thead>
+          <tr>
+            <td></td>
+            <td>Zdjęcie</td>
+            <td>Nazwa</td>
+            <td>Liczba sztuk</td>
+            <td>Status</td>
+            <td>Kod</td>
+            <td>Lokacja</td>
+            <td>Cena brutto</td>
+            <td>Opis</td>
+            <td>Akcje</td>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr #tableRow class="tr-data" *ngFor="let product of products| paginate:{id:'listing_pagination',itemsPerPage:itemsPerPage, currentPage:page,totalItems:totalRecords}; let i = index">
+            <td><label  class="checkbox"> <input #checkboxSelectedInput [(ngModel)]="checkboxSelected[((page-1)*itemsPerPage)+i]"  type="checkbox" name="selectedInput" (click)="SelectRow(product,i)"> </label></td>
+            <td><img [src]="product.imageByte" class="productImg"></td>
+            <td>{{product.productName}}</td>
+            <td>{{product.numberOfItems}}</td>
+            <td>
+              <ng-container [ngSwitch]="product.status">
+                <span style="color:green;" *ngSwitchCase="'Dostępny'">{{product.status}}</span>
+                <span style="color:red;" *ngSwitchCase="'Niedostępny'">{{product.status}}</span>
+                <span style="color:orange;" *ngSwitchCase="'Oczekiwanie'">{{product.status}}</span>
+              </ng-container>
+            </td>
+            <td>{{product.cod}}</td>
+            <td>{{product.location}}</td>
+            <td>{{product.productPrice}}</td>
+            <td><span style="font-weight: 700;" (click)="ViewTechnicalDataProduct(product)">Dane Techniczne</span></td>
+            <td>
+             <span [routerLink]="['/admin', { outlets: {'administrator': ['asortyment','edytuj',product.id]}}]" (click)="EditProduct(product)"> <i style="color:#FFC107; margin-right: 8px; font-size: 17px;" class="fa fa-pencil" aria-hidden="true"></i></span>
+             <span (click)="ShowAlertDeleteOneProductModal(product)"> <i style="color:#E34724; margin-left: 8px; font-size: 17px;" class="fa fa-trash" aria-hidden="true"></i></span>
+            </td>
+
+
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <ng-container *ngIf="products.length > 3; then exists; else noexists"></ng-container>
+
+    <ng-template #exists >
+      <div class="paginationContainer">
+        <pagination-controls [nextLabel]="'Następny'" [previousLabel]="'Poprzedni'" id="listing_pagination" maxSize="3" directionLinks="true" (pageChange)="page=$event"></pagination-controls>
+      </div>
+    </ng-template>
+
+    <ng-template #noexists>
+    </ng-template>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+<ng-template #DeleteAlert>
+
+  <div  style="text-align: center;" class="alert  fade show" role="alert">
+
+    <button  (click)="CloseAlertModal()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div class="row">
+      <div class="col-12" style="text-align: center;font-size: 24px;">
+
+        <strong>{{data}}</strong>
+      </div>
+    </div>
+
+
+    <div class="row " style="margin-top: 30px; margin-right: auto; margin-left: auto;">
+
+
+      <div class="col">
+        <button (click)="ConfirmDelete()"  type="button" class="btn btn-outline-danger"> Tak, chcę usunąć</button>
+      </div>
+
+      <div class="col">
+        <button (click)="RejectDelete()" type="button" class="btn btn-outline-success">Nie chce usuwać</button>
+      </div>
+
+
+    </div>
+  </div>
+</ng-template>
+
+
+
+
+<ng-template #technicalDataModal>
+
+
+  <div  style="text-align: center;" class="alert  fade show" role="alert">
+
+    <button  (click)="CloseAlertModal()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div class="row">
+      <div class="col-12" style="text-align: center;font-size: 24px;">
+
+        <strong>Dane Techniczne</strong>
+      </div>
+    </div>
+
+
+    <div class="row" style="margin-top: 30px;">
+      <div class="col-6">
+        <img [src]="product.imageByte" style="width: 220px;height: 220px;">
+      </div>
+
+
+      <div class="col-6 " style="text-align: left; color: #3b3b3b;  font-size: 22px; font-weight: 600;">
+        <span>{{product.productName}}</span>
+        <br>
+        <span>Cena: {{product.productPrice}} zł</span>
+        <br>
+        <span>Status: {{product.status}}</span>
+        <br>
+        <span>Lokacja: {{product.location}}</span>
+        <br>
+        <span>Opis: {{product.description}}</span>
+      </div>
+    </div>
+
+
+    <div class="row " style="margin-top: 30px; margin-right: auto; margin-left: auto;">
+
+      <div class="col">
+        <button (click)="CloseAlertModal()" type="button" class="btn btn-outline-danger">Zamknij</button>
+      </div>
+
+    </div>
+  </div>
+</ng-template>
+
+
+
+
+
+<ng-template #DeleteOneProductAlert>
+
+  <div  style="text-align: center;" class="alert  fade show" role="alert">
+
+    <button  (click)="CloseAlertModal()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div class="row">
+      <div class="col-12" style="text-align: center;font-size: 24px;">
+
+        <strong>Czy napewno chcesz usunąć ten produkt?</strong>
+      </div>
+    </div>
+
+
+    <div class="row " style="margin-top: 30px; margin-right: auto; margin-left: auto;">
+
+
+      <div class="col">
+        <button (click)="DeleteProductById(product.id)"  type="button" class="btn btn-outline-danger"> Tak, chcę usunąć</button>
+      </div>
+
+      <div class="col">
+        <button (click)="CloseAlertModal()" type="button" class="btn btn-outline-success">Nie chce usuwać</button>
+      </div>
+
+
+    </div>
+  </div>
+</ng-template>
+
+
+
+
+<ng-template #ResolveExport>
+  <div  style="text-align: center;" class="alert  fade show" role="alert">
+
+    <button  (click)="CloseAlertModal()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div class="row">
+      <div class="col-12" style="text-align: center;font-size: 24px; margin-top: 30px;">
+        <i class="fa fa-check-circle" aria-hidden="true"  style="transform: scale(3); color: forestgreen; font-size: 24px;"></i>
+      </div>
+    </div>
+e
+
+    <div class="row">
+      <div class="col-12" style="text-align: center;font-size: 24px; margin-top: 30px;">
+        <strong>Produkty zostały przeniesione na inny magazyn</strong>
+    </div>
+    </div>
+
+
+    <div class="row " style="margin-top: 30px; margin-right: auto; margin-left: auto;">
+
+
+
+
+      <div class="col">
+        <button (click)="CloseAlertModal()" type="button" class="btn btn-outline-success">Zamknij</button>
+      </div>
+
+
+    </div>
+  </div>
+</ng-template>

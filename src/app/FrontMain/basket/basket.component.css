@@ -1,0 +1,106 @@
+thead td
+{
+  color: black;
+  font-weight: 700;
+  border-bottom: 2px;
+}
+td
+{text-align: center;
+}
+
+.button
+{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+.spanButton
+{
+  margin-left: 50px;
+  font-size: 20px;
+
+}
+.navbartop
+{
+  height: 45px;
+  background-color: #231f20;
+  text-align: right;
+}
+
+#colHidden
+{
+  display: none;
+}
+
+.colForm
+{
+  width: 200px;
+}
+
+.deliveryOption
+{
+
+
+  border: 3px solid #fad38e;
+  border-radius: 20px;
+  height: 50px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  margin-left: 5vw;
+  margin-top:30px;
+  padding-top: 7px;
+ }
+.deliveryOption:hover
+{
+  cursor: pointer;
+}
+a
+{
+  text-decoration: none;
+}
+
+.noProductInscription
+{
+  text-align: center;
+  font-size: 23px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 92px;
+
+}
+.summaryTitle
+{
+  text-align: center;
+  padding-bottom: 10px;
+  width: 500px;
+  border-bottom: 3px solid #fad38e;
+  margin:auto; font-size: 24px;
+}
+.basketTable
+{
+  margin-top: 50px;
+  width: 1000px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.productImg
+{
+  width: 80px;
+  height: 80px;
+}
+.productNumberOfItemsInput
+{
+  width: 100px;
+  text-align: center;
+  margin: auto;
+}
+.sumPaidInscription
+{
+   font-weight: 700;
+}
+.supplyButton
+{
+  margin-top: 50px;
+}

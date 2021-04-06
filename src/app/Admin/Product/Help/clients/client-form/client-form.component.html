@@ -1,0 +1,103 @@
+<div class="container-fluid ContainerAddForm">
+  <div class="row">
+    <div class="col-12 ">
+      <div class="title" >
+        {{titlename}}
+      </div>
+      <form>
+
+        <div class="row">
+
+         <div class="col">
+            <div class="form-group">
+              <label for="name">Imię</label>
+              <input type="text" name="name" id="name" class="form-control" [(ngModel)]="shopClient.name">
+            </div>
+          </div>
+
+
+          <div class="col">
+            <div class="form-group">
+              <label for="surname">Nazwisko</label>
+              <input type="text" name="surname" id="surname" class="form-control" [(ngModel)]="shopClient.surname">
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="phoneNumber">Numer telefonu</label>
+              <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" [(ngModel)]="shopClient.phoneNumber">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col">
+            <div class="form-group">
+              <label for="email">Kod</label>
+              <input type="email" name="email" id="email" class="form-control" [(ngModel)]="shopClient.email">
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="placeOfresident">Adres</label>
+              <input type="text" name="placeOfresident" id="placeOfresident" class="form-control" [(ngModel)]="shopClient.address.placeOfresident">
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="CurrentState">Status:</label>
+              <select  name="currentstate" id="CurrentState" class="form-control" [(ngModel)]="shopClient.state">
+                <option>Zarejestrowany</option>
+                <option>Niezarejestrowany</option>
+              </select>
+            </div>
+          </div>
+
+
+
+
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="town">Miasto</label>
+              <input type="text" name="town" id="town" class="form-control" [(ngModel)]="shopClient.address.town">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="postCode">Kod pocztowy</label>
+              <input type="text" name="postCode" id="postCode" class="form-control" [(ngModel)]="shopClient.address.postCode">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="type">Typ adresu</label>
+              <select  name="type" id="type" class="form-control" [(ngModel)]="shopClient.address.type">
+                <option>Rozliczeniowy</option>
+                <option>Dostawy</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row" class="buttonsDiv">
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary buttonSave" value="Save" (click)="SendShopClientToDatabase()">Zapisz</button>
+            <button type="submit" class="btn btn-danger buttonClear" value="Clear" (click)="Clear()">Zeruj</button>
+          </div>
+        </div>
+
+      </form>
+
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,14 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-4" style="border: 2px solid crimson;">
+      Dane Firmy
+       <div *ngFor="let c of company">
+         <p>{{c.nameOfCompany}}</p>
+         <p>{{c.adressOfCompany}}</p>
+         <p>{{c.nip}}</p>
+         <p>{{c.phoneNumber}}</p>
+       </div>
+    </div>
+  </div>
+</div>

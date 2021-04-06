@@ -1,0 +1,159 @@
+
+
+
+<div class="container-fluid" style="margin-left: auto; margin-right: auto; margin-top: 30px;">
+  <div class="row justify-content-around">
+    <div class="col-12 align-self-center">
+      <div class="row justify-content-center" >
+        <div class="col-3" style="   padding: 25px;">
+          <div class="row">
+            <div class="col">
+              <div class="userPanelMenu" style="font-weight: 600;padding-bottom: 25px;">Witaj {{nameOfUser}},</div>
+            </div>
+          </div>
+
+          <div class="row" style="border-right: 1px solid #333333;">
+            <div class="col">
+              <div class="userPanelMenu"> <i class="fa fa-desktop" aria-hidden="true"></i> <span  [routerLink]="['/shop', {outlets: {route4: 'konto'}}]" class="menuOption">Kokpit</span> </div>
+              <div class="userPanelMenu"> <i class="fa fa-cube" aria-hidden="true"></i> <span id="orders" [routerLink]="[{ outlets: {'route5': ['zamówienia'] }}]" class="menuOption">Zamówienia</span> </div>
+              <div class="userPanelMenu"> <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> <span  [routerLink]="[{ outlets: {'route5': ['reklamacje'] }}]" class="menuOption">Reklamacje</span> </div>
+              <div class="userPanelMenu"> <i class="fa fa-address-card-o " aria-hidden="true"></i> <span id="addresses"  [routerLink]="[{ outlets: {'route5': ['adresy'] }}]"class="menuOption">Adresy</span> </div>
+              <div class="userPanelMenu"> <i class="fa fa-cogs" aria-hidden="true"></i> <span  [routerLink]="[{ outlets: {'route5': ['ustawienia'] }}]"class="menuOption">Ustawienia konta</span> </div>
+              <div class="userPanelMenu"> <i class="fa fa-envelope" aria-hidden="true"></i> <span  [routerLink]="[{ outlets: {'route5': ['wiadomości'] }}]"class="menuOption">Wiadomości</span> </div>
+              <div class="userPanelMenu"> <i class="fa fa-sign-out" aria-hidden="true"></i> <span (click)="LogOut()" class="menuOption">Wyloguj</span> </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-9" style="padding: 25px;">
+
+          <router-outlet  name="route5">
+            <ngx-ui-loader  [hasProgressBar]="false" loaderId="2"  fgsColor="black" fgsType="ball-spin" overlayColor="white"></ngx-ui-loader>
+          </router-outlet>
+
+        </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+<ng-template #logOutAlert>
+  <div   style="text-align: center; font-size: 20px;" class="alert  alert-dismissible fade show" role="alert">
+    <strong>Uwaga!</strong> Wylogowano pomyślnie
+    <button (click)="CloseAlertModal()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+</ng-template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--<div class="container-fluid ContainerAll">-->
+<!--  <div  class="row navbartop navbar navbar-nav">-->
+<!--    <div id="navTime">-->
+
+<!--      {{time}}-->
+
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="row">-->
+<!--    <div class="col-2 left-sidebar">-->
+<!--      <div class="row">-->
+
+<!--        <div class="col-12 colSidebar ">-->
+<!--          <a href="/hom">-->
+<!--            Strona Główna-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        <div class="col-12 colSidebar ">-->
+<!--          <a  [routerLink]="['/userHome', { outlets: {'route5': ['order'] }}]">-->
+<!--            Twoje Zamówienia-->
+<!--          </a>-->
+
+<!--        </div>-->
+<!--        <div class="col-12 colSidebar ">-->
+<!--          <a href="/hom">-->
+<!--            Komunikator-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="col-12 colSidebar ">-->
+<!--          <a routerLink="/putInvoice">-->
+<!--            Ustawienia-->
+<!--          </a>-->
+<!--        </div>-->
+
+
+<!--        <div class="col-12 colSidebar ">-->
+<!--          <a routerLink="/datacompany">-->
+<!--            Schowek-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        <div class="col-12 colSidebar">-->
+<!--          <a routerLink="/currencyState">-->
+<!--            Aktualny stan walut-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="col-12 colSidebar">-->
+<!--          <a href="/login">-->
+<!--            Informacje-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="col-12 colSidebar">-->
+<!--          <a href="/login">-->
+<!--            Twoje Dane-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="col-12 colSidebar">-->
+<!--          <a href="/login">-->
+<!--            Usługi-->
+<!--          </a>-->
+<!--        </div>-->
+
+
+
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-10 right-sidebar">-->
+
+<!--      <router-outlet name="route5"></router-outlet>-->
+
+
+<!--    </div>-->
+
+<!--  </div>-->
+
+<!--</div>-->

@@ -1,0 +1,171 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<div class="row">
+  <div class="col-12">
+
+    <div class="row">
+      <div  class="col-2 left-sidebar">
+       <div class="testfixed">
+
+         <ul  class="side-nav">
+
+           <li class="panel">
+             <a  [routerLink]="['/admin', { outlets: {'administrator': ['panel']}}]">  <i style="margin-right: 10px;" class="fa fa-desktop "></i> Tablica </a>
+           </li>
+
+
+           <li (click)="shop = !shop" class="panel">
+             <div>
+               <a><i class="fa fa-shopping-cart" style="margin-right: 10px;"></i>Sklep</a>
+             </div>
+               <div  *ngIf="shop" class="panel1">
+                <div class="subMenu"   [routerLink]="['/admin', { outlets: {'administrator': ['sklep','asortyment']}}]" >1.Magazyn</div>
+                <div class="subMenu" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','klienci']}}]" >2.Klienci</div>
+                <div class="subMenu" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','zamowienia']}}]" >3.Zamówienia</div>
+                <div class="subMenu" [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]" >4.Zarządzanie</div>
+
+             </div>
+           </li>
+
+
+
+           <li (click)="service = !service" class="panel">
+             <div>
+               <a>  <i class="fa fa-database" style="margin-right: 10px;"></i>Serwis</a>
+               <div *ngIf="service" class="panel1" >
+                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['serwis','asortyment']}}]" >1.Magazyn</div>
+                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]" >2.Zlecenia</div>
+
+               </div>
+             </div>
+           </li>
+
+           <li (click)="bookkeeping = !bookkeeping" class="panel">
+             <div>
+               <a>  <i class="fa fa-book" style="margin-right: 10px;"></i>Księgowość</a>
+               <div *ngIf="bookkeeping" class="panel1">
+                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">1.Faktury</div>
+                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">2.Faktury</div>
+                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">3.Faktury</div>
+                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">4.Faktury</div>
+               </div>
+             </div>
+           </li>
+
+           <li (click)="staff = !staff" class="panel">
+             <div>
+               <a>  <i class="fa fa-address-book" style="margin-right: 10px;"></i>Kadry i Płace</a>
+               <div *ngIf="staff" class="panel1">
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Faktury</button>
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Faktury</button>
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Faktury</button>
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Faktury</button>
+               </div>
+             </div>
+           </li>
+
+           <li (click)="administration = !administration" class="panel">
+             <div>
+               <a>  <i class="fa fa-graduation-cap " style="margin-right: 10px;"></i>Administracja</a>
+               <div *ngIf="administration" class="panel1">
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Spis Faktur</button>
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Dodaj Fakturę</button>
+               </div>
+             </div>
+           </li>
+
+
+
+           <li (click)="reports = !reports" class="panel">
+             <div>
+               <a>  <i class="fa fa-file" style="margin-right: 10px;"></i>Raporty</a>
+               <div *ngIf="reports" class="panel1">
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Spis Faktur</button>
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Dodaj Fakturę</button>
+               </div>
+             </div>
+           </li>
+
+           <li (click)="statistics = !statistics" class="panel">
+             <div>
+               <a>  <i class="fa fa-area-chart" style="margin-right: 10px;"></i>Statystyki</a>
+               <div *ngIf="statistics" class="panel1">
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Spis Faktur</button>
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Dodaj Fakturę</button>
+               </div>
+             </div>
+           </li>
+
+
+           <li (click)="messages = !messages" class="panel">
+             <div>
+               <a>  <i class="fa fa-envelope" style="margin-right: 10px;"></i>Wiadomości</a>
+               <div *ngIf="messages" class="panel1">
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Spis Faktur</button>
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Dodaj Fakturę</button>
+               </div>
+             </div>
+           </li>
+
+
+           <li (click)="users = !users" class="panel">
+             <div>
+               <a>  <i class="fa fa-user" style="margin-right: 10px;"></i>Użytkownicy</a>
+               <div *ngIf="users" class="panel1">
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Spis Faktur</button>
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Dodaj Fakturę</button>
+               </div>
+             </div>
+           </li>
+
+           <li (click)="settings = !settings" class="panel">
+             <div>
+               <a>  <i class="fa fa-cogs" style="margin-right: 10px;"></i>Ustawienia</a>
+               <div *ngIf="settings" class="panel1">
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Spis Faktur</button>
+                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Dodaj Fakturę</button>
+               </div>
+             </div>
+           </li>
+         </ul>
+       </div>
+
+      </div>
+
+
+      <div class="col-10">
+
+        <div class="row ">
+          <div class="col-12   top-bar">
+            <div class="col align-self-center" style=" margin-top: 10px; text-align: right;">
+              <span style="margin-right: 30px; "> {{adminName}}</span>
+              <span style="margin-right: 30px;"><i class="fa fa-envelope "></i></span>
+              <span style="margin-right: 30px;"><i class="fa fa-bell"  ></i></span>
+              <span style="margin-right: 5px;"><i class="fa fa-sign-out "></i> </span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row justify-content-around" >
+        <div class="col-12 align-self-center">
+          <router-outlet name="administrator">
+            <ngx-ui-loader  [hasProgressBar]="false" loaderId="3"  fgsColor="black" fgsType="ball-scale-multiple" overlayColor="white"></ngx-ui-loader>
+
+          </router-outlet>
+
+        </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+

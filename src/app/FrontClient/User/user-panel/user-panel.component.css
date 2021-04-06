@@ -1,0 +1,83 @@
+.userPanelMenu
+{
+  padding-bottom: 25px;
+  text-align: left;
+  padding-left: 140px;
+  font-size: 17px;
+}
+
+.menuOption
+{
+  padding-left: 8px;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.menuOption:hover
+{
+  color: grey;
+  cursor: pointer;
+}
+.active
+{
+  color: crimson;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.navbartop
+{
+  height: 45px;
+  background-color: #084951;
+}
+.ContainerAll
+{
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+.left-sidebar
+{
+  background-color: #333333;
+  height: 100vh;
+  width: 100%;
+}
+
+.colSidebar
+{
+  width: 100%;
+  height: 50px;
+  color: #f3f3f3;
+  text-align: left;
+  font-size: 20px;
+  padding-top: 10px;
+
+
+}
+.colSidebar:hover
+{
+  background-color: crimson;
+  cursor: pointer;
+
+}
+a{
+  text-decoration: none;
+  color: #f3f3f3;
+}
+
+.right-sidebar
+{
+  width: 100%;
+
+}

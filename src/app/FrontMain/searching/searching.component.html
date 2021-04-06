@@ -1,0 +1,107 @@
+<div class="article-title">
+  Wyniki wyszukiwania dla {{id}}
+</div>
+
+<article>
+
+  <div class="row">
+    <div class="col-12 ">
+      <ng-container *ngIf="products.length > 0; then correct; else incorrect"></ng-container>
+      <ng-template #correct>
+
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col">
+            <div class="form-group" style="margin-top: 10px; margin-right: 25px;">
+
+            <select autocomplete="off" id="sorting"  (change)="Sort()" [(ngModel)]="sorting" class="form-control">
+              <option>Sortuj wg</option>
+              <option>Alfabetycznie</option>
+              <option>Cena rosnąco</option>
+              <option>Cena malejąco</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row unit_product">
+        <ng-container *ngFor="let product of products | paginate:{id:'listing_pagination',itemsPerPage:12, currentPage:page,totalItems:totalRecords}">
+
+          <div class="col-3 ngcontainer_col_3" >
+
+            <img class="images_product" [src]="product.imageByte"  (click)="RedirectToTechnicalDataComponent(product.id)" alt="ImageProblem" >
+            <div class="product_image_name">
+              <span>  {{product.productName}}</span>
+              <br>
+              <span  class="product_image_name_span_price">{{+product.productPrice}} zł </span>
+              <br>
+              <span class="addBasketButton" (click)="AddToBasket(product)">Dodaj do koszyka</span> | <span class="detailsButton" (click)="RedirectToTechnicalDataComponent(product.id)">Szczegóły</span>
+
+
+            </div>
+          </div>
+
+        </ng-container>
+
+      </div>
+
+      <ng-container *ngIf="products.length > 16; then exists; else noexists"></ng-container>
+
+      <ng-template #exists >
+        <div class="paginationContainer">
+          <pagination-controls id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="page=$event"></pagination-controls>
+        </div>
+      </ng-template>
+
+      <ng-template #noexists>
+
+      </ng-template>
+
+
+    </ng-template>
+
+      <ng-template #incorrect>
+        <div class="col-12 noProductInscription" >
+          Brak produktów
+        </div>
+      </ng-template>
+
+
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ng-template  #alert>
+  <app-amount-product-alert [maxValue]="maxValue"></app-amount-product-alert>
+</ng-template>
+
+<ng-template  #addProductBasket>
+  <app-add-basket-alert [product]="product"></app-add-basket-alert>
+</ng-template>
