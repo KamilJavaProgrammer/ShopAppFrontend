@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {CompleteOrder, ProductBasket, OrderService} from '../../../order.service';
 import {BasketComponent} from '../basket.component';
@@ -11,10 +11,6 @@ import {BasketComponent} from '../basket.component';
 export class DeliveryAndPaymentComponent implements OnInit {
 
   tokenJwt: string;
-
-
-
-
   name: string;
   surname: string;
   email: string;
@@ -45,6 +41,8 @@ export class DeliveryAndPaymentComponent implements OnInit {
   @ViewChild('invoiceForm')
   invoiceForm: ElementRef;
 
+  @Output() eventEmitter: EventEmitter<any> = new EventEmitter<any>();
+
 
   i = 3;
   h = 4;
@@ -56,7 +54,8 @@ export class DeliveryAndPaymentComponent implements OnInit {
 
   constructor(private bsModalService: BsModalService,
               private basketComponent: BasketComponent,
-              private orderService: OrderService) { }
+              private orderService: OrderService,
+              ) { }
 
   ngOnInit(): void {
     this.tokenJwt = sessionStorage.getItem('tokenJwt');
@@ -97,7 +96,35 @@ export class DeliveryAndPaymentComponent implements OnInit {
     document.getElementById('parcelCourierButton').style.border = '3px solid black';
     document.getElementById('parcelCourierOption').style.display = 'block';
     document.getElementById('personalPickupOption').style.display = 'none';
+    this.AddCourierParcelToOrders();
+
     this.deliveryOption = 'Przesyłka Kurierska';
+  }
+
+  AddCourierParcelToOrders(): void{
+
+        this.orderService.GetParcelData().subscribe(value => {
+
+          this.basketComponent.parcelPrice = value.productPrice;
+          this.basketComponent.sumMoney = this.basketComponent.sumMoney + +value.productPrice;
+          // document.getElementById('parcel').style.visibility = 'visible';
+
+          const promise = new Promise(resolve => {
+            const productBasket: ProductBasket = ({
+              nameOfProduct: value.productName,
+              bruttoPrice: value.productPrice,
+              numberOfItems: 1,
+              idProduct: value.id
+
+            });
+            resolve(productBasket);
+          });
+
+          promise.then(value1 => {
+            this.orders.push(value1);
+          });
+
+        });
   }
 
 

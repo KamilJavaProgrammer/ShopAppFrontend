@@ -41,7 +41,7 @@ export class ClientServiceService {
   }
   EditShopClient(event: ShopClient, id: any): Observable<any> {
     this.httpHeaders = new HttpHeaders();
-    return this.httpClient.patch<any>(this.urlClientService + '/' + id , event,{observe: 'response'}).pipe(map(value => {
+    return this.httpClient.patch<any>(this.urlClientService + '/' + id , event, {observe: 'response'}).pipe(map(value => {
       console.log(value.body.body);
       return value.body.body;
     }));
@@ -121,4 +121,16 @@ export interface ShopClient extends Client{
   state?: string;
   email?: string;
   completeOrder?: Array<CompleteOrder>;
+}
+export interface ServiceClient extends Client{
+  deviceList?: Array<Device>;
+}
+export interface Device {
+   id?: number;
+   name?: string;
+   type?: string;
+   manufacturer?: string;
+   model?: string;
+   serialNumber?: string;
+
 }

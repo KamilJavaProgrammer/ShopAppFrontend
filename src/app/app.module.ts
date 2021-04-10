@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
 import { HomeComponent } from './FrontClient/home/home.component';
 import {RouterModule, Routes} from '@angular/router';
 import { FormAddProductComponent } from './Admin/Product/Help/warehouse/form-add-product/form-add-product.component';
@@ -70,6 +70,11 @@ import { ClientFormComponent } from './Admin/Product/Help/clients/client-form/cl
 import { ClientEditComponent } from './Admin/Product/Help/clients/client-edit/client-edit.component';
 import { ShopClientADDComponent } from './Admin/Product/Help/clients/shop-client-add/shop-client-add.component';
 import {ShopOrdersComponent} from './Admin/Shop/shop-orders/shop-orders.component';
+import { PriceListComponent } from './service/price-list/price-list.component';
+import {AccordionModule} from 'ngx-bootstrap/accordion';
+import {AnimationBuilder} from '@angular/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { RepairOrderComponent } from './service/repair-order/repair-order.component';
 
 
 
@@ -116,6 +121,8 @@ const routes: Routes = [{
       // ]},
 
      { path: 'name/:name', component: SearchingComponent, outlet: 'route4' },
+     { path: 'cennik', component: PriceListComponent, outlet: 'route4' },
+     { path: 'zlecenie', component: RepairOrderComponent, outlet: 'route4' },
     { path: 'logowanie', component: LoginUserComponent, outlet: 'route4' },
      { path: 'technicalData/:id', component: TechnicalDataOfProductComponent, outlet: 'route4' },
      { path: 'basket', component: BasketComponent, outlet: 'route4' },
@@ -228,7 +235,9 @@ export function JwtTokenGetter(): any {
     ClientEditComponent,
 
     ShopClientADDComponent,
-    ShopOrdersComponent
+    ShopOrdersComponent,
+    PriceListComponent,
+    RepairOrderComponent
 
 
 
@@ -259,7 +268,9 @@ export function JwtTokenGetter(): any {
         disallowedRoutes: ['http://localhost:8088/login', 'http://localhost:8088/products/name']
       }
     }),
-
+    AccordionModule,
+    BrowserAnimationsModule,
+    FormsModule,
 
 
   ],

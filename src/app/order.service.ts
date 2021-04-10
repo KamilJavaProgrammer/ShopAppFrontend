@@ -3,7 +3,7 @@ import {Observable, ReplaySubject} from 'rxjs';
 import {Client, Product} from './product-service.service';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {ShopClient} from './client-service.service';
+import {ServiceClient, ShopClient} from './client-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,8 @@ export class OrderService {
   port = '8088';
   urlOrders = 'http://localhost:' + this.port + '/order';
   urlInvoice = 'http://localhost:' + this.port + '/invoice';
+  urlParcel = 'http://localhost:' + this.port + '/products/parcel';
+  urlRepairOrder = 'http://localhost:' + this.port + '/order/repair';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -111,6 +113,22 @@ export class OrderService {
 
     }
   }
+
+  GetParcelData(): Observable<any> {
+
+    return this.httpClient.get<any>(this.urlParcel, {observe: 'response'}).pipe(map(value => {
+      return value.body.body;
+    }));
+
+  }
+
+  SendRepairOrder(formData: any, repairOrder: RepairOrder): Observable<any> {
+
+    return this.httpClient.post<any>(this.urlRepairOrder, {formData, repairOrder}, {observe: 'response'}).pipe(map(value => {
+      return value.body.body;
+    }));
+
+  }
 }
 
 
@@ -163,5 +181,13 @@ export interface Business{
   email?: string;
   phoneNumber?: string;
   address?: Address;
+}
+
+export interface RepairOrder {
+  id?: number;
+  serviceClient?: ServiceClient;
+  description?: string;
+  pathToFile?: string;
+
 }
 
