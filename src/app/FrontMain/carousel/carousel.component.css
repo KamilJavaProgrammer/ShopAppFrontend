@@ -1,8 +1,26 @@
-img
-{
-  width: 100%;
-  height: 350px;
-  margin-left: auto;
-  margin-right: auto;
+@media (max-width: 800px) {
+  img
+  {
+    box-sizing: border-box;
+    display: block;
+    height: 100px;
+    width: 100%;
 
+  }
 }
+
+
+
+
+@media (min-width: 1000px) {
+  img
+  {
+    width: 100%;
+    height: 350px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+
+

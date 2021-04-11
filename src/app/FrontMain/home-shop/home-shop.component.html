@@ -1,26 +1,19 @@
 
-<ngx-ui-loader fgsColor="black" fgsType="square-jelly-box" overlayColor="white"></ngx-ui-loader>
-
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+<ngx-ui-loader fgsColor="black" fgsType="square-jelly-box" overlayColor="white"></ngx-ui-loader>
 
 
-<div   id="anchor" class="container-fluid container_main">
+ <div id="anchor" class="container-fluid container_main">
 
-
-
-
-
-
-  <!--Header Start-->
+   <!--Header Start-->
   <header>
-    <div   class="row">
-      <div class="col-10  header_navbar_col navbar-nav " >
-        Masz pytania dzwoń! 185556372
+    <div class="row">
+      <div class="col-8  header-navbar-col navbar-nav " >
+        <span>{{headerData}}</span>
       </div>
-      <div class="col-2  header_navbar_col3 navbar-nav ">
-
+      <div class="col-4  header-navbar-col3 navbar-nav ">
         <span (click)="Login()"> <i class="fa fa-user-o"></i> {{account}}</span>
       </div>
     </div>
@@ -28,16 +21,14 @@
   <!--Header End-->
 
 
-
-
-
-
-  <section >
+   <section>
     <div class="row section_row_start">
       <div class="col-6 section_col_start" >
+
         <a routerLink="/shop"><img (click)="GoToHomePage()" class="logo" src="/assets/images/CafeLogo.PNG" /></a>
       </div>
       <div class="col-6 section_col_start">
+
 
         <input style="box-shadow:0px 0px 4px black;" type="text" (keydown.enter)="RedirectToSearchingComponent()" [(ngModel)]="search" class="form-control col6_section_col_start_input" placeholder="  Szukaj" autocomplete="off" >
         <div class="row" >

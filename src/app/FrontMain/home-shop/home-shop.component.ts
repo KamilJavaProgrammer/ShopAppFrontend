@@ -76,6 +76,7 @@ export class HomeShopComponent implements OnInit, OnDestroy {
   @ViewChild('login')
   login: TemplateRef<any>;
   account: string;
+  headerData = 'Masz pytania dzwoń! 185556372';
 
 
   ngOnInit(): void {
