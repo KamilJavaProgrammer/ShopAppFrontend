@@ -23,23 +23,24 @@
 
    <section>
     <div class="row section_row_start">
-      <div class="col-6 section_col_start" >
+      <div class="col-6 section_col_start">
 
         <a routerLink="/shop"><img (click)="GoToHomePage()" class="logo" src="/assets/images/CafeLogo.PNG" /></a>
       </div>
-      <div class="col-6 section_col_start">
+      <div class="col-6 section_col_start" style="border: 1px solid yellow;">
 
 
         <input style="box-shadow:0px 0px 4px black;" type="text" (keydown.enter)="RedirectToSearchingComponent()" [(ngModel)]="search" class="form-control col6_section_col_start_input" placeholder="  Szukaj" autocomplete="off" >
-        <div class="row" >
-          <div [routerLink]="['/shop', { outlets: {'route4': ['basket'] }}]" class="col-1 basket">
-            <i class="fa fa-shopping-basket basket_icon"></i>
+        <div class="row" style="border: 1px solid blue;" >
+          <div [routerLink]="['/shop', { outlets: {'route4': ['basket'] }}]" class="col-4" style="border: 1px solid red;">
+            <div class="basket row">
+              <i class="fa fa-shopping-basket basket_icon" ></i>
+            </div>
           </div>
 
-          <div [routerLink]="['/shop', { outlets: {'route4': ['basket'] }}]" class=" col basket_value" [ngSwitch]="productAmount">
+          <div [routerLink]="['/shop', { outlets: {'route4': ['basket'] }}]" class=" col-8 basket_value" style="border: 3px solid greenyellow;" [ngSwitch]="productAmount">
 
             <span #basket id="basket">{{basketSum}},00 zł </span>
-
 
             <span class="basketProduct" *ngSwitchCase="0"> Twój koszyk jest pusty </span>
             <span class="basketProduct" *ngSwitchCase="1"> {{productAmount}} Produkt </span>
@@ -49,10 +50,22 @@
             <span class="basketProduct" *ngSwitchDefault > {{productAmount}} Produktów </span>
           </div>
 
+
+
+
+
+
         </div>
 
 
+
       </div>
+
+      <div class="row searchInputSmallDevices" style="border: 1px solid red;">
+        <input style="box-shadow:0px 0px 4px black;" type="text" (keydown.enter)="RedirectToSearchingComponent()" [(ngModel)]="search" class="form-control col6_section_col_start_input" placeholder="  Szukaj" autocomplete="off" >
+      </div>
+
+
     </div>
 
   </section>
@@ -246,7 +259,7 @@
         <div class="row unit_product">
          <ng-container *ngFor="let product of products ">
 
-          <div class="col-3 ngcontainer_col_3" >
+          <div class="col-lg-3 ngcontainer_col_3" >
 
             <img class="images_product" [src]="product.imageByte"  (click)="RedirectToTechnicalDataComponent(product.id)" alt="ImageProblem">
 
@@ -290,7 +303,7 @@
          <div class="row unit_product">
            <ng-container *ngFor="let product1 of products1 ">
 
-             <div class="col-3 ngcontainer_col_3" >
+             <div class="col-lg-3 ngcontainer_col_3" >
 
                <img class="images_product" [src]="product1.imageByte"  (click)="RedirectToTechnicalDataComponent(product1.id)" alt="ImageProblem">
 
@@ -314,23 +327,64 @@
   <!--Footer Start-->
 
 
-  <footer>
-    <div id="contact" class="row footer_start_row ">
-        <div class="col-6 footer_main_text" style="padding-left: 150px;">
-          Nawigacja
-          <div class="footer_icon" ><i class="fa fa-arrow-circle-right"></i><span style="padding-left: 15px;" class="footer_text"> Regulamin </span> </div>
-          <div class="footer_icon" ><i class="fa fa-arrow-circle-right"></i><span style="padding-left: 15px;" class="footer_text"> O firmie </span> </div>
-          <div class="footer_icon" ><i class="fa fa-arrow-circle-right"></i><span style="padding-left: 15px;" class="footer_text"> Współpraca </span> </div>
-        </div>
 
-      <div class="col-6 footer_main_text">Dane Kontaktowe
-          <div class="footer_icon" ><i class="fa fa-map-marker"></i><span style="padding-left: 15px;" class="footer_text"> Łącko </span> </div>
-          <div class="footer_icon" ><i class="fa fa-phone"></i><span class="footer_text">  184455523</span> <span (click)="ScrollToTop()"  style= "padding-left: 360px;"><i  class="fa fa-angle-up angle-up_icon"></i> </span></div>
-          <div class="footer_icon" ><i class="fa fa-envelope-o"></i><span class="footer_text"> cafekam@gmail.com</span></div>
+   <footer>
+     <div id="contact" class="row footer_start_row ">
+       <div class="col-sm-5  footer_main_text footer_main_text_left">
+         Nawigacja
+         <div class="footer_description_container" ><i class="fa fa-arrow-circle-right"></i><span class="footer_text"> Regulamin </span> </div>
+         <div class="footer_description_container" ><i class="fa fa-arrow-circle-right"></i><span class="footer_text"> O firmie </span> </div>
+         <div class="footer_description_container" ><i class="fa fa-arrow-circle-right"></i><span class="footer_text"> Współpraca </span> </div>
+       </div>
 
-        </div>
-    </div>
-  </footer>
+
+
+       <div class="col-sm-5 footer_main_text" >
+         <span>Dane Kontaktowe</span>
+         <div class="footer_description_container footer_description_left row">
+           <div class="icon-container">
+             <i class="fa fa-map-marker"></i>
+           </div>
+           <div   class="footer_description_container_name">
+             <span class="footer_text"> Łącko </span>
+           </div>
+         </div>
+
+         <div class="footer_description_container footer_description_left row">
+           <div class="icon-container">
+             <i class="fa fa-phone"></i>
+           </div>
+           <div   class="footer_description_container_name">
+             <span class="footer_text"> 1844s55523 </span>
+           </div>
+
+         </div>
+
+         <div class="footer_description_container footer_description_left row">
+           <div class="icon-container">
+             <i class="fa fa-envelope-o"></i>
+           </div>
+           <div   class="footer_description_container_name">
+             <span class="footer_text">  cafekam@gmail.com </span>
+           </div>
+         </div>
+       </div>
+
+
+       <div class="col-sm-2">
+         <div class="row angle_up_row">
+           <div class="col angle_up_col">
+               <span (click)="ScrollToTop()" class="scrollIcon_span">
+                 <i class="fa fa-angle-up angle-up_icon"></i>
+               </span>
+           </div>
+         </div>
+       </div>
+
+     </div>
+   </footer>
+
+
 
 
 
