@@ -1,59 +1,344 @@
-.colImg
-{
-  width: 350px;
-  height: 350px;
-  margin-top: 35px;
-  margin-left: 120px;
-  box-shadow:0px 0px 6px black;
+
+@media (max-width: 576px) {
+
+  .img_container
+  {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .colImg
+  {
+    width: 200px;
+    height: 200px;
+    margin-top: 35px;
+    box-shadow:0px 0px 6px black;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+
+  }
+  .nameProduct
+  {
+    text-align: center;
+    color: blue;
+    font-size: 24px;
+    font-weight: 600;
+
+  }
+
+  .priceProduct
+  {
+    text-align: center;
+    color: blue;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .descriptionContainer
+  {
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  .descriptionData
+  {
+    font-weight: 600;
+    font-size:18px;
+    text-align: center;
+  }
+
+  .addBasketButton
+  {
+    margin-top: 10px;
+  }
+
+  .data
+  {
+    text-align: center;
+    margin-bottom: 1px;
+  }
+  .bottomRow
+  {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 22px;
+    text-align: center;
+    width: 100%;
+
+  }
+  .returnButton
+  {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 120px;
+  }
+  .addToBasketButton
+  {
+    margin-top: 30px;
+  }
+}
+
+@media (min-width: 576px) {
+
+  .colImg
+  {
+    width: 350px;
+    height: 350px;
+    margin-top: 35px;
+    margin-left: 120px;
+    box-shadow:0px 0px 6px black;
+
+
+  }
+  .nameProduct
+  {
+    text-align: left;
+    color: blue;
+    font-size: 24px;
+    font-weight: 600;
+
+  }
+
+  .priceProduct
+  {
+    text-align: left;
+    color: blue;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .descriptionContainer
+  {
+    margin-top: 30px;
+  }
+  .descriptionData
+  {
+    font-weight: 600;
+    font-size:18px;
+  }
+
+  .addBasketButton
+  {
+    margin-top: 10px;
+  }
+
+  .data
+  {
+    text-align: left;
+    margin-bottom: 1px;
+  }
+  .bottomRow
+  {
+    margin-top: 22px;
+  }
+  .returnButton
+  {
+    margin-left: 135px;
+    width: 120px;
+  }
+  .addToBasketButton
+  {
+    margin-top: 30px;
+  }
+
+}
+
+@media (min-width: 768px) {
+
+
+  .colImg
+  {
+    width: 350px;
+    height: 350px;
+    margin-top: 35px;
+    margin-left: 120px;
+    box-shadow:0px 0px 6px black;
+
+
+  }
+  .nameProduct
+  {
+    text-align: left;
+    color: blue;
+    font-size: 24px;
+    font-weight: 600;
+
+  }
+
+  .priceProduct
+  {
+    text-align: left;
+    color: blue;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .descriptionContainer
+  {
+    margin-top: 30px;
+  }
+  .descriptionData
+  {
+    font-weight: 600;
+    font-size:18px;
+  }
+
+  .addBasketButton
+  {
+    margin-top: 10px;
+  }
+
+  .data
+  {
+    text-align: left;
+    margin-bottom: 1px;
+  }
+  .bottomRow
+  {
+    margin-top: 22px;
+  }
+  .returnButton
+  {
+    margin-left: 135px;
+    width: 120px;
+  }
+  .addToBasketButton
+  {
+    margin-top: 30px;
+  }
+
+}
+
+@media (min-width: 992px) {
+
+  .colImg
+  {
+    width: 350px;
+    height: 350px;
+    margin-top: 35px;
+    margin-left: 120px;
+    box-shadow:0px 0px 6px black;
+
+
+  }
+  .nameProduct
+  {
+    color: blue;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+
+  }
+
+  .priceProduct
+  {
+    text-align: center;
+    color: blue;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .descriptionContainer
+  {
+    margin-top: 30px;
+  }
+  .descriptionData
+  {
+    font-weight: 600;
+    font-size:18px;
+  }
+
+  .addBasketButton
+  {
+    margin-top: 10px;
+  }
+
+  .data
+  {
+    text-align: left;
+    margin-bottom: 1px;
+  }
+  .bottomRow
+  {
+    margin-top: 22px;
+  }
+  .returnButton
+  {
+    margin-left: 135px;
+    width: 120px;
+  }
+  .addToBasketButton
+  {
+    margin-top: 30px;
+  }
+
+}
+
+@media (min-width: 1200px) {
+
+  .colImg
+  {
+    width: 350px;
+    height: 350px;
+    margin-top: 35px;
+    margin-left: 120px;
+    box-shadow:0px 0px 6px black;
+
+
+  }
+  .nameProduct
+  {
+    text-align: left;
+    color: blue;
+    font-size: 24px;
+    font-weight: 600;
+
+  }
+
+  .priceProduct
+  {
+    text-align: left;
+    color: blue;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .descriptionContainer
+  {
+    margin-top: 30px;
+  }
+  .descriptionData
+  {
+    font-weight: 600;
+    font-size:18px;
+  }
+
+  .addBasketButton
+  {
+    margin-top: 10px;
+  }
+
+  .data
+  {
+    text-align: left;
+    margin-bottom: 1px;
+  }
+  .bottomRow
+  {
+    margin-top: 22px;
+  }
+  .returnButton
+  {
+    margin-left: 135px;
+    width: 120px;
+  }
+  .addToBasketButton
+  {
+    margin-top: 30px;
+  }
+
+
 
 
 }
-.nameProduct
-{
-  text-align: left;
-  color: blue;
-  font-size: 24px;
-  font-weight: 600;
 
-}
 
-.priceProduct
-{
-  text-align: left;
-  color: blue;
-  font-size: 24px;
-  font-weight: bold;
-}
-.descriptionContainer
-{
-  margin-top: 30px;
-}
-.descriptionData
-{
-  font-weight: 600;
-  font-size:18px;
-}
-
-.addBasketButton
-{
-  margin-top: 10px;
-}
-
-.data
-{
-  text-align: left;
-  margin-bottom: 1px;
-}
-.bottomRow
-{
-  margin-top: 22px;
-}
-.returnButton
-{
-  margin-left: 135px;
-  width: 120px;
-}
-.addToBasketButton
-{
-  margin-top: 30px;
-}

@@ -1,15 +1,15 @@
 <div class="container-fluid">
-  <div class="row" >
-     <div class="col">
+  <div class="row">
+     <div class="col-sm img_container">
        <img class="colImg" id="img" [src]="product.imageByte" alt="ImageProblem">
      </div>
 
-    <div class="col descriptionContainer">
+    <div class="col-sm descriptionContainer">
       <div class="nameProduct">{{product.productName}}</div>
       <div class="priceProduct">{{productPrice}} PLN</div>
 
       <ng-container [ngSwitch]="product.status">
-      <div class="data" id="state" style="color:green;" *ngSwitchCase="'Dostępny'"> Status: {{product.status}} </div>
+      <div class="data" id="state" style="color:green; " *ngSwitchCase="'Dostępny'"> Status: {{product.status}} </div>
       <div class="data" id="state1" style="color:red;" *ngSwitchCase="'Niedostępny'"> Status: {{product.status}} </div>
       <div class="data" id="state2" style="color:#0000ff;" *ngSwitchDefault > Status: {{product.status}} </div>
       </ng-container>
@@ -42,7 +42,7 @@
 
 
 
-<div class="row bottomRow">
+<div class="bottomRow">
   <a routerLink="/shop" ><button  class="btn btn-outline-primary returnButton" >Powrót</button></a>
 </div>
 

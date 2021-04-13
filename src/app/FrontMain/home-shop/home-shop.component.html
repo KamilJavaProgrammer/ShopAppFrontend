@@ -27,44 +27,45 @@
 
         <a routerLink="/shop"><img (click)="GoToHomePage()" class="logo" src="/assets/images/CafeLogo.PNG" /></a>
       </div>
-      <div class="col-6 section_col_start" style="border: 1px solid yellow;">
-
+      <div class="col-6 section_col_start">
 
         <input style="box-shadow:0px 0px 4px black;" type="text" (keydown.enter)="RedirectToSearchingComponent()" [(ngModel)]="search" class="form-control col6_section_col_start_input" placeholder="  Szukaj" autocomplete="off" >
-        <div class="row" style="border: 1px solid blue;" >
-          <div [routerLink]="['/shop', { outlets: {'route4': ['basket'] }}]" class="col-4" style="border: 1px solid red;">
+        <div class="row" style="padding: 0; height: 100%;" >
+          <div [routerLink]="['/shop', { outlets: {'route4': ['basket'] }}]" class="col-4">
             <div class="basket row">
               <i class="fa fa-shopping-basket basket_icon" ></i>
             </div>
           </div>
 
-          <div [routerLink]="['/shop', { outlets: {'route4': ['basket'] }}]" class=" col-8 basket_value" style="border: 3px solid greenyellow;" [ngSwitch]="productAmount">
+          <div [routerLink]="['/shop', { outlets: {'route4': ['basket'] }}]" class=" col-8 basket_value"  [ngSwitch]="productAmount">
 
-            <span #basket id="basket">{{basketSum}},00 zł </span>
 
-            <span class="basketProduct" *ngSwitchCase="0"> Twój koszyk jest pusty </span>
-            <span class="basketProduct" *ngSwitchCase="1"> {{productAmount}} Produkt </span>
-            <span class="basketProduct" *ngSwitchCase="2"> {{productAmount}} Produkty </span>
-            <span class="basketProduct" *ngSwitchCase="3"> {{productAmount}} Produkty </span>
-            <span class="basketProduct" *ngSwitchCase="4"> {{productAmount}} Produkty </span>
-            <span class="basketProduct" *ngSwitchDefault > {{productAmount}} Produktów </span>
+
+            <div class="row left_row_basket">
+              <div class="col left_col_basket">
+                <span #basket id="basket">{{basketSum}},00 zł </span>
+              </div>
+
+              <div class="col-10 mobileNo" style="border: 1px solid black;height: 100%;">
+                <span class="basketProduct" *ngSwitchCase="0"> Twój koszyk jest pusty </span>
+                <span class="basketProduct" *ngSwitchCase="1"> {{productAmount}} Produkt </span>
+                <span class="basketProduct" *ngSwitchCase="2"> {{productAmount}} Produkty </span>
+                <span class="basketProduct" *ngSwitchCase="3"> {{productAmount}} Produkty </span>
+                <span class="basketProduct" *ngSwitchCase="4"> {{productAmount}} Produkty </span>
+                <span class="basketProduct" *ngSwitchDefault > {{productAmount}} Produktów </span>
+              </div>
+            </div>
+
           </div>
-
-
-
-
-
 
         </div>
 
 
+        <div class="row searchInputSmallDevices">
+          <input style="box-shadow:0px 0px 4px black;" type="text" (keydown.enter)="RedirectToSearchingComponent()" [(ngModel)]="search" class="form-control col6_section_col_start_input_small_devices" placeholder="  Szukaj" autocomplete="off" >
+        </div>
 
       </div>
-
-      <div class="row searchInputSmallDevices" style="border: 1px solid red;">
-        <input style="box-shadow:0px 0px 4px black;" type="text" (keydown.enter)="RedirectToSearchingComponent()" [(ngModel)]="search" class="form-control col6_section_col_start_input" placeholder="  Szukaj" autocomplete="off" >
-      </div>
-
 
     </div>
 
