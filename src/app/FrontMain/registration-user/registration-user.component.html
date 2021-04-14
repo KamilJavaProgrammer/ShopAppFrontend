@@ -3,37 +3,38 @@
   <div class="row justify-content-around">
     <div class="col-12 align-self-center">
       <div class="row justify-content-center" >
-        <div class="col-6" style=" border-radius: 15px; padding: 25px;   box-shadow:0px 0px 6px black;">
+        <div class="col-sm-6 login_form_container">
 
           <div class="row">
             <div class="col header-description">
-             Rejestracja
+              Zarejestruj się
             </div>
           </div>
 
           <div class="row">
             <div class="col">
               <form>
-                <div style="margin-left: auto; margin-right: auto;" >
-                  <input  class="txtb" placeholder="Login"  type="text" name="username" [(ngModel)]="username" required autocomplete="off" >
+                <div style="margin-left: auto; margin-right: auto; " >
+                  <input   class="txtb" placeholder="Login"  type="text" name="username" [(ngModel)]="username" required autocomplete="off" >
                 </div>
 
                 <div >
                   <input class="txtb" placeholder="Hasło" type="password" name="password" [(ngModel)]="password" required autocomplete="off" >
                 </div>
 
+
                 <div >
                   <input class="txtb" placeholder="E-mail" type="email" name="email" [(ngModel)]="email" required autocomplete="off" >
                 </div>
 
-                <div class="bottom-text" style="padding-left: 65px;color: black; padding-top: 5px;">
+                <div class="bottom-text">
                   <input #abcde id="checkboxInvoice"  type="checkbox"  name="wantInvoiceCheckbox"> Akceptuję regulamin sklepu
 
                 </div>
 
 
                 <div>
-                  <input (click)="RegisterUser()"  type="submit" class="txtb" style=" margin-bottom:30px; background-color: rgb(0, 130, 250); border: none; color: #f3f3f3;" value="Zarejestruj się" >
+                  <input  type="submit" class="txtb" style=" margin-bottom:30px; background-color: rgb(0, 130, 250); border: none; color: #f3f3f3;" value="Zaloguj" (click)="RegisterUser()">
                 </div>
               </form>
             </div>
@@ -41,11 +42,12 @@
         </div>
 
 
-        <div class="col-6" style="padding: 25px;">
+
+        <div class="col-sm-6 left_container">
 
           <div class="row">
             <div class="col header-description">
-             Masz już konto ?
+              Nie masz konta ?
             </div>
           </div>
 
@@ -53,20 +55,20 @@
             <div class="col">
               <form>
                 <div style="margin-left: auto; margin-right: auto;" >
-                  <button [routerLink]="['/shop', {outlets: {route4: ['logowanie']}}]"  class="txtb right" style="border: 1px solid rgb(0, 130, 250); color:blue;" >Zaloguj się</button>
+             <button [routerLink]="['/shop', {outlets: {route4: ['logowanie']}}]"  class="txtb right" style="border: 1px solid rgb(0, 130, 250); color:blue;" >Zaloguj się</button>
                 </div>
               </form>
             </div>
           </div>
 
-          <div class="row" style="padding-top: 30px;">
-            <div class="col" style="text-align: left;">
-              <span style="padding-left: 65px; font-size: 20px;"><strong>Dlaczego warto założyć konto?</strong></span>
+          <div class="row description_row">
+            <div class="col description_col">
+              <span class="col description_col_span"><strong>Dlaczego warto założyć konto?</strong></span>
             </div>
           </div>
 
-          <div class="row" style="padding-left: 65px; padding-top: 10px;">
-            <div class="col" style="font-size: 20px;">
+          <div class="row option_row">
+            <div class="col option_col">
               <p><i class="fa fa-laptop" aria-hidden="true"></i> <span class="word">Szybsze zamówienia</span></p>
               <p><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="word">Pobieranie faktur</span></p>
               <p><i class="fa fa-cube" aria-hidden="true"></i> <span class="word">Śledzenie zamówień</span></p>
@@ -75,8 +77,6 @@
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
   </div>
@@ -89,38 +89,149 @@
 
 
 
-<!--<div class="container-fluid main">-->
-
-<!--  <button  (click)="CloseAlertModal()" type="button" class="close" data-dismiss="alert" aria-label="Close">-->
-<!--    <span aria-hidden="true">&times;</span>-->
-<!--  </button>-->
-
-<!--  <div style="text-align: center; padding-bottom: 10px; margin:auto; font-size: 30px;">-->
-
-<!--    Rejestracja-->
 
 
-<!--    <div class="row">-->
 
-<!--      <form class="login-form col-12">-->
 
-<!--        <div style="margin-left: auto; margin-right: auto;" >-->
-<!--          <input  class="txtb" placeholder="Login"  type="text" name="username" [(ngModel)]="username" required autocomplete="off" >-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="container" style=" margin-left: auto; margin-right: auto;">-->
+<!--  <div class="row justify-content-around">-->
+<!--    <div class="col-12 align-self-center">-->
+<!--      <div class="row justify-content-center" >-->
+<!--        <div class="col-6">-->
+
+<!--          <div class="row">-->
+<!--            <div class="col header-description">-->
+<!--             Rejestracja-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--              <form>-->
+<!--                <div style="margin-left: auto; margin-right: auto;" >-->
+<!--                  <input  class="txtb" placeholder="Login"  type="text" name="username" [(ngModel)]="username" required autocomplete="off" >-->
+<!--                </div>-->
+
+<!--                <div >-->
+<!--                  <input class="txtb" placeholder="Hasło" type="password" name="password" [(ngModel)]="password" required autocomplete="off" >-->
+<!--                </div>-->
+
+<!--                <div >-->
+<!--                  <input class="txtb" placeholder="E-mail" type="email" name="email" [(ngModel)]="email" required autocomplete="off" >-->
+<!--                </div>-->
+
+<!--                <div class="bottom-text" style="padding-left: 65px;color: black; padding-top: 5px;">-->
+<!--                  <input #abcde id="checkboxInvoice"  type="checkbox"  name="wantInvoiceCheckbox"> Akceptuję regulamin sklepu-->
+
+<!--                </div>-->
+
+
+<!--                <div>-->
+<!--                  <input (click)="RegisterUser()"  type="submit" class="txtb" style=" margin-bottom:30px; background-color: rgb(0, 130, 250); border: none; color: #f3f3f3;" value="Zarejestruj się" >-->
+<!--                </div>-->
+<!--              </form>-->
+<!--            </div>-->
+<!--          </div>-->
 <!--        </div>-->
 
-<!--        <div >-->
-<!--          <input class="txtb" placeholder="Password" type="password" name="password" [(ngModel)]="password" required autocomplete="off" >-->
 
-<!--        </div>-->
-<!--        <div>-->
-<!--          <input  class="txtb" placeholder="E-mail" type="email" name="email" [(ngModel)]="email"  required autocomplete="off" >-->
+<!--        <div class="col-6" style="padding: 25px;">-->
 
+<!--          <div class="row">-->
+<!--            <div class="col header-description">-->
+<!--             Masz już konto ?-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--              <form>-->
+<!--                <div style="margin-left: auto; margin-right: auto;" >-->
+<!--                  <button [routerLink]="['/shop', {outlets: {route4: ['logowanie']}}]"  class="txtb right" style="border: 1px solid rgb(0, 130, 250); color:blue;" >Zaloguj się</button>-->
+<!--                </div>-->
+<!--              </form>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div class="row" style="padding-top: 30px;">-->
+<!--            <div class="col" style="text-align: left;">-->
+<!--              <span style="padding-left: 65px; font-size: 20px;"><strong>Dlaczego warto założyć konto?</strong></span>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div class="row" style="padding-left: 65px; padding-top: 10px;">-->
+<!--            <div class="col" style="font-size: 20px;">-->
+<!--              <p><i class="fa fa-laptop" aria-hidden="true"></i> <span class="word">Szybsze zamówienia</span></p>-->
+<!--              <p><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="word">Pobieranie faktur</span></p>-->
+<!--              <p><i class="fa fa-cube" aria-hidden="true"></i> <span class="word">Śledzenie zamówień</span></p>-->
+<!--              <p><i class="fa fa-folder-open-o" aria-hidden="true"></i> <span class="word">Sprawdzanie poprzednich zamówień</span></p>-->
+
+<!--            </div>-->
+<!--          </div>-->
 <!--        </div>-->
-<!--        <input  type="submit" class="btn btn-outline-dark logbtn" value="Zarejestruj" (click)="RegistrationUser()">-->
-<!--      </form>-->
+
+
+<!--      </div>-->
 <!--    </div>-->
 <!--  </div>-->
 <!--</div>-->
+
+
+
+
+
+
+
+
+<!--&lt;!&ndash;<div class="container-fluid main">&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <button  (click)="CloseAlertModal()" type="button" class="close" data-dismiss="alert" aria-label="Close">&ndash;&gt;-->
+<!--&lt;!&ndash;    <span aria-hidden="true">&times;</span>&ndash;&gt;-->
+<!--&lt;!&ndash;  </button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <div style="text-align: center; padding-bottom: 10px; margin:auto; font-size: 30px;">&ndash;&gt;-->
+
+<!--&lt;!&ndash;    Rejestracja&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;    <div class="row">&ndash;&gt;-->
+
+<!--&lt;!&ndash;      <form class="login-form col-12">&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div style="margin-left: auto; margin-right: auto;" >&ndash;&gt;-->
+<!--&lt;!&ndash;          <input  class="txtb" placeholder="Login"  type="text" name="username" [(ngModel)]="username" required autocomplete="off" >&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div >&ndash;&gt;-->
+<!--&lt;!&ndash;          <input class="txtb" placeholder="Password" type="password" name="password" [(ngModel)]="password" required autocomplete="off" >&ndash;&gt;-->
+
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div>&ndash;&gt;-->
+<!--&lt;!&ndash;          <input  class="txtb" placeholder="E-mail" type="email" name="email" [(ngModel)]="email"  required autocomplete="off" >&ndash;&gt;-->
+
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <input  type="submit" class="btn btn-outline-dark logbtn" value="Zarejestruj" (click)="RegistrationUser()">&ndash;&gt;-->
+<!--&lt;!&ndash;      </form>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
 
 
 

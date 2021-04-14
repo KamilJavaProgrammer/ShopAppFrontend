@@ -127,7 +127,7 @@ const routes: Routes = [{
      { path: 'technicalData/:id', component: TechnicalDataOfProductComponent, outlet: 'route4' },
      { path: 'basket', component: BasketComponent, outlet: 'route4' },
       { path: 'rejestracja', component: RegistrationUserComponent, outlet: 'route4' },
-     { path: 'changePassword', component: ForgotPasswordComponent, outlet: 'route4' },
+     { path: 'haslo/zmiana', component: ForgotPasswordComponent, outlet: 'route4' },
     {
       path: 'konto', component: UserPanelComponent, outlet: 'route4', canActivate: [AuthGuard],
       children : [

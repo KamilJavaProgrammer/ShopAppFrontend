@@ -21,7 +21,7 @@
                          <input class="txtb" placeholder="Hasło" type="password" name="password" [(ngModel)]="password" required autocomplete="off" >
                        </div>
 
-                       <div class="bottom-text">
+                       <div [routerLink]="['/shop', {outlets: {route4: ['haslo','zmiana']}}]" class="bottom-text">
                          Nie pamietasz hasła?
                        </div>
 
