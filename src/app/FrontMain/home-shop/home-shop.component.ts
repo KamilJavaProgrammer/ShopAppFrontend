@@ -5,6 +5,8 @@ import {DataserviceService} from '../../dataservice.service';
 import {ProductBasket, OrderService} from '../../order.service';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import {Section, SectionCategories, SectionService, SectionSubCategories} from '../../section.service';
+import {log} from 'util';
 
 
 @Component({
@@ -19,7 +21,9 @@ export class HomeShopComponent implements OnInit, OnDestroy {
   constructor(private dataService: DataserviceService, private productService: ProductServiceService, private router: Router,
               private ngxService: NgxUiLoaderService, private route: ActivatedRoute,
               private orderService: OrderService,
-              private modalService: BsModalService){}
+              private modalService: BsModalService,
+              private sectionService: SectionService){}
+
 
     basketSum: number;
 
@@ -28,6 +32,7 @@ export class HomeShopComponent implements OnInit, OnDestroy {
 
   // productFromBasket: Product;
 
+  sections: Array<Section> = [];
   products = [];
   products1 = [];
   order: ProductBasket;
@@ -78,7 +83,6 @@ export class HomeShopComponent implements OnInit, OnDestroy {
   account: string;
   headerData = 'Masz pytania dzwoń! 185556372';
 
-
   ngOnInit(): void {
 
 
@@ -112,11 +116,20 @@ export class HomeShopComponent implements OnInit, OnDestroy {
 
     document.getElementById('navbar123').style.display = 'none';
     this.GetImages();
+    this.GetSectionsFromServer();
+      // this.Test();
   }
 
   ngOnDestroy(): void {
   }
 
+
+  public GetSectionsFromServer(): void{
+
+    this.sectionService.GetAllSectionsFromBackend().subscribe(value => {
+            this.sections = value;
+    });
+  }
 
   GetImages(): void {
     this.products = [];
@@ -275,6 +288,58 @@ export class HomeShopComponent implements OnInit, OnDestroy {
 
   HideLoginModal(): void{
    this.byk.hide();
+  }
+
+
+
+
+  Test(): void{
+    console.log('start');
+    const promise = new Promise(resolve => {
+      const section: Section = ({
+        name: 'Kawa',
+        sectionCategoriesList: [
+          ({
+            name: 'Owoce',
+            sectionSubCategoriesList: [
+              ({
+                 name: 'Jablko'
+              }),
+              ({
+                name: 'Banan'
+              }),
+              ({
+                name: 'Pomarancz'
+              }),
+            ]
+          }),
+          ({
+            name: 'Warzywa',
+            sectionSubCategoriesList: [
+              ({
+                name: 'Ogorek'
+              }),
+              ({
+                name: 'pomidor'
+              }),
+              ({
+                name: 'pietruszka'
+              }),
+            ]
+          })
+        ]
+      });
+
+      resolve(section);
+    });
+
+    promise.then(value => {
+      this.sectionService.Test(value).subscribe(value1 => {
+        console.log(value1);
+        console.log(value1);
+      });
+    });
+
   }
 
 
