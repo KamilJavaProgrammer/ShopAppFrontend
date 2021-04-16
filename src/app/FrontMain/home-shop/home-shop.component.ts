@@ -117,7 +117,7 @@ export class HomeShopComponent implements OnInit, OnDestroy {
     document.getElementById('navbar123').style.display = 'none';
     this.GetImages();
     this.GetSectionsFromServer();
-      // this.Test();
+      this.Test();
   }
 
   ngOnDestroy(): void {
