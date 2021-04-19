@@ -9,34 +9,43 @@ import {map} from 'rxjs/operators';
 })
 export class ProductServiceService {
 
-  urlProdctName = 'http://localhost:8088/products/name';
 
-  url = 'http://localhost:8088/products';
-  urlExport = 'http://localhost:8088/products/export';
-  url123 = 'http://localhost:8088/products/parts';
-  urlList = 'http://localhost:8088/products/list';
-  urlCategoryProduct = 'http://localhost:8088/subcategory';
-  urlManufacturers = 'http://localhost:8088/subcategory/manufacturers';
-  urlPartCategory = 'http://localhost:8088/partcategory';
-  url1 = 'http://localhost:8088/image/';
-  urlImage = 'http://localhost:8088/image';
-  urlClient = 'http://localhost:8088/client';
-  urlClient1 = 'http://localhost:8088/client1';
-  urlInvoice = 'http://localhost:8088/invoice';
+  port = '8088';
+
+  urlProdctName = 'http://localhost:' + this.port + '/products/name';
+  path = 'http://localhost:' + this.port + '/image';
+  url = 'http://localhost:' + this.port + '/products';
+  urlExport = 'http://localhost:' + this.port + '/export';
+  url123 = 'http://localhost:' + this.port + '/products/parts';
+  urlList = 'http://localhost:' + this.port + '/products/list';
+  urlCategoryProduct = 'http://localhost:' + this.port + '/subcategory';
+  urlManufacturers = 'http://localhost:' + this.port + '/manufacturers';
+  urlClient = 'http://localhost:' + this.port + '/client';
+  urlClient1 = 'http://localhost:' + this.port + '/client1';
+  urlInvoice = 'http://localhost:' + this.port + '/invoice';
+
 
   httpOptions: any;
   headers: any;
-
   sub: any;
   id: number;
-
-
 
 
 
   constructor(private httpClient: HttpClient) {
 
   }
+  getImageFromService(product: Product): Observable<any> {
+    const pathImage  = product.pathToFile.replace('C:/ZdjęciaBaza/Upload', '');
+    return this.httpClient.get(this.path + pathImage, {responseType: 'blob'});
+
+  }
+
+
+
+
+
+
 
   GetAllProducts(): Observable<Array<Product>>{
     return this.httpClient.get<any>(this.url, {observe: 'response'})
@@ -58,14 +67,16 @@ export class ProductServiceService {
       }));
   }
 
-  GetProducts(formData: FormData): Observable<any>{
+  GetProducts(formData: FormData): Observable<Array<Product>>{
 
 
     this. headers = new HttpHeaders();
-    this.headers = this. headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
-    console.log('heder to' + this.headers);
-    console.log(localStorage.getItem('accessToken'));
-    return this.httpClient.post(this.urlProdctName, formData, {headers: this.headers});
+    // this.headers = this. headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
+    return this.httpClient.post<any>(this.urlProdctName, formData, {headers: this.headers, observe: 'response'}).pipe(map(value => {
+       if (value.status === 200){
+         return value.body.body;
+       }
+    }));
   }
 
   GetListAllCategories(): Observable<Array<string>>{
@@ -115,6 +126,9 @@ export class ProductServiceService {
     return this.httpClient.get(path, {responseType: 'blob'});
 
   }
+
+
+
 
 
 
@@ -179,8 +193,14 @@ export class ProductServiceService {
   }
 
 
-  GetAllSearchingProduct(data: FormData): Observable<Array<Product>>{
-    return this.httpClient.post<Array<Product>>('http://localhost:8088/search', data);
+  GetAllSearchingProduct(searchText: string): Observable<Array<Product>>{
+    return this.httpClient.get<any>(this.url + '/search?searchText=' + searchText, {observe: 'response'}).pipe(map(value => {
+       if (value.status === 200)
+       {
+         console.log(value);
+         return value.body.body;
+       }
+    }));
   }
 
 

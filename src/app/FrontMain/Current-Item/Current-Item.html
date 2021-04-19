@@ -6,19 +6,31 @@
 
 
 
-
-
   <!--Article Start-->
   <article>
+    <ng-container *ngIf="products.length > 0; then correct; else incorrect"></ng-container>
+    <ng-template #correct>
     <div class="row">
-        <ng-container *ngIf="products.length > 0; then correct; else incorrect"></ng-container>
-           <ng-template #correct>
+
+      <div class="col">
+        <div class="form-group selectButton">
+
+          <select autocomplete="off" id="sorting"  (change)="Sort()" [(ngModel)]="sorting" class="form-control">
+            <option>Sortuj wg</option>
+            <option>Alfabetycznie</option>
+            <option>Cena rosnąco</option>
+            <option>Cena malejąco</option>
+          </select>
+        </div>
+      </div>
+    </div>
 
 
+            <div class="row">
 
-             <div  class="col-3 mainCategoryField">
+             <div  class="col-lg-3 mainCategoryField">
                <div class="row">
-                 <div class="col-10 colCentreMainCategoryField ">
+                 <div class="col-10 colCentreMainCategoryField">
 
                    <div class="inscription">
                     Kategorie:
@@ -63,30 +75,13 @@
 
 
 
-             <div class="col-9">
-
-          <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col">
-              <div class="form-group" style="margin-top: 10px; margin-right: 25px;">
-
-                <select autocomplete="off" id="sorting"  (change)="Sort()" [(ngModel)]="sorting" class="form-control">
-                     <option>Sortuj wg</option>
-                     <option>Alfabetycznie</option>
-                     <option>Cena rosnąco</option>
-                     <option>Cena malejąco</option>
-                    </select>
-              </div>
-          </div>
-        </div>
+             <div class="col-lg-9 mainCategoryField  image_col" >
 
 
 
            <div class="row">
           <ng-container *ngFor="let product of products | paginate:{id:'listing_pagination',itemsPerPage:12, currentPage:page,totalItems:totalRecords}">
-            <div class="col-3 imgContainer" >
+            <div class="col-lg-3 imgContainer" >
                <img  class="image" [src]="product.imageByte"  (click)="RedirectToTechnicalDataComponent(product.id)" alt="ImageProblem">
 
                <div class="imageDescription">
@@ -113,6 +108,7 @@
         </ng-template>
 
       </div>
+    </div>
      </ng-template>
 
      <ng-template #incorrect>
@@ -121,7 +117,7 @@
       </div>
     </ng-template>
 
-  </div>
+
 </article>
 <!--Article End-->
 

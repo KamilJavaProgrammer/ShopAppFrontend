@@ -8,7 +8,7 @@ import {compareNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_v
   providedIn: 'root'
 })
 export class CompanyServiceService {
-  url = 'http://localhost:8089/company';
+  url = 'http://localhost:8088/company';
 
   constructor(private httpClient: HttpClient) {
   }

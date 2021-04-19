@@ -2583,7 +2583,7 @@
     margin: auto !important;
     display: block;
     /*border: 1px solid black;*/
-    box-shadow: 0px 0px 6px black;
+    box-shadow: 0px 0px 10px black;
   }
 
   .images_product:hover {

@@ -5,9 +5,8 @@ import {DataserviceService} from '../../dataservice.service';
 import {ProductBasket, OrderService} from '../../order.service';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
-import {Section, SectionCategories, SectionService, SectionSubCategories} from '../../section.service';
-import {log} from 'util';
-
+import {ArticleLine, Section, SectionCategories, SectionService, SectionSubCategories} from '../../section.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-home-shop',
@@ -22,38 +21,31 @@ export class HomeShopComponent implements OnInit, OnDestroy {
               private ngxService: NgxUiLoaderService, private route: ActivatedRoute,
               private orderService: OrderService,
               private modalService: BsModalService,
-              private sectionService: SectionService){}
+              private sectionService: SectionService,
+              private httpClient: HttpClient){}
 
 
-    basketSum: number;
 
-  @ViewChild('abcde') abcde: ElementRef;
+
   @ViewChild('basket') basket: ElementRef;
-
-  // productFromBasket: Product;
-
+  @ViewChild('alert') alert: TemplateRef<any>;
+  @ViewChild('addProductBasket') addProductToBasket: TemplateRef<any>;
   sections: Array<Section> = [];
-  products = [];
-  products1 = [];
+  products: Array<Product> = [];
+  articleLines: Array<ArticleLine> = [];
   order: ProductBasket;
+  basketSum: number;
   search: string;
   productAmount: number;
   path = 'http://localhost:8088/image';
   table = [];
-  listy: Array<Array<Product>>;
   sub: any;
-
   orders: Array<ProductBasket> = [];
-
-  modalRef: BsModalRef;
-  value12 = 1000;
-  highValue12 = 2000;
-  sorting: any;
   maxValue: any;
   product: Product;
-
   byk: BsModalRef;
-
+  account: string;
+  headerData = 'Masz pytania dzwoń! 185556372';
 
   config = {
     animated: true,
@@ -63,25 +55,6 @@ export class HomeShopComponent implements OnInit, OnDestroy {
     class: 'modal-lg'
   };
 
-
-  config1 = {
-    animated: true,
-    keyboard: true,
-    backdrop: true,
-    ignoreBackdropClick: false,
-    class: 'xxl'
-  };
-
-  @ViewChild('alert')
-  alert: TemplateRef<any>;
-
-  @ViewChild('addProductBasket')
-  addProductToBasket: TemplateRef<any>;
-
-  @ViewChild('login')
-  login: TemplateRef<any>;
-  account: string;
-  headerData = 'Masz pytania dzwoń! 185556372';
 
   ngOnInit(): void {
 
@@ -112,12 +85,12 @@ export class HomeShopComponent implements OnInit, OnDestroy {
       this.account = 'Zaloguj się';
 
     }
+    // this.Test();
 
 
     document.getElementById('navbar123').style.display = 'none';
     this.GetImages();
     this.GetSectionsFromServer();
-      this.Test();
   }
 
   ngOnDestroy(): void {
@@ -131,67 +104,58 @@ export class HomeShopComponent implements OnInit, OnDestroy {
     });
   }
 
-  GetImages(): void {
+
+  GetImages(): void{
     this.products = [];
-    this.products1 = [];
+    this.articleLines = [];
 
-
-    this.productService.GetTwoListFromBackend().subscribe(value => {
-      this.listy = value;
-
-      this.listy[0].forEach(value1 => {
-        this.getImageFromService(value1);
+    const promise3 = new Promise(resolve => {
+      this.sectionService.GetAllArticleLinesFromBackend().subscribe(articleLinesList => {
+        resolve(articleLinesList);
       });
+    });
 
-      this.listy[1].forEach(value2 => {
-        this.getImageFromService1(value2);
-      });
+    promise3.then(async linelist => {
+
+      // @ts-ignore
+      for (const  articleLine of linelist){
+        for (const product of articleLine.productList){
+          await this.getImageFromService(product);
+        }
+        const articleLineObject: ArticleLine = ({
+          id: articleLine.id ,
+          name: articleLine.name,
+          productList: this.products
+        });
+        await this.articleLines.push(articleLineObject);
+        this.products = [];
+      }
 
     });
   }
 
-  getImageFromService(product): void {
+  async getImageFromService(product): Promise<any> {
     const pathImage = product.pathToFile.replace('C:/ZdjęciaBaza/Upload', '');
+    await this.httpClient.get(this.path + pathImage, {responseType: 'blob'}).toPromise()
+      .then(image => this.createImageFromBlob(image, product).then(value => {
+         this.products.push(product);
+      }));
 
-    this.productService.GetPhotos(this.path + pathImage).subscribe(data => {
-      this.createImageFromBlob(data, product);
-    });
   }
 
-  getImageFromService1(product): void {
-    const pathImage = product.pathToFile.replace('C:/ZdjęciaBaza/Upload', '');
-
-    this.productService.GetPhotos(this.path + pathImage).subscribe(data => {
-      this.createImageFromBlob1(data, product);
-    });
-  }
-
-
-  createImageFromBlob(image: Blob, product: Product): void {
+  async createImageFromBlob(image: any, product: Product): Promise<void> {
     const reader = new FileReader();
-    reader.addEventListener('load', () => {
+    reader.addEventListener('load',  () => {
       product.imageByte = reader.result;
-      this.products.push(product);
-    }, false);
-
+      }, false);
     if (image) {
       reader.readAsDataURL(image);
     }
   }
 
-  createImageFromBlob1(image: Blob, product: Product): void {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => {
-      product.imageByte = reader.result;
-      this.products1.push(product);
-    }, false);
 
-    if (image) {
-      reader.readAsDataURL(image);
-    }
-  }
 
-  Login(): void{
+Login(): void{
 
     if (sessionStorage.getItem('response') !== null){
       const table = sessionStorage.getItem('response').split('/');
@@ -205,7 +169,7 @@ export class HomeShopComponent implements OnInit, OnDestroy {
 
 
 
-  AddToBasket(product: Product): void {
+AddToBasket(product: Product): void {
 
     this.orderService.CheckExistsOrder(product, result => {
 
@@ -238,7 +202,7 @@ export class HomeShopComponent implements OnInit, OnDestroy {
     });
   }
 
-  AddBasket1(product: Product): void{
+AddBasket1(product: Product): void{
     this.product = product;
     this.basketSum = this.basketSum + +product.productPrice;
     this.productAmount++;
@@ -256,28 +220,28 @@ export class HomeShopComponent implements OnInit, OnDestroy {
   }
 
 
-  RedirectToSearchingComponent(): void {
+RedirectToSearchingComponent(): void {
     this.router.navigate(['/shop', {outlets: {route4: ['name', this.search]}}]);
     this.search = '';
   }
 
 
 
-  RedirectToTechnicalDataComponent(id: number): void {
+RedirectToTechnicalDataComponent(id: number): void {
     this.router.navigate(['/shop', {outlets: {route4: ['technicalData', id]}}]);
   }
 
 
-  ScrollToTop(): void {
+ScrollToTop(): void {
     document.getElementById('anchor').scrollIntoView({behavior: 'smooth'});
   }
 
-  ScrollToContact(): void {
+ScrollToContact(): void {
     document.getElementById('contact').scrollIntoView({behavior: 'smooth'});
   }
 
 
-  GoToHomePage(): void
+GoToHomePage(): void
   {
     this.ngxService.start();
 
@@ -286,12 +250,9 @@ export class HomeShopComponent implements OnInit, OnDestroy {
     }, 500);
   }
 
-  HideLoginModal(): void{
+HideLoginModal(): void{
    this.byk.hide();
   }
-
-
-
 
   Test(): void{
     console.log('start');
@@ -300,10 +261,10 @@ export class HomeShopComponent implements OnInit, OnDestroy {
         name: 'Kawa',
         sectionCategoriesList: [
           ({
-            name: 'Owoce',
+            name: 'Herbata',
             sectionSubCategoriesList: [
               ({
-                 name: 'Jablko'
+                name: 'YerbaMate'
               }),
               ({
                 name: 'Banan'
@@ -314,10 +275,10 @@ export class HomeShopComponent implements OnInit, OnDestroy {
             ]
           }),
           ({
-            name: 'Warzywa',
+            name: 'Kawa',
             sectionSubCategoriesList: [
               ({
-                name: 'Ogorek'
+                name: 'Kawa ziarnista'
               }),
               ({
                 name: 'pomidor'

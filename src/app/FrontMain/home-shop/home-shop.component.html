@@ -30,8 +30,8 @@
       <div class="col-6 section_col_start">
 
         <input style="box-shadow:0px 0px 4px black;" type="text" (keydown.enter)="RedirectToSearchingComponent()" [(ngModel)]="search" class="form-control col6_section_col_start_input" placeholder="  Szukaj" autocomplete="off" >
-        <div class="row" style="padding: 0; height: 100%;" >
-          <div [routerLink]="['/shop', { outlets: {'route4': ['basket'] }}]" class="col-4">
+        <div class="row" style="padding: 0; height: 85px; " >
+          <div [routerLink]="['/shop', { outlets: {'route4': ['basket'] }}]" class="col-4" style="height: 85px;" >
 
             <div class="basket row">
               <i class="fa fa-shopping-basket basket_icon" ></i>
@@ -118,172 +118,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!--Nav Start-->
-<!--  <nav>-->
-<!--    <div class="row nav_row_start align-items-center">-->
-<!--      <div class="subpages"></div>-->
-<!--      <div class="subpages"></div>-->
-
-<!--      <div class="show-on-hover btn-group subpages" >-->
-<!--    <a  class="subpages ">-->
-<!--      <button [routerLink]="['/shop', { outlets: {'route4': ['details','Kawa'] }}]"    class=" btn btn-default subpages dropdown  " data-toggle="dropdown"  >Kawa</button>-->
-<!--    </a>-->
-
-<!--      <ul #abcde id="ule" class="dropdown-menu " role="menu">-->
-<!--        <div class="row">-->
-<!--          <div class="col-3 listMenu"> <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details','Kawa'] }}]" >Kawa</div>-->
-<!--            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Kawa/Kawa ziarnista'] }}]" class="dropdown-item itemList" >Kawa ziarnista</li>-->
-<!--            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Kawa/Kawa mielona'] }}]" class="dropdown-item itemList">Kawa mielona</li>-->
-<!--            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Kawa/Kawa bezkofeinowa'] }}]" class="dropdown-item itemList" >Kawa bezkofeinowa</li>-->
-
-<!--          </div>-->
-
-<!--          <div class="col-3 listMenu"> <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details','Herbata'] }}]" >Herbata</div>-->
-<!--            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Herbata/Herbata w saszetkach'] }}]"  class="dropdown-item itemList">Herbata zwykła</li>-->
-<!--            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Herbata/Herbata sypana'] }}]"  class="dropdown-item itemList">Herbata sypana</li>-->
-<!--            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Herbata/Yerba Mate'] }}]"  class="dropdown-item itemList">Yerba Mate</li>-->
-<!--          </div>-->
-
-<!--          <div class="col-3 listMenu"> <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details','Dodatki'] }}]" >Dodatki</div>-->
-<!--            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Dodatki/Czekolady'] }}]"class="dropdown-item itemList">Czekolady</li>-->
-<!--            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Dodatki/Słodycze'] }}]" class="dropdown-item itemList">Słodycze</li>-->
-<!--            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Dodatki/Cukier'] }}]"class="dropdown-item itemList">Cukier</li>-->
-<!--          </div>-->
-
-<!--        </div>-->
-<!--      </ul>-->
-<!--  </div>-->
-
-
-
-
-<!--      <div class="show-on-hover btn-group subpages" >-->
-<!--        <a  class="subpages"[routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne'] }}]"> <button class="subpages  btn btn-default">Ekspresy automatyczne</button> </a>-->
-
-<!--        <ul class="dropdown-menu " role="menu">-->
-<!--          <div class="row">-->
-<!--            <div  class="col-3 listMenu"> <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Domowe'] }}]" >Ekspresy Domowe</div>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Domowe/Saeco'] }}]" class="dropdown-item itemList" >Saeco</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Domowe/Jura'] }}]" class="dropdown-item itemList">Jura</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Domowe/Nivona'] }}]"class="dropdown-item itemList" >Nivona</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Domowe/Melitta'] }}]"class="dropdown-item itemList" >Melitta</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Domowe/Delonghi'] }}]"class="dropdown-item itemList" >Delonghi</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Domowe/Inne'] }}]"class="dropdown-item itemList" >Inne</li>-->
-
-<!--            </div>-->
-
-
-<!--            <div class="col-3 listMenu"> <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Przemysłowe'] }}]" >Ekspresy Przemysłowe</div>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Przemysłowe/Saeco Phedra'] }}]" class="dropdown-item itemList">Saeco Phedra</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Przemysłowe/Franke'] }}]" class="dropdown-item itemList">Franke</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Przemysłowe/Jura Giga'] }}]"class="dropdown-item itemList">Jura Giga</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Przemysłowe/Hendi'] }}]"class="dropdown-item itemList">Hendi</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy automatyczne/Ekspresy Przemysłowe/Gaggia'] }}]"class="dropdown-item itemList">Gaggia</li>-->
-<!--            </div>-->
-
-
-<!--          </div>-->
-<!--        </ul>-->
-<!--      </div>-->
-
-<!--      <div class="show-on-hover btn-group subpages" >-->
-<!--        <a class="subpages" [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe'] }}]"> <button class="subpages  btn btn-default">Ekspresy kolbowe</button> </a>-->
-
-<!--        <ul class="dropdown-menu " role="menu">-->
-<!--          <div class="row">-->
-
-<!--          <div class="col-3 listMenu"> <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Domowe'] }}]" >Ekspresy Domowe</div>-->
-
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Domowe/San Marco'] }}]" class="dropdown-item itemList" >San Marco</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Domowe/Gaggia '] }}]" class="dropdown-item itemList">Gaggia</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Domowe/Hendi '] }}]" class="dropdown-item itemList" >Hendi</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Domowe/Saeco'] }}]" class="dropdown-item itemList" >Saeco</li>-->
-<!--            <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Domowe/Delonghi'] }}]" class="dropdown-item itemList" >Delonghi</li>-->
-
-<!--          </div>-->
-
-
-
-<!--            <div class="col-3 listMenu"> <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Przemysłowe'] }}]" >Ekspresy Przemysłowe</div>-->
-
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Przemysłowe/San Marco'] }}]" class="dropdown-item itemList" >San Marco</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Przemysłowe/Gaggia '] }}]" class="dropdown-item itemList">Gaggia</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Przemysłowe/Hendi '] }}]" class="dropdown-item itemList" >Hendi</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Przemysłowe/Bartscher'] }}]" class="dropdown-item itemList" >Bartscher</li>-->
-<!--              <li [routerLink]="['/shop', { outlets: {'route4': ['details','Ekspresy kolbowe/Ekspresy Przemysłowe/Saeco'] }}]" class="dropdown-item itemList" >Saeco</li>-->
-
-<!--            </div>-->
-
-
-
-<!--          </div>-->
-<!--        </ul>-->
-<!--      </div>-->
-
-<!--      <div class="show-on-hover btn-group subpages" >-->
-<!--        <a  class="subpages"[routerLink]="['/shop', { outlets: {'route4': ['details','Części zamienne'] }}]"> <button class="subpages  btn btn-default">Części zamienne</button> </a>-->
-
-<!--        <ul class="dropdown-menu " role="menu">-->
-
-<!--          <li [routerLink]="['/shop', { outlets: {'route4': ['details','Części zamienne/Uszczelki'] }}]" class="dropdown-item itemList" >Uszczelki</li>-->
-<!--          <li [routerLink]="['/shop', { outlets: {'route4': ['details','Części zamienne/Pojemniki'] }}]" class="dropdown-item itemList">Pojemniki</li>-->
-<!--          <li [routerLink]="['/shop', { outlets: {'route4': ['details','Części zamienne/Zaparzacze'] }}]" class="dropdown-item itemList" >Zaparzacze</li>-->
-<!--          <li [routerLink]="['/shop', { outlets: {'route4': ['details','Części zamienne/Czujniki'] }}]" class="dropdown-item itemList" >Czujniki</li>-->
-<!--          <li [routerLink]="['/shop', { outlets: {'route4': ['details','Części zamienne/Inne'] }}]" class="dropdown-item itemList" >Inne</li>-->
-<!--        </ul>-->
-<!--      </div>-->
-
-<!--      <div class="show-on-hover btn-group subpages" >-->
-<!--        <a  class="subpages"[routerLink]="['/shop', { outlets: {'route4': ['details','Serwis'] }}]"> <button class="subpages  btn btn-default">Serwis</button> </a>-->
-
-<!--        <ul class="dropdown-menu " role="menu">-->
-
-<!--          <li [routerLink]="['/shop', { outlets: {'route4': ['zlecenie'] }}]"  class="dropdown-item itemList" >Zleć naprawe ekspresu</li>-->
-<!--          <li  [routerLink]="['/shop', { outlets: {'route4': ['cennik']}}]"class="dropdown-item itemList">Cennik usług serwisowych</li>-->
-<!--        </ul>-->
-<!--      </div>-->
-
-
-<!--      <div class="show-on-hover btn-group subpages" >-->
-<!--        <button  class="subpages  btn btn-default"> <div [routerLink]="['/shop', { outlets: {'route4': ['details','Akcesoria'] }}]" >Akcesoria</div></button>-->
-
-<!--        <ul class="dropdown-menu " role="menu">-->
-
-<!--          <li [routerLink]="['/shop', { outlets: {'route4': ['details','Akcesoria/Filtry'] }}]" class="dropdown-item itemList" >Filtry</li>-->
-<!--          <li [routerLink]="['/shop', { outlets: {'route4': ['details','Akcesoria/Odkamieniacze'] }}]" class="dropdown-item itemList">Odkamieniacze</li>-->
-<!--          <li  [routerLink]="['/shop', { outlets: {'route4': ['details','Akcesoria/Tabletki'] }}]"class="dropdown-item itemList">Tabletki</li>-->
-<!--          <li  [routerLink]="['/shop', { outlets: {'route4': ['details','Akcesoria/Pully Milk'] }}]"class="dropdown-item itemList">Pully Milk</li>-->
-<!--        </ul>-->
-<!--      </div>-->
-
-
-
-<!--      <button  (click)="ScrollToContact()" class="subpages  btn btn-default">Kontakt</button>-->
-<!--      <div class="subpages"></div>-->
-<!--      <div class="subpages"></div>-->
-<!--    </div>-->
-<!--  </nav>-->
-
-  <!--Nav End-->
   <div>
   <router-outlet name="route4"></router-outlet>
   </div>
@@ -303,63 +137,16 @@
   <!--Article End-->
 
   <!--Article1 Start-->
-
-  <article>
-    <div class="row " >
-      <div class="col-12 article1_col12">
-        Ostatnio Dodane
-      </div>
-    </div>
-
-  </article>
-
-  <!--Article1 End-->
-
-  <!--Article2 Start-->
-
-  <article>
-
-    <div class="row">
-      <div class="col-12 ">
-
-        <div class="row unit_product">
-         <ng-container *ngFor="let product of products ">
-
-          <div class="col-lg-3 ngcontainer_col_3" >
-
-            <img class="images_product" [src]="product.imageByte"  (click)="RedirectToTechnicalDataComponent(product.id)" alt="ImageProblem">
-
-            <div class="product_image_name">
-              <span>  {{product.productName}}</span>
-              <br>
-              <span  class="product_image_name_span_price">{{+product.productPrice}} zł </span>
-              <br>
-
-              <span class="details_span1" (click)="AddToBasket(product)">Dodaj do koszyka</span> | <span class="details_span" (click)="RedirectToTechnicalDataComponent(product.id)">Szczegóły</span>
-            </div>
-          </div>
-         </ng-container>
-        </div>
-      </div>
-    </div>
-  </article>
-   <!--Article2 End-->
-
-
-   <!--Article3 Start-->
+ <ng-container *ngFor="let articleLine of articleLines; let i = index;">
 
    <article>
-     <div class="row " >
+     <div class="row" >
        <div class="col-12 article1_col12">
-         Popularne
+         {{articleLine.name}}
        </div>
      </div>
-
    </article>
 
-   <!--Article3 End-->
-
-   <!--Article4 Start-->
 
    <article>
 
@@ -367,19 +154,19 @@
        <div class="col-12 ">
 
          <div class="row unit_product">
-           <ng-container *ngFor="let product1 of products1 ">
+           <ng-container *ngFor="let product of articleLine.productList">
 
              <div class="col-lg-3 ngcontainer_col_3" >
 
-               <img class="images_product" [src]="product1.imageByte"  (click)="RedirectToTechnicalDataComponent(product1.id)" alt="ImageProblem">
+               <img class="images_product" [src]="product.imageByte"  (click)="RedirectToTechnicalDataComponent(product.id)" alt="ImageProblem">
 
                <div class="product_image_name">
-                 <span>  {{product1.productName}}</span>
+                 <span>  {{product.productName}}</span>
                  <br>
-                 <span  class="product_image_name_span_price">{{+product1.productPrice}} zł </span>
+                 <span  class="product_image_name_span_price">{{+product.productPrice}} zł </span>
                  <br>
 
-                 <span class="details_span1" (click)="AddToBasket(product1)">Dodaj do koszyka</span> | <span class="details_span" (click)="RedirectToTechnicalDataComponent(product1.id)">Szczegóły</span>
+                 <span class="details_span1" (click)="AddToBasket(product)">Dodaj do koszyka</span> | <span class="details_span" (click)="RedirectToTechnicalDataComponent(product.id)">Szczegóły</span>
                </div>
              </div>
            </ng-container>
@@ -387,7 +174,9 @@
        </div>
      </div>
    </article>
-   <!--Article4 End-->
+ </ng-container>
+
+
 
  </div>
   <!--Footer Start-->
@@ -450,11 +239,6 @@
      </div>
    </footer>
 
-
-
-
-
-
 </div>
 
 
@@ -468,6 +252,3 @@
 </ng-template>
 
 
-<ng-template #login>
-  <app-login-user></app-login-user>
-</ng-template>

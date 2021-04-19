@@ -15,11 +15,16 @@ import {HomeShopComponent} from '../home-shop/home-shop.component';
 })
 export class DetailsCurrentCoffeMachineComponent implements OnInit, OnDestroy{
 
+
+
+
+  @ViewChild('alert') alert: TemplateRef<any>;
+
+  @ViewChild('addProductBasket') addProductToBasket: TemplateRef<any>;
   sub: any;
   id: string;
-  idTable = [];
-  products = [];
-  table = [];
+  idTable: Array<string> = [];
+  products: Array<Product> = [];
   order: ProductBasket;
   productPrices = [];
   path = 'http://localhost:8088/image';
@@ -52,13 +57,6 @@ export class DetailsCurrentCoffeMachineComponent implements OnInit, OnDestroy{
   };
 
 
-  @ViewChild('alert')
-  alert: TemplateRef<any>;
-
-  @ViewChild('addProductBasket')
-  addProductToBasket: TemplateRef<any>;
-
-
   constructor(private router: Router, private productService: ProductServiceService,
               private dataService: DataserviceService, private route: ActivatedRoute,
               private ngxService: NgxUiLoaderService,
@@ -69,12 +67,10 @@ export class DetailsCurrentCoffeMachineComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
 
+  document.getElementById('article').style.display = 'none';
 
 
-    document.getElementById('article').style.display = 'none';
-
-
-    this.sub = this.route.params.subscribe(params => {
+  this.sub = this.route.params.subscribe(params => {
 
       this.ngxService.start();
       setTimeout(() => {
@@ -85,7 +81,6 @@ export class DetailsCurrentCoffeMachineComponent implements OnInit, OnDestroy{
       this.idTable = this.id.split('/');
       this.formData = new FormData();
       this.formData.append('path', this.id);
-      this.formData.append('sortWay', 'ascending');
       this.sorting = 'Sortuj wg';
 
       this.productService.GetCategories(this.formData).subscribe(value => {
@@ -103,17 +98,17 @@ export class DetailsCurrentCoffeMachineComponent implements OnInit, OnDestroy{
   }
 
 
-
-
   GetImages(formData: FormData): void{
+    this.products = [];
+    this.productPrices = [];
 
-    this.productService.GetProducts(formData).subscribe(value => {
-      this.products = [];
-      this.productPrices = [];
+    this.productService.GetProducts(formData).subscribe(productsArray => {
 
-      value.forEach(value1 => {
-        this.getImageFromService(value1);
-        this.productPrices.push(+value1.productPrice);
+      productsArray.forEach(product => {
+        this.productService.getImageFromService(product).subscribe(blob => {
+          this.createImageFromBlob(blob, product);
+        });
+        this.productPrices.push(+product.productPrice);
       });
 
       const prices: Array<number> = this.productPrices.sort((a, b) => this.compare(a, b));
@@ -128,13 +123,8 @@ export class DetailsCurrentCoffeMachineComponent implements OnInit, OnDestroy{
     });
   }
 
-  getImageFromService(product): void {
 
-    const pathImage = product.pathToFile.replace('C:/ZdjęciaBaza/Upload', '');
-    this.productService.GetPhotos(this.path + pathImage).subscribe(data => {
-      this.createImageFromBlob(data, product);
-    });
-  }
+
 
   createImageFromBlob(image: Blob, product: Product): void {
     const reader = new FileReader();
@@ -168,6 +158,7 @@ export class DetailsCurrentCoffeMachineComponent implements OnInit, OnDestroy{
 
 
   AddToBasket(product: Product): void {
+
 
     this.orderService.CheckExistsOrder(product, result => {
 
@@ -242,23 +233,26 @@ export class DetailsCurrentCoffeMachineComponent implements OnInit, OnDestroy{
   }
 
   ReadValues(): void{
+    this.products = [];
+    this.productPrices = [];
 
     this.productService.GetProducts(this.formData).subscribe(value => {
 
-       this.products = [];
-       this.productPrices = [];
+      value.forEach(product => {
 
-       value.forEach(value1 => {
+        if (+product.productPrice >= this.value12  && +product.productPrice <= this.highValue12 )
+        {
 
-          if (+value1.productPrice >= this.value12  && +value1.productPrice <= this.highValue12 )
-         {
-
-           this.productPrices.push(+value1.productPrice);
-           this.getImageFromService(value1);
-         }
-       });
-     });
+          this.productPrices.push(+product.productPrice);
+          this.productService.getImageFromService(product).subscribe(blob => {
+            this.createImageFromBlob(blob, product);
+          });
+        }
+      });
+    });
   }
+
+
 
   comparePrice(a: Product, b: Product): number {
     if ( +a.productPrice < +b.productPrice) {

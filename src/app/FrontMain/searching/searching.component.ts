@@ -14,25 +14,16 @@ import {HomeShopComponent} from '../home-shop/home-shop.component';
 })
 export class SearchingComponent implements OnInit, OnDestroy {
 
-  products = [];
-  order: ProductBasket;
-  path = 'http://localhost:8088/image';
 
+  @ViewChild('alert') alert: TemplateRef<any>;
+  @ViewChild('addProductBasket') addProductToBasket: TemplateRef<any>;
+  products: Array<Product> = [];
+  product: Product;
+  order: ProductBasket;
   sub: any;
   id: any;
   formData: any;
-  div: HTMLElement;
-  value: any;
-  table = [];
-
   maxValue: any;
-  product: any;
-
-  @ViewChild('alert')
-  alert: TemplateRef<any>;
-
-  @ViewChild('addProductBasket')
-  addProductToBasket: TemplateRef<any>;
 
   config = {
     animated: true,
@@ -47,13 +38,7 @@ export class SearchingComponent implements OnInit, OnDestroy {
   totalRecords: number;
 
 
-
-
-
-
-
   constructor(private productService: ProductServiceService,
-              private dataserviceService: DataserviceService,
               private route: ActivatedRoute,
               private ngxService: NgxUiLoaderService,
               private modalService: BsModalService,
@@ -68,22 +53,15 @@ export class SearchingComponent implements OnInit, OnDestroy {
      document.getElementById('article').style.display = 'none';
 
 
-
      this.sub = this.route.params.subscribe(params => {
-
-     this.ngxService.start();
-     setTimeout(() => {
+       this.ngxService.start();
+       setTimeout(() => {
        this.ngxService.stop();
      }, 100);
+       this.id = params.name;
 
-
-
-     this.sorting = 'Sortuj wg';
-     this.id = params.name;
-     this.formData = new FormData();
-     this.formData.append('searchText', this.id);
-     this.GetImages(this.formData);
-
+       this.sorting = 'Sortuj wg';
+       this.GetImages(this.id);
      });
 
 
@@ -93,25 +71,17 @@ export class SearchingComponent implements OnInit, OnDestroy {
   }
 
 
-  GetImages(formData: FormData): void{
+  GetImages(searchText: string): void{
+    this.products = [];
 
-    this.productService.GetAllSearchingProduct(formData).subscribe(value => {
-
-      this.products = [];
-
-      value.forEach(value1 => {
-        this.getImageFromService(value1);
+    this.productService.GetAllSearchingProduct(searchText).subscribe(productsArray => {
+      productsArray.forEach(product => {
+        this.productService.getImageFromService(product).subscribe(blob => {
+          this.createImageFromBlob(blob, product);
+        });
       });
     });
   }
-
-  getImageFromService(product: Product): void {
-    const pathImage = product.pathToFile.replace('C:/ZdjęciaBaza/Upload', '');
-    this.productService.GetPhotos(this.path + pathImage).subscribe(data => {
-      this.createImageFromBlob(data, product);
-    });
-  }
-
 
 
   createImageFromBlob(image: Blob, product: Product): void {

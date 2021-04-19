@@ -10,7 +10,7 @@ export class InvoiceService {
 
   constructor(private httpClient: HttpClient) { }
 
-  url = 'http://localhost:8089/invoice/';
+  url = 'http://localhost:8088/invoice/';
 
 
   public GetInvoiceById(id: number): Observable<InvoiceDTO>{
