@@ -1,10 +1,87 @@
-.userPanelMenu
-{
-  padding-bottom: 25px;
-  text-align: left;
-  padding-left: 140px;
-  font-size: 17px;
+@media (max-width: 576px) {
+ greater-devices
+ {
+   display: none;
+ }
+  .userPanelMenu
+  {
+    padding-bottom: 25px;
+    text-align: center;
+    padding-left: 20px;
+  }
+  .span_username
+  {
+    padding-left: 20px;
+    padding-top: 10px;
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+
+
 }
+
+@media (min-width: 576px) {
+
+
+
+
+}
+
+@media (min-width: 768px) {
+
+
+
+  small-devices
+  {
+    display: none;
+  }
+  .userPanelMenu
+  {
+    padding-bottom: 25px;
+    text-align: left;
+    padding-left: 140px;
+    font-size: 17px;
+  }
+
+
+
+}
+
+@media (min-width: 992px) {
+
+
+}
+
+@media (min-width: 1200px) {
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .menuOption
 {

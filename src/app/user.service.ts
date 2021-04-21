@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {Client, Product} from './product-service.service';
+import {ShopClient} from './client-service.service';
+import {map} from 'rxjs/operators';
+import {error} from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +21,9 @@ export class UserService {
   urlRole = 'http://localhost:' + this.port + '/role';
   urlNameUser = 'http://localhost:' + this.port + '/name12';
   urlAddress = 'http://localhost:' + this.port + '/client/address';
-  urlClient = 'http://localhost:' + this.port + '/client';
+  urlShopClient = 'http://localhost:' + this.port + '/shop/client';
 
-  test = 'http://localhost:' + this.port + '/user1';
+  test = 'http://localhost:' + this.port + '/user';
 
   httpOptions: any;
   headers: any;
@@ -29,30 +32,64 @@ export class UserService {
     this.httpClient = httpClient;
   }
 
+
   public GetUserFromServerWithJwt(): Observable<User>{
 
     this.headers = new HttpHeaders();
-    this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('tokenJwt')}`);
+    this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
     this.headers = this.headers.append('Content-Type', 'application/json');
 
-    return this.httpClient.post<User>(this.test, null, {headers: this.headers});
+    return this.httpClient.get<any>(this.test, {headers: this.headers, observe: 'response'})
+      .pipe(map(value => {
+        if (value.status === 200){
+          console.log(value);
+          return value.body.body;
+        }
+        else {
+          throwError(error('Faul'));
+        }
+      }));
   }
 
-  public ChangeClientData(client: Client): Observable<any>{
+  public ChangeShopClientAddress(shopClient: ShopClient): Observable<ShopClient>{
     this.headers = new HttpHeaders();
-    this.headers = this.headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
+    this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
     this.headers = this.headers.append('Content-Type', `application/json`);
 
-    return this.httpClient.patch<any>(this.urlClient, client, {observe: 'response', headers: this.headers});
+    return this.httpClient.patch<any>(this.urlShopClient, shopClient, {observe: 'response', headers: this.headers})
+      .pipe(map(response => {
+        if (response.status === 200){
+          return response.body.body;
+        }
+        else
+        {
+          throwError(error('Error'));
+        }
+      }));
   }
+
+
+
+
+
+
+
+
+
 
   public GetClient(): Observable<Client>{
     this.headers = new HttpHeaders();
     this.headers = this.headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
     this.headers = this.headers.append('Content-Type', `application/json`);
 
-    return this.httpClient.get<Client>(this.urlClient,{ headers: this.headers});
+    return this.httpClient.get<Client>(this.urlShopClient, { headers: this.headers});
   }
+
+
+
+
+
+
 
 
 
@@ -94,10 +131,15 @@ export class UserService {
 }
 
 export interface User{
+  id?: string;
   username?: string;
   password?: string;
   email?: string;
   codeVerification?: string;
   password1?: string;
-  }
+  shopClient?: ShopClient;
+  authorization?: boolean;
+  role?: string;
+
+}
 

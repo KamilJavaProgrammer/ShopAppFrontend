@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -125,7 +125,7 @@ const routes: Routes = [{
      { path: 'zlecenie', component: RepairOrderComponent, outlet: 'route4' },
     { path: 'logowanie', component: LoginUserComponent, outlet: 'route4' },
      { path: 'technicalData/:id', component: TechnicalDataOfProductComponent, outlet: 'route4' },
-     { path: 'basket', component: BasketComponent, outlet: 'route4' },
+     { path: 'koszyk', component: BasketComponent, outlet: 'route4' },
       { path: 'rejestracja', component: RegistrationUserComponent, outlet: 'route4' },
      { path: 'haslo/zmiana', component: ForgotPasswordComponent, outlet: 'route4' },
     {
@@ -133,7 +133,7 @@ const routes: Routes = [{
       children : [
                {path: 'zamówienia', component: UserOrdersComponent, outlet: 'route5'},
                {path: 'reklamacje', component: ComplaintComponent, outlet: 'route5'},
-               {path: 'adresy', component: UserAdressesComponent, outlet: 'route5'},
+               {path: 'adresy', component: UserAdressesComponent, outlet: 'route5', canActivate: [AuthGuard]},
                {path: 'ustawienia', component: UserSettingAccountComponent, outlet: 'route5'},
                {path: 'wiadomości', component: UserMessagesComponent, outlet: 'route5'},
                ]
@@ -274,7 +274,8 @@ export function JwtTokenGetter(): any {
 
 
   ],
-  providers: [ ProductServiceService, TestDirective, DataserviceService, AuthService, AuthGuard, EditProductComponent, ClientServiceService, WarehouseComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  providers: [ ProductServiceService, TestDirective, DataserviceService, AuthService, AuthGuard, EditProductComponent, ClientServiceService, WarehouseComponent, HomeShopComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

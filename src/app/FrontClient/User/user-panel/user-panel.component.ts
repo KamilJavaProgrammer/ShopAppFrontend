@@ -16,6 +16,8 @@ export class UserPanelComponent implements OnInit, OnDestroy{
   logOutAlert: TemplateRef<any>;
   nameOfUser: string;
 
+  menuCounter = 0;
+
 
 
   constructor(private router: Router,
@@ -26,6 +28,7 @@ export class UserPanelComponent implements OnInit, OnDestroy{
 
 
   ngOnInit(): void {
+
 
     this.setFront();
     this.nameOfUser  = this.authGuard.DecodeJwt();
@@ -53,4 +56,14 @@ export class UserPanelComponent implements OnInit, OnDestroy{
   }
 
 
+  ShowMenuSmallDevices(): void {
+    if (this.menuCounter === 0){
+      this.menuCounter = 1;
+      document.getElementById('menu').style.display = 'block';
+    }
+    else {
+      this.menuCounter = 0;
+      document.getElementById('menu').style.display = 'none';
+    }
+  }
 }

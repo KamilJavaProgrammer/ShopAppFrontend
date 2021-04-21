@@ -7,7 +7,7 @@ import {NgxUiLoaderModule, NgxUiLoaderService} from 'ngx-ui-loader';
   templateUrl: './user-orders.component.html',
   styleUrls: ['./user-orders.component.css']
 })
-export class UserOrdersComponent implements OnInit,OnDestroy {
+export class UserOrdersComponent implements OnInit, OnDestroy {
 
   orders: Array<CompleteOrder> = [];
   page = 1;
@@ -22,7 +22,7 @@ export class UserOrdersComponent implements OnInit,OnDestroy {
     }, 200);
     document.getElementById('orders').style.color = 'crimson';
 
-    this.orderService.GetAllOrdersByUserId().subscribe(value => {
+    this.orderService.GetAllOrdersForUser().subscribe(value => {
          this.orders = value;
       });
   }

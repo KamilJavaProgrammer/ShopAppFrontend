@@ -7,6 +7,7 @@ import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {ArticleLine, Section, SectionCategories, SectionService, SectionSubCategories} from '../../section.service';
 import {HttpClient} from '@angular/common/http';
+import {AuthGuard} from '../../auth.guard';
 
 @Component({
   selector: 'app-home-shop',
@@ -22,12 +23,13 @@ export class HomeShopComponent implements OnInit, OnDestroy {
               private orderService: OrderService,
               private modalService: BsModalService,
               private sectionService: SectionService,
-              private httpClient: HttpClient){}
+              private httpClient: HttpClient,
+              private authGuard: AuthGuard){}
 
 
 
 
-  @ViewChild('basket') basket: ElementRef;
+  @ViewChild('basket') koszyk: ElementRef;
   @ViewChild('alert') alert: TemplateRef<any>;
   @ViewChild('addProductBasket') addProductToBasket: TemplateRef<any>;
   sections: Array<Section> = [];
@@ -44,8 +46,10 @@ export class HomeShopComponent implements OnInit, OnDestroy {
   maxValue: any;
   product: Product;
   byk: BsModalRef;
-  account: string;
+  account = 'Zaloguj się';
   headerData = 'Masz pytania dzwoń! 185556372';
+
+  counter = 0;
 
   config = {
     animated: true,
@@ -54,6 +58,7 @@ export class HomeShopComponent implements OnInit, OnDestroy {
     ignoreBackdropClick: false,
     class: 'modal-lg'
   };
+  customClass = 'custom-accordion-style';
 
 
   ngOnInit(): void {
@@ -63,6 +68,7 @@ export class HomeShopComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.ngxService.stop();
     }, 500);
+
 
     this.orders = JSON.parse(sessionStorage.getItem('tableOrders'));
     this.basketSum = 0;
@@ -76,14 +82,14 @@ export class HomeShopComponent implements OnInit, OnDestroy {
       });
     }
 
-    if (sessionStorage.getItem('tokenJwt') !== null){
 
+    if (this.authGuard.CheckExpirationDateToken() === true){
       this.account = 'Twoje konto';
+
     }
     else
     {
       this.account = 'Zaloguj się';
-
     }
     // this.Test();
 
@@ -157,13 +163,17 @@ export class HomeShopComponent implements OnInit, OnDestroy {
 
 Login(): void{
 
-    if (sessionStorage.getItem('response') !== null){
-      const table = sessionStorage.getItem('response').split('/');
-      this.router.navigate(['/shop', {outlets: {route4: ['konto', table[2]]}}]);
+    if (this.authGuard.CheckExpirationDateToken() === true){
+      this.router.navigate(['/shop', {outlets: {route4: 'konto'}}]);
+      this.account = 'Twoje konto';
+
     }
-    else {
+    else
+    {
       this.router.navigate(['/shop', {outlets: {route4: ['logowanie']}}]);
+      this.account = 'Zaloguj się';
     }
+
 
   }
 
@@ -304,5 +314,15 @@ HideLoginModal(): void{
   }
 
 
+  ShowMenuSmallDevices(): void {
+    if (this.counter === 0){
+      this.counter = 1;
+      document.getElementById('navSmallDevices').style.display = 'block';
+    }
+    else {
+      this.counter = 0;
+      document.getElementById('navSmallDevices').style.display = 'none';
+    }
+  }
 }
 

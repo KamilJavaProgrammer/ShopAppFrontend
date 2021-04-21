@@ -1,5 +1,5 @@
 <div class="container" id="anchor">
-  <ng-container *ngIf="tokenJwt !== null && tokenJwt !=='null',else absent,then present"></ng-container>
+  <ng-container *ngIf="tokenJwt === true,else absent,then present"></ng-container>
 
   <ng-template #absent >
 
@@ -11,15 +11,15 @@
       </div>
 
          <div class="row buttonDiv">
-           <div class="col-4">
+           <div class="col-lg-4 " >
               <a [routerLink]="['/shop', {outlets: {route4: ['logowanie']}}]"> <button class="btn-outline-dark btn button" >Zaloguj się</button></a>
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 buttonsDiv_col" >
              <button (click)="BuyNoRegister()" class="btn-outline-dark btn button">Kup bez rejestracji</button>
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 buttonsDiv_col">
             <a [routerLink]="['/shop', {outlets: {route4: ['rejestracja']}}]"> <button  class="btn-outline-dark btn button">Rejestracja</button></a>
          </div>
        </div>
@@ -55,17 +55,17 @@
        </div>
 
       <div class="row inputRow">
-          <div class="col"></div>
-          <div class="col">
+          <div class="col-lg"></div>
+          <div class="col-lg">
             <input type="text" class="form-control colForm" placeholder="Imie" name="name"  [(ngModel)]="name" autocomplete="off">
           </div>
-          <div class="col">
+          <div class="col-lg">
             <input type="text" class="form-control colForm" placeholder="Nazwisko"  name="surname"  [(ngModel)]="surname" autocomplete="off">
           </div>
-          <div class="col">
+          <div class="col-lg">
             <input type="email" class="form-control colForm" placeholder="E-mail" name="email"  [(ngModel)]="email" autocomplete="off">
           </div>
-          <div class="col"></div>
+          <div class="col-lg"></div>
       </div>
 
 
@@ -77,24 +77,24 @@
        </div>
 
       <div class="row inputRow">
-         <div class="col"></div>
-         <div class="col">
+         <div class="col-lg"></div>
+         <div class="col-lg">
             <input type="text" class="form-control colForm" placeholder="Adres" name="address" [(ngModel)]="address"  autocomplete="off">
         </div>
-        <div class="col">
+        <div class="col-lg">
            <input type="text" class="form-control colForm" placeholder="Kod Pocztowy" name="postCode" [(ngModel)]="postCode"  autocomplete="off">
         </div>
-        <div class="col">
+        <div class="col-lg">
            <input type="text" class="form-control colForm" placeholder="Miejscowość" name="town" [(ngModel)]="town"  autocomplete="off">
         </div>
-        <div class="col"></div>
+        <div class="col-lg"></div>
       </div>
 
 
 
         <div class="row buttonRow">
           <div class="col-12">
-            <input #invoiceForm id="checkboxInvoice" type="checkbox" name="InvoiceCheckbox" [(ngModel)]="invoiceCheckbox" (change)="AddFormInvoice()"> Chcę otrzymać fakturę
+            <input class="invoiceCheckbox" #invoiceForm id="checkboxInvoice" type="checkbox" name="InvoiceCheckbox" [(ngModel)]="invoiceCheckbox" (change)="AddFormInvoice()"> Chcę otrzymać fakturę
           </div>
         </div>
 
@@ -106,32 +106,32 @@
           </div>
 
           <div class="row inputRow">
-            <div class="col"></div>
-            <div class="col">
+            <div class="col-lg"></div>
+            <div class="col-lg">
               <input type="text" class="form-control colForm" placeholder="Nazwa Firmy" name="businessName" [(ngModel)]="businessName"  autocomplete="off">
             </div>
-            <div class="col">
+            <div class="col-lg">
               <input type="text" class="form-control colForm" placeholder="NIP" name="NIP" (input)="Check()" [(ngModel)]="NIP"  autocomplete="off">
             </div>
-            <div class="col">
+            <div class="col-lg">
               <input type="email" class="form-control colForm" placeholder="E-mail" name="businessEmail" [(ngModel)]="businessEmail"  autocomplete="off">
             </div>
-            <div class="col"></div>
+            <div class="col-lg"></div>
           </div>
 
 
           <div class="row inputRow">
-            <div class="col"></div>
-            <div class="col">
+            <div class="col-lg"></div>
+            <div class="col-lg">
               <input type="text" class="form-control colForm" placeholder="Adres" name="businessAddress" [(ngModel)]="businessAddress"  autocomplete="off">
             </div>
-            <div class="col">
+            <div class="col-lg">
               <input type="text" class="form-control colForm" placeholder="Kod pocztowy" name="businessPostCode" [(ngModel)]="businessPostCode"  autocomplete="off">
             </div>
-            <div class="col">
+            <div class="col-lg">
               <input type="text" class="form-control colForm" placeholder="Miejscowość" name="town" [(ngModel)]="businessTown"   autocomplete="off">
             </div>
-            <div class="col"></div>
+            <div class="col-lg"></div>
           </div>
         </div>
 
@@ -143,12 +143,12 @@
         </div>
 
       <div class="row">
-        <div class="col-4 deliveryOption" id="personalPickupButton"  (click)="ChangeStyleForPersonalPickup()">
+        <div class="deliveryOption" id="personalPickupButton"  (click)="ChangeStyleForPersonalPickup()">
           Odbiór osobisty
         </div>
       </div>
       <div class="row">
-        <div class="col-4 deliveryOption" id="parcelCourierButton"  (click)="ChangeStyleForParcelCourier()">
+        <div class="deliveryOption" id="parcelCourierButton"  (click)="ChangeStyleForParcelCourier()">
           Przesyłka Kurierska
         </div>
       </div>
@@ -163,19 +163,19 @@
         </div>
 
         <div class="row">
-          <div class="col-4 paymentMethodOption">
-            <input type="radio" name="paymentMethod" value="Pobranie" (click)="ChangePaymentMethodToHome()"> Za pobraniem
+          <div class=" paymentMethodOption">
+            <input class="paymentMethodRadioInput" type="radio" name="paymentMethod" value="Pobranie" (click)="ChangePaymentMethodToHome()"> Za pobraniem
           </div>
         </div>
 
         <div class="row">
-          <div class="col-4 paymentMethodOption">
-            <input type="radio" name="paymentMethod" value="Przelew Bankowy" (click)="ChangePaymentMethodOnTransfer()"> Przelew Bankowy
+          <div class=" paymentMethodOption">
+            <input class="paymentMethodRadioInput" type="radio" name="paymentMethod" value="Przelew Bankowy" (click)="ChangePaymentMethodOnTransfer()"> Przelew Bankowy
           </div>
         </div>
 
         <div class="row">
-          <div class="col-6 colButtonOrder">
+          <div class=" colButtonOrder">
             <button (click)="Order()" class="btn btn-outline-primary buttonOrder">Zamawiam z obowiązkiem zapłaty</button>
           </div>
         </div>
@@ -187,19 +187,17 @@
           <div id="personalPickupOption">
 
              <div class="row">
-               <div class="col-6 personalPickupOptionDiv">
+               <div class="personalPickupOptionDiv">
                 Nowy Sącz
                 <br>
                ul.Elektrodowa 34
               </div>
             </div>
-
-              <div class="row">
-                 <div class="col-6 colButtonOrder">
+            <div class="row">
+                 <div class="colButtonOrder">
                     <button (click)="Order()" class="btn btn-outline-danger buttonOrder">Zamawiam z obowiązkiem zapłaty</button>
                  </div>
               </div>
-
           </div>
 
 

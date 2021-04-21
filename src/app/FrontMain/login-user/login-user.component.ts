@@ -79,11 +79,14 @@ export class LoginUserComponent implements OnInit, OnDestroy {
 
     this.authService.login(this.user).subscribe(value => {
       if (value === true){
+
          this.router.navigate(['/shop', {outlets: {route4: 'konto'}}]);
+         this.homeShopComponent.account = 'Twoje konto';
       }
       else
       {
         this.text = 'Niepoprawne dane logowania!';
+        this.homeShopComponent.account = 'Zaloguj się';
         this.modalService.show(this.alert, {class: 'modal-lg'});
         this.Clear();
       }

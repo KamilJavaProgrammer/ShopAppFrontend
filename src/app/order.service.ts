@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable, ReplaySubject} from 'rxjs';
+import {Observable, ReplaySubject, throwError} from 'rxjs';
 import {Client, Product} from './product-service.service';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {map} from 'rxjs/operators';
@@ -22,6 +22,29 @@ export class OrderService {
 
   constructor(private httpClient: HttpClient) {}
 
+  GetAllOrdersForUser(): Observable<Array<CompleteOrder>>{
+
+    this.headers = new HttpHeaders();
+    this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
+    return this.httpClient.get<any>(this.urlOrders, {headers: this.headers, observe: 'response'})
+      .pipe(map(response => {
+        if (response.status === 200){
+          return response.body.body;
+        }
+        else {
+          throwError('Fault');
+        }
+      }));
+  }
+
+
+
+
+
+
+
+
+
   SendCompleteOrderToServerNoRegister(completeOrder: any): Observable<HttpResponse<any>>{
     this.headers = new HttpHeaders();
     // this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('tokenJwt')}`);
@@ -30,12 +53,7 @@ export class OrderService {
   }
 
 
-  GetAllOrdersByUserId(): Observable<Array<CompleteOrder>>{
 
-    this.headers = new HttpHeaders();
-    this.headers = this.headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
-    return this.httpClient.get<Array<CompleteOrder>>(this.urlOrders, {headers: this.headers} );
-    }
 
   GetAllOrders(): Observable<Array<CompleteOrder>>{
 
@@ -133,6 +151,8 @@ export class OrderService {
 
 
 
+
+
 export interface CompleteOrder {
   id?: number;
   deliveryOption?: string;
@@ -146,6 +166,17 @@ export interface CompleteOrder {
   productsBasket?: Array<ProductBasket>;
   token?: boolean;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 export interface ProductBasket {
   id?: number;

@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {User} from './user.service';
+import {HomeShopComponent} from './FrontMain/home-shop/home-shop.component';
 
 
 @Injectable({
@@ -20,7 +21,7 @@ export class AuthService {
     return this.http.post<any>(this.urlLogin, user, {observe: 'response'}).
       pipe(map(value => {
         if (value.body.statusCodeValue === 202){
-            localStorage.setItem('accessToken', value.body.body);
+            sessionStorage.setItem('accessToken', value.body.body);
             return true;
          }
          else

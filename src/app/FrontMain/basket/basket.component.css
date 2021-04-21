@@ -1,5 +1,33 @@
 
 @media (max-width: 576px) {
+  .summaryTitle
+  {
+    text-align: center;
+    padding-bottom: 10px;
+    width: 200px;
+    border-bottom: 3px solid #fad38e;
+    margin:auto;
+    font-size: 20px;
+    margin-top: 30px;
+  }
+  table{
+    display: none;
+  }
+
+  .productImg
+  {
+    margin-top: 50px;
+    width: 1000px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .productImg
+  {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    display: block;
+  }
 
 }
 
@@ -11,6 +39,30 @@
 }
 
 @media (min-width: 768px) {
+  .summaryTitle
+  {
+    text-align: center;
+    padding-bottom: 10px;
+    width: 500px;
+    border-bottom: 3px solid #fad38e;
+    margin:auto; font-size: 24px;
+  }
+  .basketTable
+  {
+    margin-top: 50px;
+    width: 1000px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  only-smartphone
+  {
+    display: none;
+  }
+  .productImg
+  {
+    width: 80px;
+    height: 80px;
+  }
 
 
 
@@ -27,18 +79,6 @@
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -115,26 +155,9 @@ a
   padding-top: 92px;
 
 }
-.summaryTitle
-{
-  text-align: center;
-  padding-bottom: 10px;
-  width: 500px;
-  border-bottom: 3px solid #fad38e;
-  margin:auto; font-size: 24px;
-}
-.basketTable
-{
-  margin-top: 50px;
-  width: 1000px;
-  margin-right: auto;
-  margin-left: auto;
-}
-.productImg
-{
-  width: 80px;
-  height: 80px;
-}
+
+
+
 .productNumberOfItemsInput
 {
   width: 100px;

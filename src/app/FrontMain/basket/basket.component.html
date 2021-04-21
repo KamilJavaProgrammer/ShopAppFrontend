@@ -55,6 +55,64 @@
     <button type ="button" class="btn btn-outline-dark supplyButton" (click)="toSupply()">Dostawa i Płatność</button>
   </table>
 
+  <only-Smartphone>
+    <div class="row">
+      <div class="col-12">
+        <ng-container  *ngFor="let order of orders; let i = index;">
+          <div class="row" style="border: 2px solid #fad38e; margin: 10px;   border-radius: 20px;">
+            <div class="col-12" >
+
+              <div class="row">
+                 <div class="col-12" style="padding-top: 10px;">
+                   <img [src]="order.image" alt=" " class="productImg">
+                 </div>
+              </div>
+
+              <div class="row" style="margin-top: 20px; font-size: 18px; font-weight: 500; text-align: center;">
+                <div class="col-12">
+                  <span>{{order.nameOfProduct}}</span>
+                </div>
+              </div>
+
+              <div class="row" style="margin-top: 20px; font-size: 18px; font-weight: 500; text-align: center;">
+
+                <div class="col-4" style="font-size: 14px; font-weight: 500; text-align: center;">
+                  <div class="" >
+                    <span>Cena jednostkowa</span>
+                  </div>
+                  <div class="">
+                    <span>{{order.bruttoPrice}} zł</span>
+                  </div>
+                </div>
+
+                <div class="col-4" style="font-size: 14px; font-weight: 500; text-align: center;">
+                  <div class="">
+                    <span>Ilość</span>
+                  </div>
+                  <div class="row">
+                    <input type="text" class="productNumberOfItemsInput form-control" name="numberOfItems" [(ngModel)]="order.numberOfItems"   (input)="Count(order)"  autocomplete="off"  >
+                  </div>
+                </div>
+
+                <div class="col-4" style="font-size: 14px; font-weight: 500; text-align: center;">
+                  <div class="" >
+                    <span>Razem</span>
+                  </div>
+                  <div class="">
+                    <span>{{order.bruttoPrice * order.numberOfItems}} zł</span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </only-Smartphone>
+
+
   <app-delivery-and-payment  [orders]="orders" [sumMoney]="sumMoney"></app-delivery-and-payment>
 
 </div>

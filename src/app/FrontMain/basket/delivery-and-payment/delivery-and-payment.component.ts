@@ -2,6 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef,
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {CompleteOrder, ProductBasket, OrderService} from '../../../order.service';
 import {BasketComponent} from '../basket.component';
+import {AuthGuard} from '../../../auth.guard';
 
 @Component({
   selector: 'app-delivery-and-payment',
@@ -10,7 +11,7 @@ import {BasketComponent} from '../basket.component';
 })
 export class DeliveryAndPaymentComponent implements OnInit {
 
-  tokenJwt: string;
+  tokenJwt: boolean;
   name: string;
   surname: string;
   email: string;
@@ -55,11 +56,16 @@ export class DeliveryAndPaymentComponent implements OnInit {
   constructor(private bsModalService: BsModalService,
               private basketComponent: BasketComponent,
               private orderService: OrderService,
+              private authGuard: AuthGuard
               ) { }
 
   ngOnInit(): void {
-    this.tokenJwt = sessionStorage.getItem('tokenJwt');
+    this.CheckJwtToken();
   }
+  CheckJwtToken(): void{
+     this.tokenJwt = this.authGuard.CheckExpirationDateToken();
+  }
+
 
   BuyNoRegister(): void {
      document.getElementById('selectOption').style.display = 'none';

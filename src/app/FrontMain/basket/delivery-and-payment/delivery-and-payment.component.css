@@ -1,28 +1,196 @@
-.container
-{
-  margin-top: 50px;
-  padding-bottom: 50px;
-  height: 100%;
-  width: 1000px;
-  margin-right: auto;
-  margin-left: auto;
-  border: 3px solid #fad38e;
-  border-radius: 20px;
-  padding-top: 25px;
+
+@media (max-width: 576px) {
+
+  .container
+  {
+    margin-top: 50px;
+    padding-bottom: 50px;
+    height: 100%;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    border: 3px solid #fad38e;
+    border-radius: 20px;
+    padding-top: 25px;
+    text-align: center;
+
+  }
+  .spanButton
+  {
+    font-weight: bold;
+    font-size: 20px;
+
+  }
+  .buttonsDiv_col
+  {
+    padding-top: 10px;
+  }
+  input
+  {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 10px;
+  }
+  .buttonRow
+  {
+    margin-top: 10px;
+  }
+  .invoiceCheckbox
+  {
+    display: inline;
+  }
+
+  .deliveryOption
+  {
+    border: 3px solid #fad38e;
+    border-radius: 20px;
+    height: 50px;
+    width: 90%!important;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    margin-left: 5vw;
+    margin-top:30px;
+    padding-top: 7px;
+  }
+  .deliveryOption:hover
+  {
+    cursor: pointer;
+  }
+  .personalPickupOptionDiv
+  {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 30px;
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .colButtonOrder
+  {
+    margin-top: 20px;
+    text-align: center;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+  .paymentMethodRadioInput
+  {
+    display: inline;
+  }
+  .paymentMethodOption
+  {
+    margin-top: 20px;
+    font-size: 20px;
+    margin-left: 40px;
+  }
+
+
 }
+
+@media (min-width: 576px) {
+
+
+
+
+}
+
+@media (min-width: 768px) {
+
+
+
+  .container
+  {
+    margin-top: 50px;
+    padding-bottom: 50px;
+    height: 100%;
+    width: 1000px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 3px solid #fad38e;
+    border-radius: 20px;
+    padding-top: 25px;
+  }
+  .spanButton
+  {
+    margin-left: 50px;
+    font-weight: bold;
+    font-size: 20px;
+
+  }
+  .buttonRow
+  {
+    margin-left: 40px;
+    margin-top: 120px;
+  }
+  .deliveryOption
+  {
+
+
+    border: 3px solid #fad38e;
+    border-radius: 20px;
+    height: 50px;
+    width: 33%;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    margin-left: 5vw;
+    margin-top:30px;
+    padding-top: 7px;
+  }
+  .deliveryOption:hover
+  {
+    cursor: pointer;
+  }
+  .personalPickupOptionDiv
+  {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-left: 50px;
+  }
+  .colButtonOrder
+  {
+    margin-left: 50px;
+    margin-top: 20px;
+    text-align: left
+  }
+  .paymentMethodOption
+  {
+    margin-left: 50px;
+    margin-top: 20px;
+    font-size: 20px;
+  }
+
+
+}
+
+@media (min-width: 992px) {
+
+
+}
+
+@media (min-width: 1200px) {
+
+
+
+}
+
+
+
+
+
+
 
 #OrderForm
 {
   display: none;
 }
 
-.spanButton
-{
-  margin-left: 50px;
-  font-weight: bold;
-  font-size: 20px;
 
-}
 
 .button
 {
@@ -41,24 +209,7 @@
   width: 200px;
 }
 
-.deliveryOption
-{
 
-
-  border: 3px solid #fad38e;
-  border-radius: 20px;
-  height: 50px;
-  font-size: 18px;
-  font-weight: 700;
-  text-align: center;
-  margin-left: 5vw;
-  margin-top:30px;
-  padding-top: 7px;
-}
-.deliveryOption:hover
-{
-  cursor: pointer;
-}
 a
 {
   text-decoration: none;
@@ -78,11 +229,7 @@ a
 {
   margin-top: 40px;
 }
-.buttonRow
-{
-  margin-left: 40px;
-  margin-top: 120px;
-}
+
 
 #invoiceForm
 {
@@ -97,27 +244,10 @@ a
 {
   display: none;
 }
-.paymentMethodOption
-{
-  margin-left: 50px;
-  margin-top: 20px;
-  font-size: 20px;
-}
-.colButtonOrder
-{
-  margin-left: 50px;
-  margin-top: 20px;
-  text-align: left
-}
+
+
 
 .buttonOrder
 {
   font-size: 20px;
-}
-.personalPickupOptionDiv
-{
-  font-size: 20px;
-  font-weight: 600;
-  margin-top: 30px;
-  margin-left: 50px;
 }

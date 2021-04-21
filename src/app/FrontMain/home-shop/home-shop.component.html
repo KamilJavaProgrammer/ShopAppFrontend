@@ -31,14 +31,14 @@
 
         <input style="box-shadow:0px 0px 4px black;" type="text" (keydown.enter)="RedirectToSearchingComponent()" [(ngModel)]="search" class="form-control col6_section_col_start_input" placeholder="  Szukaj" autocomplete="off" >
         <div class="row" style="padding: 0; height: 85px; " >
-          <div [routerLink]="['/shop', { outlets: {'route4': ['basket'] }}]" class="col-4" style="height: 85px;" >
+          <div [routerLink]="['/shop', { outlets: {'route4': ['koszyk'] }}]" class="col-4" style="height: 85px;" >
 
             <div class="basket row">
               <i class="fa fa-shopping-basket basket_icon" ></i>
             </div>
           </div>
 
-          <div [routerLink]="['/shop', { outlets: {'route4': ['basket'] }}]" class=" col-8 basket_value"  [ngSwitch]="productAmount">
+          <div [routerLink]="['/shop', { outlets: {'route4': ['koszyk'] }}]" class=" col-8 basket_value"  [ngSwitch]="productAmount">
 
 
 
@@ -69,21 +69,21 @@
       </div>
 
     </div>
-
-  </section>
-
+   </section>
 
 
-   <nav>
+
+
+
+<greater-devices-nav>
+     <nav>
      <div class="row nav_row_start align-items-center">
-       <div class="subpages"></div>
-       <div class="subpages"></div>
 
        <ng-container *ngFor="let section of sections;let i = index;">
-           <div class="show-on-hover btn-group subpages" >
-              <a  class="subpages ">
+           <div class=" btn-group col">
+             <div class="subpages  show-on-hover">
                 <button [routerLink]="['/shop', { outlets: {'route4': ['details',section.name]}}]"    class=" btn btn-default subpages dropdown  " data-toggle="dropdown"  >{{section.name}}</button>
-             </a>
+
 
              <ul #abcde id="ule" class="dropdown-menu " role="menu">
                  <div class="row">
@@ -96,25 +96,188 @@
                </ng-container>
                 </div>
            </ul>
+             </div>
           </div>
         </ng-container>
 
 
-       <div class="show-on-hover btn-group subpages" >
-         <a  class="subpages"[routerLink]="['/shop', { outlets: {'route4': ['details','Serwis'] }}]"> <button class="subpages  btn btn-default">Serwis</button> </a>
+       <div class=" btn-group col ">
+         <div class="subpages show-on-hover">
+         <button [routerLink]="['/shop', { outlets: {'route4': ['details','Serwis'] }}]" class="subpages btn btn-default">Serwis</button>
 
          <ul class="dropdown-menu " role="menu">
 
            <li [routerLink]="['/shop', { outlets: {'route4': ['zlecenie'] }}]"  class="dropdown-item itemList" >Zleć naprawe ekspresu</li>
            <li  [routerLink]="['/shop', { outlets: {'route4': ['cennik']}}]"class="dropdown-item itemList">Cennik usług serwisowych</li>
          </ul>
+         </div>
        </div>
 
-       <button  (click)="ScrollToContact()" class="subpages  btn btn-default">Kontakt</button>
-       <div class="subpages"></div>
-       <div class="subpages"></div>
+       <div class="col">
+         <div class="subpages">
+           <button  (click)="ScrollToContact()" class="subpages col  btn btn-default">Kontakt</button>
+         </div>
+       </div>
+
      </div>
    </nav>
+
+  </greater-devices-nav>
+
+
+
+
+  <only-smartphone>
+    <accordion [isAnimated]="true">
+      <accordion-group [panelClass]="'class'">
+
+      <div accordion-heading (click)="ShowMenuSmallDevices()"  class="" style="text-align: center; font-size: 30px; ">
+       <span> <i class="fa fa-bars" aria-hidden="true"></i></span>
+     </div>
+
+
+
+        <small-devices-nav>
+          <nav>
+            <div id="navSmallDevices" class="row nav_row_start align-items-center">
+
+              <ng-container *ngFor="let section of sections;let i = index;">
+                <div class="" style= "width: 90%; margin-left: auto; margin-right: auto; text-align: center; padding: 0;">
+                  <accordion [isAnimated]="true">
+                    <div class="subpages">
+                      <!--               <button [routerLink]="['/shop', { outlets: {'route4': ['details',section.name]}}]"    class=" btn btn-default subpages dropdown  " data-toggle="dropdown"  >{{section.name}}</button>-->
+                      <accordion-group [panelClass]="customClass">
+                        <div  accordion-heading>{{section.name}}</div>
+
+                        <!--                 <div class="">-->
+                        <ng-container *ngFor="let sectionCategories of section.sectionCategoriesList; let i = index;">
+                          <div class=" listMenu">
+                            <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details',sectionCategories.name]}}]" >{{sectionCategories.name}}</div>
+                            <ng-container *ngFor="let sectionSubCategories of sectionCategories.sectionSubCategoriesList;let i = index;">
+                              <button  [routerLink]="['/shop', { outlets: {'route4': ['details',sectionCategories.name +'/'+ sectionSubCategories.name] }}]" class=" itemList btn" >{{sectionSubCategories.name}}</button>
+                              <br>
+                            </ng-container>
+                          </div>
+                        </ng-container>
+                        <!--                 </div>-->
+
+
+                      </accordion-group>
+                    </div>
+                  </accordion>
+
+                </div>
+              </ng-container>
+
+
+
+
+              <div class="" style="margin-top: 10px;">
+                <accordion [isAnimated]="true" >
+                  <div style= "width: 90%; margin-left: auto; margin-right: auto; text-align: center; padding: 0;">
+                    <accordion-group [panelClass]="customClass">
+                      <div  accordion-heading>Serwis</div>
+                      <div class="subpages">
+                        <button   class="subpages col  btn btn-default">Zleć naprawe ekspresu</button>
+                        <button   class="subpages col  btn btn-default">Cennik usług serwisowych</button>
+                      </div>
+                    </accordion-group>
+                  </div>
+                </accordion>
+              </div>
+
+
+              <div class="" style="margin-top: 10px;">
+                <accordion [isAnimated]="true" >
+                  <div style= "width: 90%; margin-left: auto; margin-right: auto; text-align: center; padding: 0;">
+                    <accordion-group [panelClass]="customClass">
+                      <div (click)="ScrollToContact()"  accordion-heading>Kontakt</div>
+                    </accordion-group>
+                  </div>
+                </accordion>
+              </div>
+
+            </div>
+          </nav>
+        </small-devices-nav>
+
+
+
+
+      </accordion-group>
+    </accordion>
+   </only-smartphone>
+
+
+
+<!--   <small-devices-nav>-->
+<!--     <nav>-->
+<!--       <div id="navSmallDevices" class="row nav_row_start align-items-center">-->
+
+<!--         <ng-container *ngFor="let section of sections;let i = index;">-->
+<!--           <div class="" style= "width: 60%; margin-left: auto; margin-right: auto; text-align: center; padding: 0;">-->
+<!--             <accordion [isAnimated]="true">-->
+<!--             <div class="subpages">-->
+<!--&lt;!&ndash;               <button [routerLink]="['/shop', { outlets: {'route4': ['details',section.name]}}]"    class=" btn btn-default subpages dropdown  " data-toggle="dropdown"  >{{section.name}}</button>&ndash;&gt;-->
+<!--               <accordion-group [panelClass]="customClass">-->
+<!--                 <div  accordion-heading>{{section.name}}</div>-->
+
+<!--&lt;!&ndash;                 <div class="">&ndash;&gt;-->
+<!--                   <ng-container *ngFor="let sectionCategories of section.sectionCategoriesList; let i = index;">-->
+<!--                     <div class=" listMenu">-->
+<!--                       <div class="menu" [routerLink]="['/shop', { outlets: {'route4': ['details',sectionCategories.name]}}]" >{{sectionCategories.name}}</div>-->
+<!--                       <ng-container *ngFor="let sectionSubCategories of sectionCategories.sectionSubCategoriesList;let i = index;">-->
+<!--                         <button  [routerLink]="['/shop', { outlets: {'route4': ['details',sectionCategories.name +'/'+ sectionSubCategories.name] }}]" class=" itemList btn" >{{sectionSubCategories.name}}</button>-->
+<!--                              <br>-->
+<!--                       </ng-container>-->
+<!--                     </div>-->
+<!--                   </ng-container>-->
+<!--&lt;!&ndash;                 </div>&ndash;&gt;-->
+
+
+<!--                 </accordion-group>-->
+<!--             </div>-->
+<!--             </accordion>-->
+
+<!--           </div>-->
+<!--         </ng-container>-->
+
+
+
+
+<!--           <div class="" style="margin-top: 10px;">-->
+<!--             <accordion [isAnimated]="true" >-->
+<!--               <div style= "width: 60%; margin-left: auto; margin-right: auto; text-align: center; padding: 0;">-->
+<!--               <accordion-group [panelClass]="customClass">-->
+<!--              <div  accordion-heading>Serwis</div>-->
+<!--             <div class="subpages">-->
+<!--               <button   class="subpages col  btn btn-default">Zleć naprawe ekspresu</button>-->
+<!--               <button   class="subpages col  btn btn-default">Cennik usług serwisowych</button>-->
+<!--             </div>-->
+<!--               </accordion-group>-->
+<!--               </div>-->
+<!--             </accordion>-->
+<!--           </div>-->
+
+
+
+
+
+<!--         <div class="" style="margin-top: 10px;">-->
+<!--           <accordion [isAnimated]="true" >-->
+<!--             <div style= "width: 60%; margin-left: auto; margin-right: auto; text-align: center; padding: 0;">-->
+<!--               <accordion-group [panelClass]="customClass">-->
+<!--                 <div (click)="ScrollToContact()"  accordion-heading>Kontakt</div>-->
+<!--               </accordion-group>-->
+<!--             </div>-->
+<!--           </accordion>-->
+<!--         </div>-->
+
+<!--       </div>-->
+<!--     </nav>-->
+<!--   </small-devices-nav>-->
+
+
 
 
 
