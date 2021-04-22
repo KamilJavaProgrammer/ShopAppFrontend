@@ -75,6 +75,8 @@ import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {AnimationBuilder} from '@angular/animations';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RepairOrderComponent } from './service/repair-order/repair-order.component';
+import { ShopManagementComponent } from './Admin/Shop/shop-management/shop-management.component';
+
 
 
 
@@ -94,6 +96,7 @@ const routes: Routes = [{
       {path: 'zamówienia', component: ClientsOrderComponent, outlet:  'administrator'},
       {path: 'serwis/asortyment', component: ServiceWarehouseComponent, outlet:  'administrator'},
       {path: 'asortyment/edytuj/:id', component: EditProductComponent, outlet:  'administrator'},
+      {path: 'sklep/zarzadzanie', component: ShopManagementComponent, outlet:  'administrator'},
     ]
 
   },
@@ -237,7 +240,8 @@ export function JwtTokenGetter(): any {
     ShopClientADDComponent,
     ShopOrdersComponent,
     PriceListComponent,
-    RepairOrderComponent
+    RepairOrderComponent,
+    ShopManagementComponent
 
 
 

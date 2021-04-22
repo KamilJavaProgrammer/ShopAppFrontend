@@ -91,7 +91,6 @@ export class HomeShopComponent implements OnInit, OnDestroy {
     {
       this.account = 'Zaloguj się';
     }
-    // this.Test();
 
 
     document.getElementById('navbar123').style.display = 'none';
@@ -264,54 +263,6 @@ HideLoginModal(): void{
    this.byk.hide();
   }
 
-  Test(): void{
-    console.log('start');
-    const promise = new Promise(resolve => {
-      const section: Section = ({
-        name: 'Kawa',
-        sectionCategoriesList: [
-          ({
-            name: 'Herbata',
-            sectionSubCategoriesList: [
-              ({
-                name: 'YerbaMate'
-              }),
-              ({
-                name: 'Banan'
-              }),
-              ({
-                name: 'Pomarancz'
-              }),
-            ]
-          }),
-          ({
-            name: 'Kawa',
-            sectionSubCategoriesList: [
-              ({
-                name: 'Kawa ziarnista'
-              }),
-              ({
-                name: 'pomidor'
-              }),
-              ({
-                name: 'pietruszka'
-              }),
-            ]
-          })
-        ]
-      });
-
-      resolve(section);
-    });
-
-    promise.then(value => {
-      this.sectionService.Test(value).subscribe(value1 => {
-        console.log(value1);
-        console.log(value1);
-      });
-    });
-
-  }
 
 
   ShowMenuSmallDevices(): void {
