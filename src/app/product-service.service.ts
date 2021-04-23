@@ -48,7 +48,7 @@ export class ProductServiceService {
 
 
   GetAllProducts(): Observable<Array<Product>>{
-    return this.httpClient.get<any>(this.url, {observe: 'response'})
+    return this.httpClient.get<any>(this.url + '/all', {observe: 'response'})
       .pipe(map(value => {
         if (value.body.statusCodeValue === 200)
         {

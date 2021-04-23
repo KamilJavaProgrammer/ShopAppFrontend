@@ -75,7 +75,11 @@ import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {AnimationBuilder} from '@angular/animations';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RepairOrderComponent } from './service/repair-order/repair-order.component';
-import { ShopManagementComponent } from './Admin/Shop/shop-management/shop-management.component';
+import { ShopManagementComponent } from './Admin/Shop/ShopManagement/shop-management/shop-management.component';
+import { ArticleLineComponent } from './Admin/Shop/ShopManagement/ArticleLines/article-line/article-line.component';
+import { SectionComponentComponent } from './Admin/Shop/ShopManagement/Sections/section-component/section-component.component';
+import { AddArticleLineComponent } from './Admin/Shop/ShopManagement/ArticleLines/add-article-line/add-article-line.component';
+import { AddSectionComponent } from './Admin/Shop/ShopManagement/Sections/add-section/add-section.component';
 
 
 
@@ -97,6 +101,7 @@ const routes: Routes = [{
       {path: 'serwis/asortyment', component: ServiceWarehouseComponent, outlet:  'administrator'},
       {path: 'asortyment/edytuj/:id', component: EditProductComponent, outlet:  'administrator'},
       {path: 'sklep/zarzadzanie', component: ShopManagementComponent, outlet:  'administrator'},
+       {path: 'sklep/zarzadzanie/sekcje/dodaj', component: AddArticleLineComponent, outlet:  'administrator'},
     ]
 
   },
@@ -241,7 +246,11 @@ export function JwtTokenGetter(): any {
     ShopOrdersComponent,
     PriceListComponent,
     RepairOrderComponent,
-    ShopManagementComponent
+    ShopManagementComponent,
+    ArticleLineComponent,
+    SectionComponentComponent,
+    AddArticleLineComponent,
+    AddSectionComponent
 
 
 
