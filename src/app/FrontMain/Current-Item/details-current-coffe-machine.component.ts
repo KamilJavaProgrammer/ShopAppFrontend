@@ -25,7 +25,7 @@ export class DetailsCurrentCoffeMachineComponent implements OnInit, OnDestroy{
   id: string;
   idTable: Array<string> = [];
   products: Array<Product> = [];
-  order: ProductBasket;
+  productBasket: ProductBasket;
   productPrices = [];
   path = 'http://localhost:8088/image';
   formData: any;
@@ -195,13 +195,13 @@ export class DetailsCurrentCoffeMachineComponent implements OnInit, OnDestroy{
       this.product = product;
       this.homeShopComponent.basketSum = this.homeShopComponent.basketSum + +product.productPrice;
       this.homeShopComponent.productAmount++;
-      this.order = ({
+      this.productBasket = ({
         image: product.imageByte,
         nameOfProduct: product.productName,
         bruttoPrice: +product.productPrice,
         numberOfItems: 1
       });
-      this.orderService.AddOrder(this.order);
+      this.orderService.AddOrder(this.productBasket);
       this.modalService.show(this.addProductToBasket, {class: 'modal-md'});
 
 

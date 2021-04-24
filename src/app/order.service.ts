@@ -45,11 +45,11 @@ export class OrderService {
 
 
 
-  SendCompleteOrderToServerNoRegister(completeOrder: any): Observable<HttpResponse<any>>{
+  SendCompleteOrderToServer(completeOrder: CompleteOrder): Observable<any>{
     this.headers = new HttpHeaders();
     // this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('tokenJwt')}`);
     // this.headers = this.headers.append('Content-Type', 'application/json');
-    return this.httpClient.post<HttpResponse<any>>(this.urlOrders, completeOrder, {headers: this.headers});
+    return this.httpClient.post<any>(this.urlOrders, completeOrder, {headers: this.headers});
   }
 
 
@@ -107,22 +107,46 @@ export class OrderService {
   }
 
 
-  AddOrder(order: ProductBasket): void {
 
-    this.CheckOrderTable(order, result => {
+  DeleteOrder(productBasket: ProductBasket): void {
+
+    this.CheckOrderTable(productBasket, result => {
 
       this.check = result;
     });
 
     if (this.check === false) {
-        this.table.push(order);
+
+    }
+
+    else {
+      this.table.forEach((value, index) => {
+        if (value.nameOfProduct === productBasket.nameOfProduct) {
+          this.table.splice(index, 1);
+          sessionStorage.setItem('tableOrders', JSON.stringify(this.table));
+        }
+
+      });
+    }
+  }
+
+
+  AddOrder(productBasket: ProductBasket): void {
+
+    this.CheckOrderTable(productBasket, result => {
+
+      this.check = result;
+    });
+
+    if (this.check === false) {
+        this.table.push(productBasket);
         sessionStorage.setItem('tableOrders', JSON.stringify(this.table));
        }
 
     else {
 
       this.table.forEach(value => {
-        if (value.nameOfProduct === order.nameOfProduct) {
+        if (value.nameOfProduct === productBasket.nameOfProduct) {
           value.numberOfItems++;
           sessionStorage.setItem('tableOrders', JSON.stringify(this.table));
 
@@ -164,7 +188,7 @@ export interface CompleteOrder {
   shopclient?: ShopClient;
   address?: Address;
   productsBasket?: Array<ProductBasket>;
-  token?: boolean;
+  token?: string;
 }
 
 

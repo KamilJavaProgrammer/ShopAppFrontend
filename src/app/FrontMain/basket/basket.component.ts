@@ -13,9 +13,7 @@ export class BasketComponent implements OnInit, OnDestroy {
 
   sumMoney = 0;
   orders: Array<ProductBasket> = [];
-  nameOfParcel = 'Przesyłka kurierska';
   parcelPrice = 18;
-  countParcel = 1;
 
 
   constructor( private productServiceService: ProductServiceService,
