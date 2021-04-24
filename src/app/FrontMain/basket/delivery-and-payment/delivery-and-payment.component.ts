@@ -3,6 +3,9 @@ import {BsModalService} from 'ngx-bootstrap/modal';
 import {CompleteOrder, ProductBasket, OrderService} from '../../../order.service';
 import {BasketComponent} from '../basket.component';
 import {AuthGuard} from '../../../auth.guard';
+import {UserService} from '../../../user.service';
+import {ShopClient} from '../../../client-service.service';
+import {Product, ProductServiceService} from '../../../product-service.service';
 
 @Component({
   selector: 'app-delivery-and-payment',
@@ -12,19 +15,34 @@ import {AuthGuard} from '../../../auth.guard';
 export class DeliveryAndPaymentComponent implements OnInit {
 
   tokenJwt: boolean;
-  name: string;
-  surname: string;
-  email: string;
-  address: string;
-  postCode: string;
-  town: string;
 
-  businessAddress: string;
-  businessPostCode: string;
-  businessTown: string;
-  businessEmail: string;
-  businessName: string;
-  NIP: string;
+  shopClient: ShopClient = ({
+     name: '',
+    surname: '',
+    email: '',
+    state: '',
+    phoneNumber: '',
+    address: ({
+      postCode: '',
+      town: '',
+      placeOfresident: '',
+    }),
+    business: ({
+      nip: '',
+      phoneNumber: '',
+      name: '',
+      email: '',
+      account: '',
+      regon: '',
+      address: ({
+        postCode: '',
+        town: '',
+        placeOfresident: '',
+      }),
+    })
+  });
+
+  product: Product;
 
   deliveryOption: string;
   paymentMethod = 'Gotówka';
@@ -56,7 +74,9 @@ export class DeliveryAndPaymentComponent implements OnInit {
   constructor(private bsModalService: BsModalService,
               private basketComponent: BasketComponent,
               private orderService: OrderService,
-              private authGuard: AuthGuard
+              private authGuard: AuthGuard,
+              private userService: UserService,
+              private productService: ProductServiceService
               ) { }
 
   ngOnInit(): void {
@@ -64,7 +84,16 @@ export class DeliveryAndPaymentComponent implements OnInit {
   }
   CheckJwtToken(): void{
      this.tokenJwt = this.authGuard.CheckExpirationDateToken();
+     if (this.tokenJwt === true){
+       this.GetShopClient();
+     }
   }
+
+   GetShopClient(): void{
+     this.userService.GetShopClient().subscribe(value => {
+       this.shopClient = value;
+     });
+   }
 
 
   BuyNoRegister(): void {
@@ -107,37 +136,51 @@ export class DeliveryAndPaymentComponent implements OnInit {
     this.deliveryOption = 'Przesyłka Kurierska';
   }
 
+  createImageFromBlob(image: Blob, product: Product): void {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+
+      product.imageByte = reader.result;
+      const promise = new Promise(resolve => {
+        const productBasket: ProductBasket = ({
+          nameOfProduct: product.productName,
+          bruttoPrice: +product.productPrice,
+          numberOfItems: 1,
+          idProduct: product.id,
+          image: product.imageByte
+
+        });
+        resolve(productBasket);
+      });
+
+      promise.then(value1 => {
+        this.orders.push(value1);
+      });
+
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
+
   AddCourierParcelToOrders(): void{
 
-        this.orderService.GetParcelData().subscribe(value => {
+        this.orderService.GetParcelData().subscribe(product => {
 
-          this.basketComponent.parcelPrice = value.productPrice;
-          this.basketComponent.sumMoney = this.basketComponent.sumMoney + +value.productPrice;
-          // document.getElementById('parcel').style.visibility = 'visible';
-
-          const promise = new Promise(resolve => {
-            const productBasket: ProductBasket = ({
-              nameOfProduct: value.productName,
-              bruttoPrice: value.productPrice,
-              numberOfItems: 1,
-              idProduct: value.id
-
+            this.productService.getImageFromService(product).subscribe(blob => {
+                 this.createImageFromBlob(blob, product);
             });
-            resolve(productBasket);
-          });
-
-          promise.then(value1 => {
-            this.orders.push(value1);
-          });
-
+            this.basketComponent.parcelPrice = +product.productPrice;
+            this.basketComponent.sumMoney = this.basketComponent.sumMoney + +product.productPrice;
         });
   }
 
 
   Check(): void{
-    if (isNaN(+this.NIP))
+    if (isNaN(+this.shopClient.business.nip))
     {
-      this.NIP = '';
+      this.shopClient.business.nip = '';
       alert('NIP nie może zawierać liter');
     }
   }
@@ -174,62 +217,62 @@ export class DeliveryAndPaymentComponent implements OnInit {
 
 
 
-  Order(): void{
-
-    this.bsModalService.show(this.orderAlert, {class: 'modal-lg'});
-
-    const promise = new Promise((resolve, reject) => {
-
-       this.order  = ({
-
-        sumPaid: this.sumMoney,
-        deliveryOption: this.deliveryOption,
-        paymentMethod: this.paymentMethod,
-        invoice: this.invoiceCheckbox,
-        productsBasket: this.orders ,
-        shopclient: ({
-          name: this.name,
-          surname: this.surname,
-          email: this.email,
-          business: ({
-            name: this.businessName,
-            nip: this.NIP,
-            email: this.businessEmail,
-            address: ({
-              postCode: this.businessPostCode,
-              town: this.businessTown,
-              placeOfresident: this.businessAddress
-            }),
-          }),
-          address: ({
-            postCode: this.postCode,
-            town: this.town,
-            placeOfresident: this.address
-          }),
-        }),
-         address: ({
-           postCode: this.postCode,
-           town: this.postCode,
-           placeOfresident: this.address
-         }),
-         token: (this.tokenJwt !== null),
-      });
-
-       return resolve(this.order);
-
-    });
-
-
-    promise.then(value1 => {
-
-        this.orderService.SendCompleteOrderToServerNoRegister(value1).subscribe(value12 => {
-          console.log(value12);
-        });
-      });
-
-
-
-
-
-  }
+  // Order(): void{
+  //
+  //   this.bsModalService.show(this.orderAlert, {class: 'modal-lg'});
+  //
+  //   const promise = new Promise((resolve, reject) => {
+  //
+  //      this.order  = ({
+  //
+  //       sumPaid: this.sumMoney,
+  //       deliveryOption: this.deliveryOption,
+  //       paymentMethod: this.paymentMethod,
+  //       invoice: this.invoiceCheckbox,
+  //       productsBasket: this.orders ,
+  //       shopclient: ({
+  //         name: this.name,
+  //         surname: this.surname,
+  //         email: this.email,
+  //         business: ({
+  //           name: this.businessName,
+  //           nip: this.NIP,
+  //           email: this.businessEmail,
+  //           address: ({
+  //             postCode: this.businessPostCode,
+  //             town: this.businessTown,
+  //             placeOfresident: this.businessAddress
+  //           }),
+  //         }),
+  //         address: ({
+  //           postCode: this.postCode,
+  //           town: this.town,
+  //           placeOfresident: this.address
+  //         }),
+  //       }),
+  //        address: ({
+  //          postCode: this.postCode,
+  //          town: this.postCode,
+  //          placeOfresident: this.address
+  //        }),
+  //        token: (this.tokenJwt !== null),
+  //     });
+  //
+  //      return resolve(this.order);
+  //
+  //   });
+  //
+  //
+  //   promise.then(value1 => {
+  //
+  //       this.orderService.SendCompleteOrderToServerNoRegister(value1).subscribe(value12 => {
+  //         console.log(value12);
+  //       });
+  //     });
+  //
+  //
+  //
+  //
+  //
+  // }
 }

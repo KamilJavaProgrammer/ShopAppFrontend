@@ -69,6 +69,25 @@ export class UserService {
   }
 
 
+  public GetShopClient(): Observable<ShopClient>{
+
+    this.headers = new HttpHeaders();
+    this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
+    this.headers = this.headers.append('Content-Type', 'application/json');
+
+    return this.httpClient.get<any>(this.urlShopClient, {headers: this.headers, observe: 'response'})
+      .pipe(map(value => {
+        if (value.status === 200){
+          console.log(value);
+          return value.body.body;
+        }
+        else {
+          throwError(error('Faul'));
+        }
+      }));
+  }
+
+
 
 
 

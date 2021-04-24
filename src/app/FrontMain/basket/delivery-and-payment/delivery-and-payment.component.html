@@ -57,13 +57,13 @@
       <div class="row inputRow">
           <div class="col-lg"></div>
           <div class="col-lg">
-            <input type="text" class="form-control colForm" placeholder="Imie" name="name"  [(ngModel)]="name" autocomplete="off">
+            <input type="text" class="form-control colForm" placeholder="Imie" name="name"  [(ngModel)]="this.shopClient.name" autocomplete="off">
           </div>
           <div class="col-lg">
-            <input type="text" class="form-control colForm" placeholder="Nazwisko"  name="surname"  [(ngModel)]="surname" autocomplete="off">
+            <input type="text" class="form-control colForm" placeholder="Nazwisko"  name="surname"  [(ngModel)]="this.shopClient.surname" autocomplete="off">
           </div>
           <div class="col-lg">
-            <input type="email" class="form-control colForm" placeholder="E-mail" name="email"  [(ngModel)]="email" autocomplete="off">
+            <input type="email" class="form-control colForm" placeholder="E-mail" name="email"  [(ngModel)]="this.shopClient.email" autocomplete="off">
           </div>
           <div class="col-lg"></div>
       </div>
@@ -79,13 +79,13 @@
       <div class="row inputRow">
          <div class="col-lg"></div>
          <div class="col-lg">
-            <input type="text" class="form-control colForm" placeholder="Adres" name="address" [(ngModel)]="address"  autocomplete="off">
+            <input type="text" class="form-control colForm" placeholder="Adres" name="address" [(ngModel)]="this.shopClient.address.placeOfresident"  autocomplete="off">
         </div>
         <div class="col-lg">
-           <input type="text" class="form-control colForm" placeholder="Kod Pocztowy" name="postCode" [(ngModel)]="postCode"  autocomplete="off">
+           <input type="text" class="form-control colForm" placeholder="Kod Pocztowy" name="postCode" [(ngModel)]="this.shopClient.address.postCode"  autocomplete="off">
         </div>
         <div class="col-lg">
-           <input type="text" class="form-control colForm" placeholder="Miejscowość" name="town" [(ngModel)]="town"  autocomplete="off">
+           <input type="text" class="form-control colForm" placeholder="Miejscowość" name="town" [(ngModel)]="this.shopClient.address.town"  autocomplete="off">
         </div>
         <div class="col-lg"></div>
       </div>
@@ -108,13 +108,13 @@
           <div class="row inputRow">
             <div class="col-lg"></div>
             <div class="col-lg">
-              <input type="text" class="form-control colForm" placeholder="Nazwa Firmy" name="businessName" [(ngModel)]="businessName"  autocomplete="off">
+              <input type="text" class="form-control colForm" placeholder="Nazwa Firmy" name="businessName" [(ngModel)]="this.shopClient.business.name"  autocomplete="off">
             </div>
             <div class="col-lg">
-              <input type="text" class="form-control colForm" placeholder="NIP" name="NIP" (input)="Check()" [(ngModel)]="NIP"  autocomplete="off">
+              <input type="text" class="form-control colForm" placeholder="NIP" name="NIP" (input)="Check()" [(ngModel)]="this.shopClient.business.nip"  autocomplete="off">
             </div>
             <div class="col-lg">
-              <input type="email" class="form-control colForm" placeholder="E-mail" name="businessEmail" [(ngModel)]="businessEmail"  autocomplete="off">
+              <input type="email" class="form-control colForm" placeholder="E-mail" name="businessEmail" [(ngModel)]="this.shopClient.business.email"  autocomplete="off">
             </div>
             <div class="col-lg"></div>
           </div>
@@ -123,13 +123,13 @@
           <div class="row inputRow">
             <div class="col-lg"></div>
             <div class="col-lg">
-              <input type="text" class="form-control colForm" placeholder="Adres" name="businessAddress" [(ngModel)]="businessAddress"  autocomplete="off">
+              <input type="text" class="form-control colForm" placeholder="Adres" name="businessAddress" [(ngModel)]="this.shopClient.business.address.placeOfresident"  autocomplete="off">
             </div>
             <div class="col-lg">
-              <input type="text" class="form-control colForm" placeholder="Kod pocztowy" name="businessPostCode" [(ngModel)]="businessPostCode"  autocomplete="off">
+              <input type="text" class="form-control colForm" placeholder="Kod pocztowy" name="businessPostCode" [(ngModel)]="this.shopClient.business.address.postCode"  autocomplete="off">
             </div>
             <div class="col-lg">
-              <input type="text" class="form-control colForm" placeholder="Miejscowość" name="town" [(ngModel)]="businessTown"   autocomplete="off">
+              <input type="text" class="form-control colForm" placeholder="Miejscowość" name="town" [(ngModel)]="this.shopClient.business.address.town"   autocomplete="off">
             </div>
             <div class="col-lg"></div>
           </div>
@@ -176,7 +176,7 @@
 
         <div class="row">
           <div class=" colButtonOrder">
-            <button (click)="Order()" class="btn btn-outline-primary buttonOrder">Zamawiam z obowiązkiem zapłaty</button>
+            <button  class="btn btn-outline-primary buttonOrder">Zamawiam z obowiązkiem zapłaty</button>
           </div>
         </div>
       </div>
@@ -195,7 +195,7 @@
             </div>
             <div class="row">
                  <div class="colButtonOrder">
-                    <button (click)="Order()" class="btn btn-outline-danger buttonOrder">Zamawiam z obowiązkiem zapłaty</button>
+                    <button  class="btn btn-outline-danger buttonOrder">Zamawiam z obowiązkiem zapłaty</button>
                  </div>
               </div>
           </div>

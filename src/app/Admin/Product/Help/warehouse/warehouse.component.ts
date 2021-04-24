@@ -97,10 +97,16 @@ export class WarehouseComponent implements OnInit {
   getImageFromService(product): void {
 
     const pathImage = product.pathToFile.replace('C:/ZdjęciaBaza/Upload', '');
-    this.productService.GetPhotos(this.path + pathImage).subscribe(data => {
-      this.createImageFromBlob(data, product);
-    }, error => {
-    });
+
+
+      this.productService.GetPhotos(this.path + pathImage).subscribe(data => {
+        this.createImageFromBlob(data, product);
+      }, error => {
+        console.log('error');
+      });
+
+
+
   }
 
   createImageFromBlob(image: Blob, product: Product): void {

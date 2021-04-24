@@ -102,7 +102,7 @@
            <input [(ngModel)]="search"    type="text" id="search" name="search" class="form-control" list="lista"  autocomplete="off">
            <datalist id="lista" >
              <ng-container *ngFor="let p of products">
-             <option>{{p.name}} - {{p.numberOfItems}}-sztuk         - {{p.id}}</option>
+             <option>{{p.productName}} - {{p.numberOfItems}}-sztuk         - {{p.id}}</option>
 
              </ng-container>
            </datalist>

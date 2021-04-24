@@ -102,6 +102,7 @@ const routes: Routes = [{
       {path: 'asortyment/edytuj/:id', component: EditProductComponent, outlet:  'administrator'},
       {path: 'sklep/zarzadzanie', component: ShopManagementComponent, outlet:  'administrator'},
        {path: 'sklep/zarzadzanie/sekcje/dodaj', component: AddArticleLineComponent, outlet:  'administrator'},
+       {path: 'sklep/zarzadzanie/nawigacja/dodaj', component: AddSectionComponent, outlet:  'administrator'},
     ]
 
   },

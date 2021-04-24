@@ -132,7 +132,7 @@ export class OrderService {
     }
   }
 
-  GetParcelData(): Observable<any> {
+  GetParcelData(): Observable<Product> {
 
     return this.httpClient.get<any>(this.urlParcel, {observe: 'response'}).pipe(map(value => {
       return value.body.body;

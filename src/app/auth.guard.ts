@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
 
 
   DecodeJwt(): string{
-   return this.jwtHelperService.decodeToken(localStorage.getItem('accessToken')).sub;
+   return this.jwtHelperService.decodeToken(sessionStorage.getItem('accessToken')).sub;
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
@@ -40,7 +40,7 @@ export class AuthGuard implements CanActivate {
   }
   CheckExpirationDateToken(): boolean {
 
-    if (localStorage.getItem('accessToken')) {
+    if (sessionStorage.getItem('accessToken')) {
       if (!this.jwtHelperService.isTokenExpired(sessionStorage.getItem('accessToken'))){
         return  true;
       }
