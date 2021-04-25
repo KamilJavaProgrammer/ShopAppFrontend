@@ -112,7 +112,7 @@ export class UserService {
 
 
 
-  public RegistrationUser(user: User): Observable<string>{
+     public RegistrationUser(user: User): Observable<string>{
     return this.httpClient.post(this.urlRegistration, user, {responseType: 'text'});
   }
 

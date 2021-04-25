@@ -1,7 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
-import {TestDirective} from '../../../test.directive';
-import {getControlsValue} from 'ngx-bootstrap/timepicker/timepicker-controls.util';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -22,7 +20,7 @@ export class DashboardAdminComponent implements OnInit {
   users: boolean;
   settings: boolean;
 
-  constructor(config: NgbDropdownConfig, private testdrirective: TestDirective) {
+  constructor(config: NgbDropdownConfig) {
    config.autoClose = false;
   }
 
@@ -32,8 +30,9 @@ export class DashboardAdminComponent implements OnInit {
   }
 
 
-
-
+  LogOut(): void {
+     sessionStorage.clear();
+  }
 }
 
 

@@ -1,26 +1,35 @@
 
 <div class="wrapper fadeInDown">
   <div id="formContent">
-    <!-- Tabs Titles -->
 
-    <!-- Icon -->
     <div class="fadeIn first">
       <img src="/assets/images/CafeLogo.PNG" id="icon" alt="User Icon" />
-      <h1>MOLEN</h1>
+      <h1>CafeKam</h1>
 
     </div>
 
-    <!-- Login Form -->
     <form>
-      <input [(ngModel)]="adminLogin" type="text" id="login" class="fadeIn second" name="login" placeholder="username">
-      <input  [(ngModel)]="adminPassword" type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-      <input type="submit" class="fadeIn fourth" value="Log In">
+      <input [(ngModel)]="adminLogin" type="text" id="login" class="fadeIn second" name="login" placeholder="Login">
+      <input  [(ngModel)]="adminPassword" type="password" id="password" class="fadeIn third" name="password" placeholder="Hasło">
+      <input (click)="Login()" type="submit" class="fadeIn fourth" value="Zaloguj">
     </form>
 
-    <!-- Remind Passowrd -->
     <div id="formFooter">
       <a class="underlineHover" routerLink="/shop">Przejdź do sklepu</a>
     </div>
 
   </div>
 </div>
+
+
+<ng-template #alert>
+  <div   style="text-align: center; font-size: 20px;" class="alert  alert-dismissible fade show" role="alert">
+    <button (click)="CloseAlertModal()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Uwaga!</strong> {{text}}
+
+  </div>
+
+
+</ng-template>

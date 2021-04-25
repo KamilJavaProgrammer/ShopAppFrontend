@@ -21,10 +21,11 @@
                <a><i class="fa fa-shopping-cart" style="margin-right: 10px;"></i>Sklep</a>
              </div>
                <div  *ngIf="shop" class="panel1">
-                <div class="subMenu"   [routerLink]="['/admin', { outlets: {'administrator': ['sklep','asortyment']}}]" >1.Magazyn</div>
-                <div class="subMenu" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','klienci']}}]" >2.Klienci</div>
-                <div class="subMenu" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','zamowienia']}}]" >3.Zamówienia</div>
-                <div class="subMenu" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','zarzadzanie']}}]" >4.Zarządzanie</div>
+                <div class="subMenu"   [routerLink]="['/shop']">1.Do sklepu</div>
+                <div class="subMenu"   [routerLink]="['/admin', { outlets: {'administrator': ['sklep','asortyment']}}]" >2.Magazyn</div>
+                <div class="subMenu" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','klienci']}}]" >3.Klienci</div>
+                <div class="subMenu" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','zamowienia']}}]" >4.Zamówienia</div>
+                <div class="subMenu" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','zarzadzanie']}}]" >5.Zarządzanie</div>
 
              </div>
            </li>
@@ -143,7 +144,7 @@
               <span style="margin-right: 30px; "> {{adminName}}</span>
               <span style="margin-right: 30px;"><i class="fa fa-envelope "></i></span>
               <span style="margin-right: 30px;"><i class="fa fa-bell"  ></i></span>
-              <span style="margin-right: 5px;"><i class="fa fa-sign-out "></i> </span>
+              <span (click)="LogOut()" [routerLink]="['/admin/logowanie']" style="margin-right: 5px;"><i class="fa fa-sign-out "></i> </span>
             </div>
           </div>
         </div>

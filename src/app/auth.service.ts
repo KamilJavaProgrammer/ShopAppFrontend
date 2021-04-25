@@ -12,6 +12,7 @@ import {HomeShopComponent} from './FrontMain/home-shop/home-shop.component';
 export class AuthService {
   port = '8088';
   urlLogin = 'http://localhost:' + this.port + '/login';
+  urlLoginAdmin = 'http://localhost:' + this.port + '/login/admin';
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +21,7 @@ export class AuthService {
   login(user: User): Observable<boolean> {
     return this.http.post<any>(this.urlLogin, user, {observe: 'response'}).
       pipe(map(value => {
-        if (value.body.statusCodeValue === 202){
+        if (value.body.body.statusCodeValue === 202){
             sessionStorage.setItem('accessToken', value.body.body);
             return true;
          }
@@ -29,6 +30,23 @@ export class AuthService {
            return false;
          }
       }));
+  }
+
+
+
+  loginAdmin(user: User): Observable<boolean> {
+    return this.http.post<any>(this.urlLoginAdmin, user, {observe: 'response'}).
+    pipe(map(value => {
+      console.log(value);
+      if (value.body.statusCodeValue === 202){
+        sessionStorage.setItem('adminAccessToken', value.body.body);
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }));
   }
 
 

@@ -56,7 +56,6 @@ import { UserMessagesComponent } from './FrontClient/User/user-messages/user-mes
 import { LoginAdminComponent } from './Admin/Login/login-admin/login-admin.component';
 import { DashboardAdminComponent } from './Admin/Board/dashboard-admin/dashboard-admin.component';
 import { PanelAdminComponent } from './Admin/Board/panel-admin/panel-admin.component';
-import { TestDirective } from './test.directive';
 import { ClientsOrderComponent } from './Admin/clients-order/clients-order.component';
 import { ShopWarehouseComponent } from './Admin/Shop/shop-warehouse/shop-warehouse.component';
 import {NgxCaptureModule} from 'ngx-capture';
@@ -80,6 +79,7 @@ import { ArticleLineComponent } from './Admin/Shop/ShopManagement/ArticleLines/a
 import { SectionComponentComponent } from './Admin/Shop/ShopManagement/Sections/section-component/section-component.component';
 import { AddArticleLineComponent } from './Admin/Shop/ShopManagement/ArticleLines/add-article-line/add-article-line.component';
 import { AddSectionComponent } from './Admin/Shop/ShopManagement/Sections/add-section/add-section.component';
+import {AuthAdminGuard} from './auth-admin.guard';
 
 
 
@@ -87,7 +87,7 @@ import { AddSectionComponent } from './Admin/Shop/ShopManagement/Sections/add-se
 const routes: Routes = [{
 
    path: 'admin/logowanie', component: LoginAdminComponent },
-   {path: 'admin', component: DashboardAdminComponent,
+   {path: 'admin', component: DashboardAdminComponent, canActivate: [AuthAdminGuard],
     children: [
 
       {path: 'sklep/asortyment', component: ShopWarehouseComponent, outlet:  'administrator'},
@@ -222,7 +222,7 @@ export function JwtTokenGetter(): any {
 
     PanelAdminComponent,
 
-    TestDirective,
+
 
     ClientsOrderComponent,
 
@@ -289,7 +289,7 @@ export function JwtTokenGetter(): any {
 
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  providers: [ ProductServiceService, TestDirective, DataserviceService, AuthService, AuthGuard, EditProductComponent, ClientServiceService, WarehouseComponent, HomeShopComponent],
+  providers: [ ProductServiceService, DataserviceService, AuthService, AuthAdminGuard, AuthGuard, EditProductComponent, ClientServiceService, WarehouseComponent, HomeShopComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

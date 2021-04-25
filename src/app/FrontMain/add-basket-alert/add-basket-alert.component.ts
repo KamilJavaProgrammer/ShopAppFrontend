@@ -25,6 +25,6 @@ export class AddBasketAlertComponent implements OnInit {
 
   GoToBasket(): void {
     this.CloseAlertModal();
-    this.router.navigate(['/shop', { outlets: {'route4': ['basket'] }}]);
+    this.router.navigate(['/shop', { outlets: {'route4': ['koszyk'] }}]);
   }
 }
