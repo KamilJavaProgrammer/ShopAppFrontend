@@ -87,6 +87,8 @@ import {AuthAdminGuard} from './auth-admin.guard';
 const routes: Routes = [{
 
    path: 'admin/logowanie', component: LoginAdminComponent },
+  // { path: '**', redirectTo: '/shop',pathMatch: 'full' },
+  { path: '',   redirectTo: '/shop', pathMatch: 'full' },
    {path: 'admin', component: DashboardAdminComponent, canActivate: [AuthAdminGuard],
     children: [
 

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -20,18 +21,21 @@ export class DashboardAdminComponent implements OnInit {
   users: boolean;
   settings: boolean;
 
-  constructor(config: NgbDropdownConfig) {
+  constructor(config: NgbDropdownConfig,private router: Router) {
    config.autoClose = false;
   }
 
   ngOnInit(): void {
     document.getElementById('navbar123').style.display = 'none';
+     this.router.navigate(['/admin', { outlets: {'administrator': ['panel']}}]);
 
   }
 
 
   LogOut(): void {
+    this.router.navigateByUrl('admin/logowanie');
      sessionStorage.clear();
+
   }
 }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chart from 'chart.js';
 import {AuthGuard} from '../../../auth.guard';
+import {AuthAdminGuard} from '../../../auth-admin.guard';
 
 @Component({
   selector: 'app-panel-admin',
@@ -10,9 +11,8 @@ import {AuthGuard} from '../../../auth.guard';
 export class PanelAdminComponent implements OnInit {
 
   adminName: string;
-  authGuard: AuthGuard;
 
-  constructor(authGuard: AuthGuard) {
+  constructor(private authGuard: AuthAdminGuard) {
     this.authGuard = authGuard;
   }
 

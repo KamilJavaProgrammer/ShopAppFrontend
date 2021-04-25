@@ -48,9 +48,7 @@
                <a>  <i class="fa fa-book" style="margin-right: 10px;"></i>Księgowość</a>
                <div *ngIf="bookkeeping" class="panel1">
                  <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">1.Faktury</div>
-                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">2.Faktury</div>
-                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">3.Faktury</div>
-                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">4.Faktury</div>
+                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">2.Dodaj fakturę</div>
                </div>
              </div>
            </li>
@@ -59,10 +57,8 @@
              <div>
                <a>  <i class="fa fa-address-book" style="margin-right: 10px;"></i>Kadry i Płace</a>
                <div *ngIf="staff" class="panel1">
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Faktury</button>
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Faktury</button>
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Faktury</button>
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Faktury</button>
+                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">1.Pracownicy</div>
+                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">2.Dokumenty</div>
                </div>
              </div>
            </li>
@@ -71,8 +67,6 @@
              <div>
                <a>  <i class="fa fa-graduation-cap " style="margin-right: 10px;"></i>Administracja</a>
                <div *ngIf="administration" class="panel1">
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Spis Faktur</button>
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Dodaj Fakturę</button>
                </div>
              </div>
            </li>
@@ -83,8 +77,6 @@
              <div>
                <a>  <i class="fa fa-file" style="margin-right: 10px;"></i>Raporty</a>
                <div *ngIf="reports" class="panel1">
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Spis Faktur</button>
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Dodaj Fakturę</button>
                </div>
              </div>
            </li>
@@ -93,8 +85,6 @@
              <div>
                <a>  <i class="fa fa-area-chart" style="margin-right: 10px;"></i>Statystyki</a>
                <div *ngIf="statistics" class="panel1">
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Spis Faktur</button>
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Dodaj Fakturę</button>
                </div>
              </div>
            </li>
@@ -104,8 +94,6 @@
              <div>
                <a>  <i class="fa fa-envelope" style="margin-right: 10px;"></i>Wiadomości</a>
                <div *ngIf="messages" class="panel1">
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Spis Faktur</button>
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Dodaj Fakturę</button>
                </div>
              </div>
            </li>
@@ -115,8 +103,6 @@
              <div>
                <a>  <i class="fa fa-user" style="margin-right: 10px;"></i>Użytkownicy</a>
                <div *ngIf="users" class="panel1">
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Spis Faktur</button>
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Dodaj Fakturę</button>
                </div>
              </div>
            </li>
@@ -125,8 +111,6 @@
              <div>
                <a>  <i class="fa fa-cogs" style="margin-right: 10px;"></i>Ustawienia</a>
                <div *ngIf="settings" class="panel1">
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Spis Faktur</button>
-                 <button [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">Dodaj Fakturę</button>
                </div>
              </div>
            </li>
@@ -144,7 +128,7 @@
               <span style="margin-right: 30px; "> {{adminName}}</span>
               <span style="margin-right: 30px;"><i class="fa fa-envelope "></i></span>
               <span style="margin-right: 30px;"><i class="fa fa-bell"  ></i></span>
-              <span (click)="LogOut()" [routerLink]="['/admin/logowanie']" style="margin-right: 5px;"><i class="fa fa-sign-out "></i> </span>
+              <span (click)="LogOut()" style="margin-right: 5px;"><i class="fa fa-sign-out "></i> </span>
             </div>
           </div>
         </div>

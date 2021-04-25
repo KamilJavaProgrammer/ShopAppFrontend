@@ -21,7 +21,7 @@ export class AuthService {
   login(user: User): Observable<boolean> {
     return this.http.post<any>(this.urlLogin, user, {observe: 'response'}).
       pipe(map(value => {
-        if (value.body.body.statusCodeValue === 202){
+        if (value.body.statusCodeValue === 202){
             sessionStorage.setItem('accessToken', value.body.body);
             return true;
          }
