@@ -80,9 +80,9 @@
      <div class="row nav_row_start align-items-center">
        <div class="col"></div>
        <ng-container *ngFor="let section of sections;let i = index;">
-           <div class=" btn-group col">
-             <div class="subpages  show-on-hover">
-                <button [routerLink]="['/shop', { outlets: {'route4': ['details',section.name]}}]"    class=" btn btn-default subpages dropdown  " data-toggle="dropdown"  >{{section.name}}</button>
+           <div class=" btn-group col-auto" style=" padding-left: 15px; padding-right: 15px; text-align: left; ">
+             <div class="subpages  show-on-hover" style=" padding: 0; width: 100%;">
+                <button [routerLink]="['/shop', { outlets: {'route4': ['details',section.name]}}]" style="  width: 100%;"   class=" btn btn-default subpages dropdown  " data-toggle="dropdown"  >{{section.name}}</button>
 
 
              <ul #abcde id="ule" class="dropdown-menu " role="menu">
@@ -101,7 +101,7 @@
         </ng-container>
 
 
-       <div class=" btn-group col ">
+       <div class=" btn-group col-auto ">
          <div class="subpages show-on-hover">
          <button [routerLink]="['/shop', { outlets: {'route4': ['details','Serwis'] }}]" class="subpages btn btn-default">Serwis</button>
 
@@ -113,7 +113,7 @@
          </div>
        </div>
 
-       <div class="col">
+       <div class="col-auto">
          <div class="subpages">
            <button  (click)="ScrollToContact()" class="subpages col  btn btn-default">Kontakt</button>
          </div>
