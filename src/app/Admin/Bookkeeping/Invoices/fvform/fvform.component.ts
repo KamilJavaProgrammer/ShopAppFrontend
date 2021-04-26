@@ -17,8 +17,6 @@ import {DataserviceService} from '../../../../dataservice.service';
 export class FVformComponent implements OnInit {
 
   products: Array<Product>;
-  products1: Array<Product>;
-  products2: Array<Product>;
   invoice = new Invoice();
   dataarray = [];
   search: string;
@@ -60,18 +58,16 @@ export class FVformComponent implements OnInit {
   paid: string;
   payForm: string;
 
-  dataarray3: string[];
   address: string;
   phoneNumber: string;
   paymentDeadline: string;
- name4: string;
 
 
 
 
 
 
-  constructor(private dataserviceService: DataserviceService , private fb: FormBuilder, private productServiceService: ProductServiceService, private renderer2: Renderer2, private elementRef: ElementRef) {
+  constructor(private dataserviceService: DataserviceService , private productService: ProductServiceService) {
   }
 
   public ngOnInit(): void {
@@ -104,20 +100,20 @@ export class FVformComponent implements OnInit {
     this.dataarray.push(this.invoice);
   }
 
-  GetAllProduct() {
-    this.productServiceService.GetAllProduct().subscribe(p => {
-      this.products = p;
+  GetAllProduct(): void {
+    this.productService.GetAllProducts().subscribe(products => {
+      this.products = products;
     });
   }
 
-  GetAllClients() {
-    this.productServiceService.GetAllClients().subscribe(p => {
+  GetAllClients(): void {
+    this.productService.GetAllClients().subscribe(p => {
       this.clients = p;
     });
   }
 
 
-  AddSearch() {
+  AddSearch(): void {
 
 
     this.searchArray = this.search.split('-');
@@ -134,7 +130,7 @@ export class FVformComponent implements OnInit {
       this.invoice.quantity = 1;
       this.invoice.nameProduct = this.searchArray[0];
       this.searching = +this.searchArray[3];
-      this.productServiceService.GetOneProduct(this.searching).subscribe(p => {this.invoice.cod = p.status;
+      this.productService.GetOneProduct(this.searching).subscribe(p => {this.invoice.cod = p.status;
                                                                                this.invoice.id = p.id; });
       this.search = '';
 
@@ -149,7 +145,7 @@ export class FVformComponent implements OnInit {
 
 
 
-  Remove(index) {
+  Remove(index): void {
 
     this.dataarray.splice(index);
     this.i--;
@@ -239,12 +235,12 @@ export class FVformComponent implements OnInit {
     });
 
 
-    this.productServiceService.AddClient(this.client).subscribe(value2 => {console.log(value2); });
+    this.productService.AddClient(this.client).subscribe(value2 => {console.log(value2); });
 
   }
 
 
-  AddCliente() {
+  AddCliente(): void {
 
 
     this.client1 = ({
@@ -253,7 +249,7 @@ export class FVformComponent implements OnInit {
 
 
 
-    this.productServiceService.PostOneClientByName(this.client1).subscribe(value2 => {console.log(value2);
+    this.productService.PostOneClientByName(this.client1).subscribe(value2 => {console.log(value2);
 
                                                                                       this.nip = value2[0].nip;
                                                                                       this.account = value2[0].account;
@@ -265,7 +261,7 @@ export class FVformComponent implements OnInit {
 
   }
 
-  SaveInvoice() {
+  SaveInvoice(): void {
     this.Send();
 
     this.invoiceObject = ({
@@ -291,7 +287,7 @@ export class FVformComponent implements OnInit {
 
 
 
-    this.productServiceService.AddInvoice(this.invoiceObject).subscribe(value2 => {this.dataserviceService.addDatesInvoice(value2); });
+    this.productService.AddInvoice(this.invoiceObject).subscribe(value2 => {this.dataserviceService.addDatesInvoice(value2); });
     this.dataarray.forEach(value2 => {console.log(value2.nameProduct); });
 
   }

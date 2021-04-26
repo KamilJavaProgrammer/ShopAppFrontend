@@ -41,12 +41,6 @@ export class ProductServiceService {
 
   }
 
-
-
-
-
-
-
   GetAllProducts(): Observable<Array<Product>>{
     return this.httpClient.get<any>(this.url + '/all', {observe: 'response'})
       .pipe(map(value => {
@@ -129,56 +123,6 @@ export class ProductServiceService {
 
 
 
-
-
-
-  GetAllProduct(): Observable<Array<Product>>{
-
-
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }),
-    };
-
-    this. headers = new HttpHeaders();
-    this.headers = this. headers.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
-    this.headers = this.headers.append('Content-Type', 'application/json');
-
-
-    console.log(this.headers.getAll('Authorization'));
-    console.log(this.headers);
-
-
-
-    return this.httpClient.get<Array<Product>>(this.url, {headers: this.headers});
-  }
-
-  GetTwoListFromBackend(): Observable<Array<Array<Product>>>{
-
-
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }),
-    };
-
-    this. headers = new HttpHeaders();
-    this.headers = this. headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
-    this.headers = this.headers.append('Content-Type', 'application/json');
-
-
-    console.log(this.headers.getAll('Authorization'));
-    console.log(this.headers);
-
-
-
-    return this.httpClient.get<Array<Array<Product>>>(this.urlList);
-  }
-
-
-
-
   DeleteProducts(products: Array<Product>): Observable<any>{
     return this.httpClient.request('delete', this.url, {body: products, observe: 'response'})
       .pipe(map(value => {
@@ -228,6 +172,7 @@ export class ProductServiceService {
   GetAllClients(): Observable<Array<Client>>{
     return this.httpClient.get<Array<Client>>(this.urlClient);
   }
+
   GetOneClient(id: number): Observable<Client>{
     return this.httpClient.get<Client>(this.urlClient + '/' + id);
   }

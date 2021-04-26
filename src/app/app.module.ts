@@ -6,7 +6,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import { FormAddProductComponent } from './Admin/Product/Help/warehouse/form-add-product/form-add-product.component';
-import { ProductStateComponent } from './Admin/Product/product-state/product-state.component';
 import {ProductServiceService} from './product-service.service';
 import {DataserviceService} from './dataservice.service';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -23,7 +22,6 @@ import { CarouselComponent } from './FrontMain/carousel/carousel.component';
 import {IvyCarouselModule} from 'angular-responsive-carousel';
 import {NgbModalModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TechnicalDataOfProductComponent } from './FrontMain/technical-data-of-product/technical-data-of-product.component';
-import { LastAddProductComponent } from './Admin/Product/last-add-product/last-add-product.component';
 import { BasketComponent } from './FrontMain/basket/basket.component';
 import { DetailsCurrentCoffeMachineComponent } from './FrontMain/Current-Item/details-current-coffe-machine.component';
 import { SearchingComponent } from './FrontMain/searching/searching.component';
@@ -134,7 +132,6 @@ const routes: Routes = [{
 },
 
 
-  { path: 'putInvoice', component: FVformComponent},
   { path: 'invoice/:id', component: ReadyInvoiceComponent},
 
 
@@ -152,7 +149,6 @@ export function JwtTokenGetter(): any {
   declarations: [
     AppComponent,
     FormAddProductComponent,
-    ProductStateComponent,
     FVformComponent,
     ReadyInvoiceComponent,
     SortingPipe,
@@ -163,7 +159,6 @@ export function JwtTokenGetter(): any {
     HomeShopComponent,
     CarouselComponent,
     TechnicalDataOfProductComponent,
-    LastAddProductComponent,
     BasketComponent,
     DetailsCurrentCoffeMachineComponent,
     SearchingComponent,
