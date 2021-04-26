@@ -4,22 +4,16 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
-import { HomeComponent } from './FrontClient/home/home.component';
 import {RouterModule, Routes} from '@angular/router';
 import { FormAddProductComponent } from './Admin/Product/Help/warehouse/form-add-product/form-add-product.component';
 import { ProductStateComponent } from './Admin/Product/product-state/product-state.component';
-import { FormEditProductComponent } from './FrontClient/form-edit-product/form-edit-product.component';
 import {ProductServiceService} from './product-service.service';
 import {DataserviceService} from './dataservice.service';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
-import { FVformComponent } from './FrontClient/fvform/fvform.component';
-import {ReadyInvoiceComponent} from './FrontClient/ready-invoice/ready-invoice.component';
-import { DatacompanyComponent } from './FrontClient/datacompany/datacompany.component';
-import { ClientStateComponent } from './FrontClient/client-state/client-state.component';
+import { FVformComponent } from './Admin/Bookkeeping/Invoices/fvform/fvform.component';
+import {ReadyInvoiceComponent} from './Admin/Bookkeeping/Invoices/ready-invoice/ready-invoice.component';
 import { SortingPipe } from './sorting.pipe';
-import { EditClientComponent } from './FrontClient/edit-client/edit-client.component';
-import { AddClientComponent } from './FrontClient/add-client/add-client.component';
 import { LoginUserComponent } from './FrontMain/login-user/login-user.component';
 import { RegistrationUserComponent } from './FrontMain/registration-user/registration-user.component';
 import { ForgotPasswordComponent } from './FrontMain/forgot-password/forgot-password.component';
@@ -33,7 +27,6 @@ import { LastAddProductComponent } from './Admin/Product/last-add-product/last-a
 import { BasketComponent } from './FrontMain/basket/basket.component';
 import { DetailsCurrentCoffeMachineComponent } from './FrontMain/Current-Item/details-current-coffe-machine.component';
 import { SearchingComponent } from './FrontMain/searching/searching.component';
-import { ClientOrderStateComponent } from './FrontClient/client-order-state/client-order-state.component';
 import { CategoriesPipe } from './categories.pipe';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {NgxSliderModule} from '@angular-slider/ngx-slider';
@@ -56,7 +49,6 @@ import { UserMessagesComponent } from './FrontClient/User/user-messages/user-mes
 import { LoginAdminComponent } from './Admin/Login/login-admin/login-admin.component';
 import { DashboardAdminComponent } from './Admin/Board/dashboard-admin/dashboard-admin.component';
 import { PanelAdminComponent } from './Admin/Board/panel-admin/panel-admin.component';
-import { ClientsOrderComponent } from './Admin/clients-order/clients-order.component';
 import { ShopWarehouseComponent } from './Admin/Shop/shop-warehouse/shop-warehouse.component';
 import {NgxCaptureModule} from 'ngx-capture';
 import { ShopClientsComponent } from './Admin/Shop/shop-clients/shop-clients.component';
@@ -80,6 +72,7 @@ import { SectionComponentComponent } from './Admin/Shop/ShopManagement/Sections/
 import { AddArticleLineComponent } from './Admin/Shop/ShopManagement/ArticleLines/add-article-line/add-article-line.component';
 import { AddSectionComponent } from './Admin/Shop/ShopManagement/Sections/add-section/add-section.component';
 import {AuthAdminGuard} from './auth-admin.guard';
+import { SalesDocumentStateComponent } from './Admin/Bookkeeping/Invoices/sales-document-state/sales-document-state.component';
 
 
 
@@ -99,39 +92,25 @@ const routes: Routes = [{
       {path: 'sklep/klienci/dodaj', component: ShopClientADDComponent, outlet:  'administrator'},
       {path: 'sklep/klienci/edytuj/:id', component: ClientEditComponent, outlet:  'administrator'},
       {path: 'sklep/zamowienia', component: ShopOrdersComponent, outlet:  'administrator'},
-      {path: 'zamówienia', component: ClientsOrderComponent, outlet:  'administrator'},
       {path: 'serwis/asortyment', component: ServiceWarehouseComponent, outlet:  'administrator'},
       {path: 'asortyment/edytuj/:id', component: EditProductComponent, outlet:  'administrator'},
       {path: 'sklep/zarzadzanie', component: ShopManagementComponent, outlet:  'administrator'},
        {path: 'sklep/zarzadzanie/sekcje/dodaj', component: AddArticleLineComponent, outlet:  'administrator'},
        {path: 'sklep/zarzadzanie/nawigacja/dodaj', component: AddSectionComponent, outlet:  'administrator'},
+       {path: 'ksiegowosc/faktury', component: SalesDocumentStateComponent, outlet:  'administrator'},
+       {path: 'ksiegowosc/faktury/dodaj', component: FVformComponent, outlet:  'administrator'},
     ]
 
   },
 
-  {path: 'home', component: HomeComponent,
 
-  children: [
-
-
-
-  { path: 'state', component: ProductStateComponent, outlet: 'route3' },
-  { path: 'clients', component: ClientStateComponent, outlet: 'route3' },
-
-  ]
-  },
 
   {path: 'shop', component:  HomeShopComponent,
 
-  children: [
+    children: [
 
     { path: 'details/:id', component: DetailsCurrentCoffeMachineComponent, outlet: 'route4'} ,
-
-      // children: [
-      //   { path: 'item/:name', component: CurrentItemComponent, outlet: 'route8' },
-      // ]},
-
-     { path: 'name/:name', component: SearchingComponent, outlet: 'route4' },
+    { path: 'name/:name', component: SearchingComponent, outlet: 'route4' },
      { path: 'cennik', component: PriceListComponent, outlet: 'route4' },
      { path: 'zlecenie', component: RepairOrderComponent, outlet: 'route4' },
     { path: 'logowanie', component: LoginUserComponent, outlet: 'route4' },
@@ -155,21 +134,8 @@ const routes: Routes = [{
 },
 
 
-
-
-
-
-
-
-
-
-  { path: 'add', component: FormAddProductComponent},
-  { path: 'edit', component: FormEditProductComponent},
   { path: 'putInvoice', component: FVformComponent},
   { path: 'invoice/:id', component: ReadyInvoiceComponent},
-  { path: 'datacompany', component: DatacompanyComponent},
-  { path: 'editClient', component: EditClientComponent},
-  { path: 'addClient', component: AddClientComponent},
 
 
 
@@ -185,17 +151,11 @@ export function JwtTokenGetter(): any {
   exports: [RouterModule],
   declarations: [
     AppComponent,
-    HomeComponent,
     FormAddProductComponent,
     ProductStateComponent,
-    FormEditProductComponent,
     FVformComponent,
     ReadyInvoiceComponent,
-    DatacompanyComponent,
-    ClientStateComponent,
     SortingPipe,
-    EditClientComponent,
-    AddClientComponent,
     LoginUserComponent,
     RegistrationUserComponent,
     ForgotPasswordComponent,
@@ -207,7 +167,6 @@ export function JwtTokenGetter(): any {
     BasketComponent,
     DetailsCurrentCoffeMachineComponent,
     SearchingComponent,
-    ClientOrderStateComponent,
     CategoriesPipe,
     AmountProductAlertComponent,
     AddBasketAlertComponent,
@@ -220,31 +179,15 @@ export function JwtTokenGetter(): any {
     UserMessagesComponent,
     LoginAdminComponent,
     DashboardAdminComponent,
-
-
     PanelAdminComponent,
-
-
-
-    ClientsOrderComponent,
-
     ShopWarehouseComponent,
-
     ShopClientsComponent,
-
     WarehouseComponent,
-
     ServiceWarehouseComponent,
-
-
     EditProductComponent,
-
     FormComponent,
-
     ClientFormComponent,
-
     ClientEditComponent,
-
     ShopClientADDComponent,
     ShopOrdersComponent,
     PriceListComponent,
@@ -253,11 +196,8 @@ export function JwtTokenGetter(): any {
     ArticleLineComponent,
     SectionComponentComponent,
     AddArticleLineComponent,
-    AddSectionComponent
-
-
-
-
+    AddSectionComponent,
+    SalesDocumentStateComponent
   ],
   imports: [
     BrowserModule,

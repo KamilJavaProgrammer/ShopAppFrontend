@@ -1,13 +1,13 @@
 import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
-import {Client, InvoiceInterface, Product, ProductServiceService} from '../../product-service.service';
+import {Client, InvoiceInterface, Product, ProductServiceService} from '../../../../product-service.service';
 import {FormArray, FormControl, Validators} from '@angular/forms';
 import { FormGroup} from '@angular/forms';
 import { FormBuilder} from '@angular/forms';
 import {FormsModule} from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
-import {Invoice} from '../../invoice.model';
+import {Invoice} from '../../../../invoice.model';
 import {all} from 'codelyzer/util/function';
-import {DataserviceService} from '../../dataservice.service';
+import {DataserviceService} from '../../../../dataservice.service';
 
 @Component({
   selector: 'app-fvform',

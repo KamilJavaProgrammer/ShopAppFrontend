@@ -47,8 +47,8 @@
              <div>
                <a>  <i class="fa fa-book" style="margin-right: 10px;"></i>Księgowość</a>
                <div *ngIf="bookkeeping" class="panel1">
-                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">1.Faktury</div>
-                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">2.Dodaj fakturę</div>
+                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['ksiegowosc','faktury']}}]">1.Faktury</div>
+                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['ksiegowosc','faktury','dodaj']}}]">2.Dodaj fakturę</div>
                </div>
              </div>
            </li>

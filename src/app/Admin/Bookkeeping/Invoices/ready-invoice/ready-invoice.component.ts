@@ -1,13 +1,13 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {DataserviceService} from '../../dataservice.service';
-import {InvoiceInterface} from '../../product-service.service';
-import {Company, CompanyServiceService} from '../../company-service.service';
+import {DataserviceService} from '../../../../dataservice.service';
+import {InvoiceInterface} from '../../../../product-service.service';
+import {Company, CompanyServiceService} from '../../../../company-service.service';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import * as html2pdf from 'html2pdf.js';
 import {type} from 'os';
 import {ActivatedRoute} from '@angular/router';
-import {InvoiceService} from '../../invoice.service';
+import {InvoiceService} from '../../../../invoice.service';
 
 @Component({
   selector: 'app-ready-invoice',
@@ -71,7 +71,7 @@ export class ReadyInvoiceComponent implements OnInit {
 
   clicks() {
     const options = {
-      filename: 'dupok',
+      filename: 'we',
       image: {type: 'png'},
       html2canvas: {},
       jsPDF: {orientation: 'landscape'}
@@ -80,31 +80,6 @@ export class ReadyInvoiceComponent implements OnInit {
 
     html2pdf().from(data).set(options).save();
 
-  }
-
-
-
-
-
-
-  public captureScreen()
-  {
-    const data = document.getElementById('tableToPdf');
-    html2canvas(data).then(canvas => {
-      // Few necessary setting options
-      const imgWidth = 208;
-      const pageHeight = 295;
-      const imgHeight = canvas.height * imgWidth / canvas.width;
-      const heightLeft = imgHeight;
-
-      const contentDataURL = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
-      const position = 0;
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-
-
-      pdf.save('MYPdf.pdf'); // Generated PDF
-    });
   }
 
 
