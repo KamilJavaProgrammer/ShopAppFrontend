@@ -32,10 +32,8 @@ export class FVformComponent implements OnInit {
   roundVatValue: string;
   roundNettoValue: string;
   roundBruttoValue: string;
-  searchArray: Array<string>;
-  searchArray1: Array<string>;
+  searchArray: Array<string> = [];
 
-  valueArray: number;
 
   roundVat2Value: string;
   roundNetto2Value: string;
@@ -90,7 +88,7 @@ export class FVformComponent implements OnInit {
 
   }
 
-  Add() {
+  AddProductRow(): void {
     this.invoice = new Invoice();
     this.invoice.lp = this.i++;
     this.invoice.unit = 'szt';
@@ -117,11 +115,10 @@ export class FVformComponent implements OnInit {
 
 
     this.searchArray = this.search.split('-');
-    this.searchArray1 = this.searchArray[1].split('-');
-    this.valueArray = +this.searchArray1;
+    const index = +this.searchArray[1];
 
 
-    if (this.valueArray < 1){
+    if (+this.products[index].numberOfItems < 1){
       alert('Masz za mało produktów');
       this.search = '';
     }
@@ -131,7 +128,7 @@ export class FVformComponent implements OnInit {
       this.invoice.nameProduct = this.searchArray[0];
       this.searching = +this.searchArray[3];
       this.productService.GetOneProduct(this.searching).subscribe(p => {this.invoice.cod = p.status;
-                                                                               this.invoice.id = p.id; });
+                                                                        this.invoice.id = p.id; });
       this.search = '';
 
     }
@@ -251,10 +248,10 @@ export class FVformComponent implements OnInit {
 
     this.productService.PostOneClientByName(this.client1).subscribe(value2 => {console.log(value2);
 
-                                                                                      this.nip = value2[0].nip;
-                                                                                      this.account = value2[0].account;
-                                                                                      this.address = value2[0].address;
-                                                                                      this.phoneNumber = value2[0].phoneNumber;
+                                                                               this.nip = value2[0].nip;
+                                                                               this.account = value2[0].account;
+                                                                               this.address = value2[0].address;
+                                                                               this.phoneNumber = value2[0].phoneNumber;
 
 
                                                                                        });
@@ -291,4 +288,6 @@ export class FVformComponent implements OnInit {
     this.dataarray.forEach(value2 => {console.log(value2.nameProduct); });
 
   }
+
+
 }

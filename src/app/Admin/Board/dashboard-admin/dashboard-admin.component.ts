@@ -27,7 +27,7 @@ export class DashboardAdminComponent implements OnInit {
 
   ngOnInit(): void {
     document.getElementById('navbar123').style.display = 'none';
-     this.router.navigate(['/admin', { outlets: {'administrator': ['panel']}}]);
+     // this.router.navigate(['/admin', { outlets: {'administrator': ['panel']}}]);
 
   }
 

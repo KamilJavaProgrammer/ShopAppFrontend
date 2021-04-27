@@ -105,13 +105,13 @@
        </div>
 
        <div class="form-row">
-         <div class="col-md-6 form-group" (keyup.enter)="AddSearch()">
+         <div class="col-md-6 form-group" >
            <label for="search">Znajdz produkt</label>
-           <input [(ngModel)]="search"    type="text" id="search" name="search" class="form-control" list="lista"  autocomplete="off">
+           <input  [(ngModel)]="search"  (keyup.enter)="AddSearch()"   type="text" id="search" name="search" class="form-control" list="lista"  autocomplete="off">
            <datalist id="lista" >
-             <ng-container *ngFor="let p of products">
-             <option>{{p.productName}} - {{p.numberOfItems}}-sztuk         - {{p.id}}</option>
+             <ng-container *ngFor="let product of products; let i = index;">
 
+             <option>{{product.productName}}  {{product.numberOfItems}} szt - {{i}}</option>
              </ng-container>
            </datalist>
          </div>
@@ -228,7 +228,7 @@
 
        </div>
 
-       <button class="btn btn-primary" (click)="Add()">Dodaj</button>
+       <button class="btn btn-primary" (click)="AddProductRow()">Dodaj</button>
      </form>
     </div>
 
