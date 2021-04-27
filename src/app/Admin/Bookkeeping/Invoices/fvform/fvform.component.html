@@ -26,14 +26,13 @@
         </div>
 
         <div class="form-row">
-          <div class="form-group col-md-6" (keyup.enter)="AddCliente()">
+          <div class="form-group col-md-6" >
             <label for="nabywca">Nabywca</label>
             <input [(ngModel)]="buyer" type="text" list="list" name="money" id="nabywca" class="form-control" autocomplete="off">
             <datalist id="list">
 
-              <ng-container *ngFor="let c of clients">
-                <option>{{c.buyer}}</option>
-
+              <ng-container *ngFor="let business of businesses">
+                <option>{{business.name}}</option>
               </ng-container>
 
 
@@ -52,7 +51,7 @@
             <label for="odbiorca">Odbiorca</label>
             <input [(ngModel)]="recipient" type="text" id="odbiorca" name="odbiorca" class="form-control">
           </div>
-          <button (click)="Send()" class="btn btn-danger">wyslij</button>
+          <button (click)="GetBusinessByNip()" class="btn btn-danger">wyslij</button>
           <div class="form-group col-md-6">
             <label for="adres">Adres</label>
             <input [(ngModel)]="address" class="form-control" id="adres" name="adreess" >
@@ -107,7 +106,7 @@
        <div class="form-row">
          <div class="col-md-6 form-group" >
            <label for="search">Znajdz produkt</label>
-           <input  [(ngModel)]="search"  (keyup.enter)="AddSearch()"   type="text" id="search" name="search" class="form-control" list="lista"  autocomplete="off">
+           <input [(ngModel)]="search" (keyup.enter)="AddProductData()" type="text" id="search" name="search" class="form-control" list="lista" autocomplete="off">
            <datalist id="lista" >
              <ng-container *ngFor="let product of products; let i = index;">
 
@@ -154,7 +153,7 @@
             Wart. Brutto
        </div>
          <div class="col-1 form-group rowHelp">
-           Action
+             Akcje
          </div>
        </div>
 

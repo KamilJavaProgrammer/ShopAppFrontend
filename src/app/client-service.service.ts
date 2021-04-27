@@ -15,15 +15,26 @@ export class ClientServiceService {
   constructor(private httpClient: HttpClient ){}
 
   port = '8088';
-  urlClientService = 'http://localhost:' + this.port + '/client/service';
+  urlClientService = 'http://localhost:' + this.port + '/shop/client';
+  urlBusiness = 'http://localhost:' + this.port + '/business';
 
   httpHeaders: HttpHeaders;
 
 
-   public GetAllShopClients(): Observable<any>{
+
+  public GetAllBusiness(): Observable<Array<Business>>{
+
+    this.httpHeaders = new HttpHeaders();
+    return this.httpClient.get<any>(this.urlBusiness, {observe: 'response'}).pipe(map(value => {
+      return value.body.body;
+    }));
+
+  }
+
+   public GetAllShopClients(): Observable<Array<ShopClient>>{
 
      this.httpHeaders = new HttpHeaders();
-     return this.httpClient.get<any>(this.urlClientService, {observe: 'response'}).pipe(map(value => {
+     return this.httpClient.get<any>(this.urlClientService + '/all', {observe: 'response'}).pipe(map(value => {
        console.log(value.body.body);
        return value.body.body;
      }));

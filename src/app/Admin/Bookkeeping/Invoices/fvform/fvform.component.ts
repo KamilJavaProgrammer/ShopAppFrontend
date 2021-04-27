@@ -1,13 +1,10 @@
 import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
 import {Client, InvoiceInterface, Product, ProductServiceService} from '../../../../product-service.service';
-import {FormArray, FormControl, Validators} from '@angular/forms';
-import { FormGroup} from '@angular/forms';
-import { FormBuilder} from '@angular/forms';
-import {FormsModule} from '@angular/forms';
-import {ReactiveFormsModule} from '@angular/forms';
 import {Invoice} from '../../../../invoice.model';
 import {all} from 'codelyzer/util/function';
 import {DataserviceService} from '../../../../dataservice.service';
+import {ClientServiceService, ShopClient} from '../../../../client-service.service';
+import {Business} from '../../../../order.service';
 
 @Component({
   selector: 'app-fvform',
@@ -39,14 +36,13 @@ export class FVformComponent implements OnInit {
   roundNetto2Value: string;
   roundBrutto2Value: string;
 
-  searching: number;
 
   account: string;
   recipient: string;
   nip: string;
   buyer: string;
   client: Client;
-  clients: Array<Client>;
+  businesses: Array<Business> = [];
 
   client1: Client;
   date: any;
@@ -65,12 +61,13 @@ export class FVformComponent implements OnInit {
 
 
 
-  constructor(private dataserviceService: DataserviceService , private productService: ProductServiceService) {
+  constructor(private dataserviceService: DataserviceService , private productService: ProductServiceService,
+              private clientService: ClientServiceService) {
   }
 
   public ngOnInit(): void {
 
-    this.GetAllClients();
+    this.GetAllBusiness();
     this.GetAllProduct();
     this.date = new Date().toLocaleDateString();
     this.invoice.lp = 1;
@@ -79,6 +76,7 @@ export class FVformComponent implements OnInit {
     this.invoice.cod = 'F16';
     this.invoice.discount = 0.00;
     this.dataarray.push(this.invoice);
+    this.spendFromStock = 'Główny magazyn';
 
 
 
@@ -104,19 +102,17 @@ export class FVformComponent implements OnInit {
     });
   }
 
-  GetAllClients(): void {
-    this.productService.GetAllClients().subscribe(p => {
-      this.clients = p;
+  GetAllBusiness(): void {
+    this.clientService.GetAllBusiness().subscribe(businesses => {
+      this.businesses = businesses;
     });
   }
 
 
-  AddSearch(): void {
-
+  AddProductData(): void {
 
     this.searchArray = this.search.split('-');
     const index = +this.searchArray[1];
-
 
     if (+this.products[index].numberOfItems < 1){
       alert('Masz za mało produktów');
@@ -125,16 +121,12 @@ export class FVformComponent implements OnInit {
     else
     {
       this.invoice.quantity = 1;
-      this.invoice.nameProduct = this.searchArray[0];
-      this.searching = +this.searchArray[3];
-      this.productService.GetOneProduct(this.searching).subscribe(p => {this.invoice.cod = p.status;
-                                                                        this.invoice.id = p.id; });
+      this.invoice.nameProduct = this.products[index].productName;
       this.search = '';
-
+      this.invoice.cod = this.products[index].cod;
+      this.invoice.nettoPrice = +(+this.products[index].productPrice / 1.23).toFixed(2);
+      this.Oblicz();
     }
-
-
-
   }
 
 
@@ -153,13 +145,9 @@ export class FVformComponent implements OnInit {
 
   Oblicz(): void {
 
-
-
-
     if (this.invoice.quantity < 1) {
       alert('zbyt mała liczba');
     }
-
 
     else {
 
@@ -218,48 +206,16 @@ export class FVformComponent implements OnInit {
 
   }
 
-  Send(): void{
+  GetBusinessByNip(): void{
 
-    this.client = ({
-      // account: this.account,
-      // buyer: this.buyer,
-      // recipient: this.recipient,
-      // nip: this.nip,
-      phoneNumber: this.phoneNumber,
-      // address: this.address
-
-
-    });
-
-
-    this.productService.AddClient(this.client).subscribe(value2 => {console.log(value2); });
 
   }
 
 
-  AddCliente(): void {
 
-
-    this.client1 = ({
-      // buyer: this.buyer
-    });
-
-
-
-    this.productService.PostOneClientByName(this.client1).subscribe(value2 => {console.log(value2);
-
-                                                                               this.nip = value2[0].nip;
-                                                                               this.account = value2[0].account;
-                                                                               this.address = value2[0].address;
-                                                                               this.phoneNumber = value2[0].phoneNumber;
-
-
-                                                                                       });
-
-  }
 
   SaveInvoice(): void {
-    this.Send();
+    this.GetBusinessByNip();
 
     this.invoiceObject = ({
       account : this.account,
