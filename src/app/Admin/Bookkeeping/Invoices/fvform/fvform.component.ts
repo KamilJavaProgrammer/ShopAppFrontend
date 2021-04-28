@@ -14,10 +14,10 @@ import {Business} from '../../../../order.service';
 export class FVformComponent implements OnInit {
 
   products: Array<Product>;
-  invoice = new Invoice();
-  dataarray = [];
+    invoice = new Invoice();
+  dataArray: Array<Invoice> = [];
   search: string;
-  i = 2;
+  i = 1;
   sumVatValue = 0;
   sum1VatValue = 0;
   sumNettoValue = 0;
@@ -37,63 +37,52 @@ export class FVformComponent implements OnInit {
   roundBrutto2Value: string;
 
 
-  account: string;
+  account = '123456789';
   recipient: string;
   nip: string;
   buyer: string;
   client: Client;
   businesses: Array<Business> = [];
 
-  client1: Client;
-  date: any;
+    date: any;
 
-  invoiceObject: InvoiceInterface;
-  spendFromStock: string;
-  paid: string;
-  payForm: string;
+   invoiceObject: InvoiceInterface;
+   paid: string;
 
-  address: string;
-  phoneNumber: string;
-  paymentDeadline: string;
-
-
-
-
+   address: string;
+   phoneNumber: string;
+   payForm = 'Gotówka';
+   spendFromStock = 'Główny magazyn';
+   paymentDeadline = '0';
+   postCode: string;
+   town: string;
 
 
   constructor(private dataserviceService: DataserviceService , private productService: ProductServiceService,
               private clientService: ClientServiceService) {
+
   }
 
   public ngOnInit(): void {
+    this.dataArray = [];
 
     this.GetAllBusiness();
     this.GetAllProduct();
     this.date = new Date().toLocaleDateString();
-    this.invoice.lp = 1;
-    this.invoice.unit = 'szt';
-    this.invoice.rateVat = '23%';
-    this.invoice.cod = 'F16';
-    this.invoice.discount = 0.00;
-    this.dataarray.push(this.invoice);
-    this.spendFromStock = 'Główny magazyn';
-
-
-
+    // this.AddProductRow();
     this.sumBruttoValue = +this.value1;
-
-
 
   }
 
   AddProductRow(): void {
-    this.invoice = new Invoice();
-    this.invoice.lp = this.i++;
-    this.invoice.unit = 'szt';
-    this.invoice.rateVat = '23%';
-    this.invoice.cod = 'F16';
-    this.invoice.discount = 0.00;
-    this.dataarray.push(this.invoice);
+
+    const invoiceData = new Invoice();
+    invoiceData.lp = this.i++;
+    invoiceData.unit = 'szt';
+    invoiceData.rateVat = '23%';
+    invoiceData.cod = 'F16';
+    invoiceData.discount = 0.00;
+    this.dataArray.push(invoiceData);
   }
 
   GetAllProduct(): void {
@@ -120,13 +109,16 @@ export class FVformComponent implements OnInit {
     }
     else
     {
+      this.invoice  = new Invoice();
+      this.invoice.lp = this.i++;
       this.invoice.quantity = 1;
       this.invoice.nameProduct = this.products[index].productName;
       this.search = '';
       this.invoice.cod = this.products[index].cod;
       this.invoice.nettoPrice = +(+this.products[index].productPrice / 1.23).toFixed(2);
+      this.dataArray.push(this.invoice);
       this.Oblicz();
-    }
+     }
   }
 
 
@@ -136,8 +128,11 @@ export class FVformComponent implements OnInit {
 
   Remove(index): void {
 
-    this.dataarray.splice(index);
-    this.i--;
+    this.dataArray.splice(index, 1);
+    let i = 1;
+    this.dataArray.forEach(value2 => {
+      value2.lp = i++;
+    });
     this.Wylicz();
   }
 
@@ -185,7 +180,7 @@ export class FVformComponent implements OnInit {
       this.sumBruttoValue = this.sum1BruttoValue;
 
 
-      this.dataarray.forEach(value => {
+      this.dataArray.forEach(value => {
       this.sum1VatValue = this.sumVatValue + value.vatValue;
       this.roundVatValue = this.sum1VatValue.toFixed(2);
       this.sumVatValue = +this.roundVatValue;
@@ -229,21 +224,30 @@ export class FVformComponent implements OnInit {
       spendFromStock: this.spendFromStock,
       paid: this.paid,
       payForm: this.payForm,
-      rest : this.dataarray,
+      rest : this.dataArray,
       address: this.address,
       phoneNumber: this.phoneNumber,
       paymentDeadline: this.paymentDeadline
-
-
     });
 
 
 
 
     this.productService.AddInvoice(this.invoiceObject).subscribe(value2 => {this.dataserviceService.addDatesInvoice(value2); });
-    this.dataarray.forEach(value2 => {console.log(value2.nameProduct); });
+    this.dataArray.forEach(value2 => {console.log(value2.nameProduct); });
 
   }
 
 
+  SetBusinnessDataInFormInvoice(): void {
+      this.businesses.forEach(business => {
+       if (business.name === this.buyer){
+             this.phoneNumber = business.phoneNumber;
+             this.nip = business.nip;
+             this.address = business.address.placeOfresident;
+             this.postCode = business.address.postCode;
+             this.town = business.address.town;
+       }
+    });
+  }
 }

@@ -9,9 +9,9 @@
         </div>
       </div>
 
-     <form>
+     <form >
         <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-md">
             <label for="document">Rodzaj dokumentu</label>
             <select id="document" class="form-control">
             <option>Faktura Vat</option>
@@ -19,16 +19,14 @@
             <option>Paragon Fiskalny</option>
             </select>
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md">
             <label for="money">Termin płatności(w dniach)</label>
-            <input type="number" name="money" id="money" class="form-control" [(ngModel)]="paymentDeadline" >
+            <input type="text" name="money" id="money" class="form-control" [(ngModel)]="paymentDeadline" >
           </div>
-        </div>
 
-        <div class="form-row">
-          <div class="form-group col-md-6" >
+          <div class="form-group col-md" >
             <label for="nabywca">Nabywca</label>
-            <input [(ngModel)]="buyer" type="text" list="list" name="money" id="nabywca" class="form-control" autocomplete="off">
+            <input (keydown.enter)="SetBusinnessDataInFormInvoice()" [(ngModel)]="buyer" type="text" list="list" name="buyer" id="nabywca" class="form-control" autocomplete="off">
             <datalist id="list">
 
               <ng-container *ngFor="let business of businesses">
@@ -38,83 +36,108 @@
 
             </datalist>
           </div>
-          <div class="form-group col-md-6">
+        </div>
+
+
+
+       <div class="form-row">
+
+          <div class="form-group col-md">
             <label for="NIP">NIP</label>
             <input [(ngModel)]="nip" type="text" name="NIP" id="NIP" class="form-control" >
-
           </div>
 
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="odbiorca">Odbiorca</label>
-            <input [(ngModel)]="recipient" type="text" id="odbiorca" name="odbiorca" class="form-control">
-          </div>
-          <button (click)="GetBusinessByNip()" class="btn btn-danger">wyslij</button>
-          <div class="form-group col-md-6">
-            <label for="adres">Adres</label>
-            <input [(ngModel)]="address" class="form-control" id="adres" name="adreess" >
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="odbiorca">Konto</label>
-            <input [(ngModel)]="account" type="text" id="konto" name="konto" class="form-control">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="form">Forma płatności</label>
-            <select [(ngModel)]="payForm" class="form-control" id="form" name="form" >
-              <option>Gotówka</option>
-              <option>Przelew</option>
-            </select>
-          </div>
-        </div>
-
-       <div class="form-row">
-         <div class="col-md-6 form-group ">
-           <label for="date">Data Wystawienia</label>
-           <input [(ngModel)]="date" type="text" class="form-control" id="date" name="date">
+         <div class="form-group col-md">
+           <label for="odbiorca">Odbiorca</label>
+           <input [(ngModel)]="recipient" type="text" id="odbiorca" name="odbiorca" class="form-control">
          </div>
 
-         <div class="col-md-6 form-group ">
-           <label for="phonenumber">Numer Telefonu</label>
-           <input [(ngModel)]="phoneNumber" type="text" class="form-control" id="phonenumber" name="phonenumber">
+         <div class="form-group col-md">
+           <label for="adres">Adres</label>
+           <input [(ngModel)]="address" class="form-control" id="adres" name="adreess" >
          </div>
-
        </div>
 
+
+
+
+<!--        <div class="form-row">-->
+<!--     -->
+<!--          <button (click)="GetBusinessByNip()" class="btn btn-danger">wyslij</button>-->
+<!--        -->
+<!--        </div>-->
+
        <div class="form-row">
-         <div class="col-md-6 form-group ">
-           <label for="zapłacono">Zapłacono</label>
-           <input [(ngModel)]="paid"  type="text" class="form-control" id="zapłacono" name="zapłacono">
+         <div class="form-group col-md">
+           <label for="postCode">Kod pocztowy</label>
+           <input [(ngModel)]="postCode" type="text" id="postCode" name="postCode" class="form-control">
+         </div>
+         <div class="form-group col-md">
+           <label for="town">Miasto</label>
+           <input [(ngModel)]="town" class="form-control" id="town" name="town" >
          </div>
 
-       </div>
-
-       <div class="form-row">
-         <div class="col-md-6 form-group ">
-        <label for="magazyn">Wydaj z magazynu</label>
-           <select [(ngModel)]="spendFromStock" name="spendMagazine" id="magazyn" class="form-control">
-           <option>Główny magazyn</option>
-           <option>Nie wydawaj z magazynu</option>
+         <div class="form-group col-md">
+           <label for="form">Forma płatności</label>
+           <select [(ngModel)]="payForm" class="form-control" id="form" name="payForm" >
+             <option>Gotówka</option>
+             <option>Przelew</option>
            </select>
          </div>
        </div>
 
+
        <div class="form-row">
-         <div class="col-md-6 form-group" >
+          <div class="form-group col-md">
+            <label for="odbiorca">Konto</label>
+            <input [(ngModel)]="account" type="text" id="konto" name="konto" class="form-control">
+          </div>
+
+         <div class="col-md form-group ">
+           <label for="date">Data Wystawienia</label>
+           <input [(ngModel)]="date" type="text" class="form-control" id="date" name="date">
+         </div>
+
+         <div class="col-md form-group ">
+           <label for="phonenumber">Numer Telefonu</label>
+           <input [(ngModel)]="phoneNumber" type="text" class="form-control" id="phonenumber" name="phonenumber">
+         </div>
+       </div>
+
+
+       <div class="form-row">
+         <div class="col-md-4 form-group ">
+           <label for="zapłacono">Zapłacono</label>
+           <input [(ngModel)]="paid"  type="text" class="form-control" id="zapłacono" name="zapłacono">
+         </div>
+
+
+         <div class="col-md-4 form-group ">
+           <label for="magazyn">Wydaj z magazynu</label>
+           <select [(ngModel)]="spendFromStock" name="spendMagazine" id="magazyn" class="form-control">
+             <option>Główny magazyn</option>
+             <option>Nie wydawaj z magazynu</option>
+           </select>
+         </div>
+       </div>
+
+     </form>
+
+
+       <div class="form-row">
+         <div class="col-md-4 form-group" >
            <label for="search">Znajdz produkt</label>
-           <input [(ngModel)]="search" (keyup.enter)="AddProductData()" type="text" id="search" name="search" class="form-control" list="lista" autocomplete="off">
+
+           <input [(ngModel)]="search" (keydown.enter)="AddProductData()"    type="text" id="search" name="search" class="form-control" list="lista" autocomplete="off">
            <datalist id="lista" >
              <ng-container *ngFor="let product of products; let i = index;">
 
-             <option>{{product.productName}}  {{product.numberOfItems}} szt - {{i}}</option>
+               <option>{{product.productName}}  {{product.numberOfItems}} szt - {{i}}</option>
              </ng-container>
            </datalist>
          </div>
        </div>
+
 
        <div class="form-row rowCurr">
          <div class="col-1 form-group rowHelp">
@@ -157,7 +180,7 @@
          </div>
        </div>
 
-       <div class="form-row" *ngFor="let obj of dataarray; let i=index">
+       <div class="form-row" *ngFor="let obj of dataArray; let i=index">
           <input type="hidden" name="id{{i}}" class="form-control" [(ngModel)]="obj.id" >
          <div class="col-1 form-group">
            <input type="text" name="lp{{i}}" class="form-control" [(ngModel)]="obj.lp" readonly>
@@ -228,7 +251,7 @@
        </div>
 
        <button class="btn btn-primary" (click)="AddProductRow()">Dodaj</button>
-     </form>
+
     </div>
 
   </div>
