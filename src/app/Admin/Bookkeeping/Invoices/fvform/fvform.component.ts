@@ -1,9 +1,8 @@
 import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
 import {Client, InvoiceInterface, Product, ProductServiceService} from '../../../../product-service.service';
 import {Invoice} from '../../../../invoice.model';
-import {DataserviceService} from '../../../../dataservice.service';
 import {ClientServiceService} from '../../../../client-service.service';
-import {Business, ProductBasket} from '../../../../order.service';
+import {Business, OrderService, ProductBasket} from '../../../../order.service';
 
 @Component({
   selector: 'app-fvform',
@@ -75,7 +74,8 @@ export class FVformComponent implements OnInit {
 
 
   constructor(private productService: ProductServiceService,
-              private clientService: ClientServiceService) {
+              private clientService: ClientServiceService,
+              private orderService: OrderService) {
 
   }
 
@@ -249,11 +249,7 @@ export class FVformComponent implements OnInit {
     });
 
     console.log(this.invoiceObject);
-
-
-    // this.productService.AddInvoice(this.invoiceObject).subscribe(value2 => {this.dataserviceService.addDatesInvoice(value2); });
-    // this.dataArray.forEach(value2 => {console.log(value2.nameProduct); });
-
+    this.orderService.AddOneInvoice(this.invoiceObject).subscribe();
   }
 
 

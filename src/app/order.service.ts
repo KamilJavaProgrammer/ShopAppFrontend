@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable, ReplaySubject, throwError} from 'rxjs';
-import {Client, Product} from './product-service.service';
+import {Client, InvoiceInterface, Product} from './product-service.service';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {ServiceClient, ShopClient} from './client-service.service';
@@ -20,7 +20,27 @@ export class OrderService {
   urlParcel = 'http://localhost:' + this.port + '/products/parcel';
   urlRepairOrder = 'http://localhost:' + this.port + '/order/repair';
 
+
+
   constructor(private httpClient: HttpClient) {}
+
+
+
+
+  AddOneInvoice(invoiceObject: InvoiceInterface): Observable<any>{
+
+    this.headers = new HttpHeaders();
+    this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
+    return this.httpClient.post<any>(this.urlInvoice, invoiceObject, {headers: this.headers, observe: 'response'})
+      .pipe(map(response => {
+        if (response.status === 200){
+          return response.body.body;
+        }
+        else {
+          throwError('Fault');
+        }
+      }));
+  }
 
   GetAllOrdersForUser(): Observable<Array<CompleteOrder>>{
 
@@ -171,6 +191,8 @@ export class OrderService {
     }));
 
   }
+
+
 }
 
 
