@@ -1,10 +1,9 @@
 import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
 import {Client, InvoiceInterface, Product, ProductServiceService} from '../../../../product-service.service';
 import {Invoice} from '../../../../invoice.model';
-import {all} from 'codelyzer/util/function';
 import {DataserviceService} from '../../../../dataservice.service';
-import {ClientServiceService, ShopClient} from '../../../../client-service.service';
-import {Business} from '../../../../order.service';
+import {ClientServiceService} from '../../../../client-service.service';
+import {Business, ProductBasket} from '../../../../order.service';
 
 @Component({
   selector: 'app-fvform',
@@ -13,8 +12,45 @@ import {Business} from '../../../../order.service';
 })
 export class FVformComponent implements OnInit {
 
+
+  productBaskets: Array<ProductBasket> = [];
+
+  invoiceObject: InvoiceInterface = ({
+    buyer: '',
+    date : '',
+    nip : '',
+    recipient: '',
+    sumVatValue: 0,
+    sumBruttoValue: 0,
+    sumNettoValue: 0,
+    spendFromStock: 'Główny magazyn',
+    paid: '',
+    payForm: 'Gotówka',
+    paymentDeadline: '0',
+     business: ({
+       nip: '',
+       phoneNumber: '',
+       name: '',
+       email: '',
+       regon: '',
+       address: ({
+         postCode: '',
+         placeOfresident: '',
+         town: '',
+       })
+     }),
+    productBaskets: this.productBaskets
+   });
+
+
+
+
+
+
+
+
   products: Array<Product>;
-    invoice = new Invoice();
+  invoice = new Invoice();
   dataArray: Array<Invoice> = [];
   search: string;
   i = 1;
@@ -30,32 +66,12 @@ export class FVformComponent implements OnInit {
   roundNettoValue: string;
   roundBruttoValue: string;
   searchArray: Array<string> = [];
-
-
   roundVat2Value: string;
   roundNetto2Value: string;
   roundBrutto2Value: string;
-
-
   account = '123456789';
-  recipient: string;
-  nip: string;
-  buyer: string;
-  client: Client;
   businesses: Array<Business> = [];
 
-    date: any;
-
-   invoiceObject: InvoiceInterface;
-   paid: string;
-
-   address: string;
-   phoneNumber: string;
-   payForm = 'Gotówka';
-   spendFromStock = 'Główny magazyn';
-   paymentDeadline = '0';
-   postCode: string;
-   town: string;
 
 
   constructor(private dataserviceService: DataserviceService , private productService: ProductServiceService,
@@ -68,7 +84,7 @@ export class FVformComponent implements OnInit {
 
     this.GetAllBusiness();
     this.GetAllProduct();
-    this.date = new Date().toLocaleDateString();
+    this.invoiceObject.date = new Date().toLocaleDateString();
     // this.AddProductRow();
     this.sumBruttoValue = +this.value1;
 
@@ -119,7 +135,7 @@ export class FVformComponent implements OnInit {
       this.invoice.rateVat = '23%';
       this.invoice.nettoPrice = +(+this.products[index].productPrice / 1.23).toFixed(2);
       this.dataArray.push(this.invoice);
-      this.Oblicz();
+      this.CountPart();
      }
   }
 
@@ -136,12 +152,12 @@ export class FVformComponent implements OnInit {
       value2.lp = i++;
     });
     this.i = i;
-    this.Wylicz();
+    this.CountAll();
   }
 
 
 
-  Oblicz(): void {
+  CountPart(): void {
 
     if (this.invoice.quantity < 1) {
       alert('zbyt mała liczba');
@@ -168,14 +184,14 @@ export class FVformComponent implements OnInit {
       this.invoice.bruttoValue = +this.roundBrutto2Value;
 
 
-      this.Wylicz();
+      this.CountAll();
 
 
     }
 
   }
 
-  Wylicz(): void{
+  CountAll(): void{
 
 
       this.sumVatValue = this.sum1VatValue;
@@ -207,47 +223,27 @@ export class FVformComponent implements OnInit {
   GetBusinessByNip(): void{
 
 
+
   }
 
 
 
-
   SaveInvoice(): void {
-    this.GetBusinessByNip();
-
-    this.invoiceObject = ({
-      account : this.account,
-      buyer: this.buyer,
-      date : this.date,
-      nip : this.nip,
-      recipient: this.recipient,
-      sumVatValue: this.sumVatValue,
-      sumBruttoValue: this.sumBruttoValue,
-      sumNettoValue: this.sumNettoValue,
-      spendFromStock: this.spendFromStock,
-      paid: this.paid,
-      payForm: this.payForm,
-      rest : this.dataArray,
-      address: this.address,
-      phoneNumber: this.phoneNumber,
-      paymentDeadline: this.paymentDeadline
-    });
 
 
-    this.productService.AddInvoice(this.invoiceObject).subscribe(value2 => {this.dataserviceService.addDatesInvoice(value2); });
-    this.dataArray.forEach(value2 => {console.log(value2.nameProduct); });
+      console.log(this.invoiceObject);
+
+
+    // this.productService.AddInvoice(this.invoiceObject).subscribe(value2 => {this.dataserviceService.addDatesInvoice(value2); });
+    // this.dataArray.forEach(value2 => {console.log(value2.nameProduct); });
 
   }
 
 
   SetBusinnessDataInFormInvoice(): void {
       this.businesses.forEach(business => {
-       if (business.name === this.buyer){
-             this.phoneNumber = business.phoneNumber;
-             this.nip = business.nip;
-             this.address = business.address.placeOfresident;
-             this.postCode = business.address.postCode;
-             this.town = business.address.town;
+       if (business.name === this.invoiceObject.buyer){
+           this.invoiceObject.business = business;
        }
     });
   }

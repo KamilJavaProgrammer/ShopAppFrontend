@@ -192,16 +192,6 @@ export interface CompleteOrder {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 export interface ProductBasket {
   id?: number;
   idProduct?: number;
@@ -214,6 +204,11 @@ export interface ProductBasket {
   vatRate?: number;
   unit?: number;
 
+  cod?: number;
+  lp?: number;
+  nettoValue?: number;
+  vatValue?: number;
+  bruttoValue?: number;
 
 }
 

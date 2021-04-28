@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Address, Business} from './order.service';
+import {Address, Business, ProductBasket} from './order.service';
 import {map} from 'rxjs/operators';
 
 @Injectable({
@@ -253,6 +253,7 @@ export interface InvoiceInterface {
   id?: number;
   nip?: string;
   buyer?: string;
+  invoicePath?: string;
   recipient?: string;
   account?: string;
   payForm?: string;
@@ -262,10 +263,10 @@ export interface InvoiceInterface {
   sumVatValue?: number;
   sumNettoValue?: number;
   sumBruttoValue?: number;
-  rest?: any[];
-  address?: string;
-  phoneNumber?: string;
   paymentDeadline?: string;
+  productBaskets?: Array<ProductBasket>;
+  business?: Business;
+
 
 
 
