@@ -181,7 +181,6 @@
        </div>
 
        <div class="form-row" *ngFor="let obj of dataArray; let i=index">
-          <input type="hidden" name="id{{i}}" class="form-control" [(ngModel)]="obj.id" >
          <div class="col-1 form-group">
            <input type="text" name="lp{{i}}" class="form-control" [(ngModel)]="obj.lp" readonly>
          </div>
@@ -193,19 +192,19 @@
            <input type="text" name="cod{{i}}"  value="sasa" class="form-control" [(ngModel)]="obj.cod">
          </div>
          <div class="col-1 form-group">
-           <input type="text" name="quantity{{i}}" class="form-control" [(ngModel)]="obj.quantity">
+           <input type="text" name="quantity{{i}}" class="form-control" [(ngModel)]="obj.quantity" (change)="Oblicz()">
          </div>
          <div class="col-1 form-group">
            <input type="text" name="unit{{i}}" class="form-control" [(ngModel)]="obj.unit">
          </div>
          <div class="col-1 form-group">
-           <input type="text" name="nettoPrice{{i}}" class="form-control" [(ngModel)]=" obj.nettoPrice" (dblclick)="Oblicz()">
+           <input type="text" name="nettoPrice{{i}}" class="form-control" [(ngModel)]=" obj.nettoPrice" (change)="Oblicz()">
          </div>
          <div class="col-1 form-group">
-           <input type="text" name="discount{{i}}" class="form-control" [(ngModel)]="obj.discount">
+           <input type="text" name="discount{{i}}" class="form-control" [(ngModel)]="obj.discount" (change)="Oblicz()">
          </div>
          <div class="col-1 form-group">
-           <select type="text" name="stawka{{i}}" class="form-control" [(ngModel)]="obj.rateVat">
+           <select type="text" name="stawka{{i}}" class="form-control" [(ngModel)]="obj.rateVat" (change)="Oblicz()">
              <option>23%</option>
              <option>8%</option>
            </select>

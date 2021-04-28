@@ -11,7 +11,6 @@ import {DataserviceService} from './dataservice.service';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import { FVformComponent } from './Admin/Bookkeeping/Invoices/fvform/fvform.component';
-import {ReadyInvoiceComponent} from './Admin/Bookkeeping/Invoices/ready-invoice/ready-invoice.component';
 import { SortingPipe } from './sorting.pipe';
 import { LoginUserComponent } from './FrontMain/login-user/login-user.component';
 import { RegistrationUserComponent } from './FrontMain/registration-user/registration-user.component';
@@ -132,8 +131,6 @@ const routes: Routes = [{
 },
 
 
-  { path: 'invoice/:id', component: ReadyInvoiceComponent},
-
 
 
 ];
@@ -150,7 +147,6 @@ export function JwtTokenGetter(): any {
     AppComponent,
     FormAddProductComponent,
     FVformComponent,
-    ReadyInvoiceComponent,
     SortingPipe,
     LoginUserComponent,
     RegistrationUserComponent,

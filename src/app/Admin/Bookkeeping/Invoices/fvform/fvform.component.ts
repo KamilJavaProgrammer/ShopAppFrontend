@@ -115,6 +115,8 @@ export class FVformComponent implements OnInit {
       this.invoice.nameProduct = this.products[index].productName;
       this.search = '';
       this.invoice.cod = this.products[index].cod;
+      this.invoice.discount = 0;
+      this.invoice.rateVat = '23%';
       this.invoice.nettoPrice = +(+this.products[index].productPrice / 1.23).toFixed(2);
       this.dataArray.push(this.invoice);
       this.Oblicz();
@@ -133,6 +135,7 @@ export class FVformComponent implements OnInit {
     this.dataArray.forEach(value2 => {
       value2.lp = i++;
     });
+    this.i = i;
     this.Wylicz();
   }
 
@@ -229,8 +232,6 @@ export class FVformComponent implements OnInit {
       phoneNumber: this.phoneNumber,
       paymentDeadline: this.paymentDeadline
     });
-
-
 
 
     this.productService.AddInvoice(this.invoiceObject).subscribe(value2 => {this.dataserviceService.addDatesInvoice(value2); });
