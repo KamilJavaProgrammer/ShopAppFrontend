@@ -74,7 +74,7 @@ export class FVformComponent implements OnInit {
 
 
 
-  constructor(private dataserviceService: DataserviceService , private productService: ProductServiceService,
+  constructor(private productService: ProductServiceService,
               private clientService: ClientServiceService) {
 
   }
@@ -230,8 +230,25 @@ export class FVformComponent implements OnInit {
 
   SaveInvoice(): void {
 
+    this.dataArray.forEach(value2 => {
+      const productBasket: ProductBasket = ({
+        vatRate: value2.rateVat,
+         cod: value2.cod,
+        numberOfItems: value2.quantity,
+        nameOfProduct: value2.nameProduct,
+        discount: value2.discount,
+        vatValue: value2.vatValue,
+        lp: value2.lp,
+        unit: value2.unit,
+        nettoPrice: value2.nettoPrice,
+        bruttoValue: value2.bruttoValue,
+        nettoValue: value2.nettoValue,
 
-      console.log(this.invoiceObject);
+      });
+      this.productBaskets.push(productBasket);
+    });
+
+    console.log(this.invoiceObject);
 
 
     // this.productService.AddInvoice(this.invoiceObject).subscribe(value2 => {this.dataserviceService.addDatesInvoice(value2); });

@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {User} from './user.service';
-import {HomeShopComponent} from './FrontMain/home-shop/home-shop.component';
 
 
 @Injectable({

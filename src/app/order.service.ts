@@ -201,10 +201,10 @@ export interface ProductBasket {
   numberOfItems?: number;
   nettoPrice?: number;
   discount?: number;
-  vatRate?: number;
+  vatRate?: string;
   unit?: number;
 
-  cod?: number;
+  cod?: string;
   lp?: number;
   nettoValue?: number;
   vatValue?: number;

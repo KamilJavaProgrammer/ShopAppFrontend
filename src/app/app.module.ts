@@ -7,7 +7,6 @@ import {FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import { FormAddProductComponent } from './Admin/Product/Help/warehouse/form-add-product/form-add-product.component';
 import {ProductServiceService} from './product-service.service';
-import {DataserviceService} from './dataservice.service';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import { FVformComponent } from './Admin/Bookkeeping/Invoices/fvform/fvform.component';
@@ -58,11 +57,11 @@ import { ClientFormComponent } from './Admin/Product/Help/clients/client-form/cl
 import { ClientEditComponent } from './Admin/Product/Help/clients/client-edit/client-edit.component';
 import { ShopClientADDComponent } from './Admin/Product/Help/clients/shop-client-add/shop-client-add.component';
 import {ShopOrdersComponent} from './Admin/Shop/shop-orders/shop-orders.component';
-import { PriceListComponent } from './service/price-list/price-list.component';
+import { PriceListComponent } from './FrontMain/price-list/price-list.component';
 import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {AnimationBuilder} from '@angular/animations';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { RepairOrderComponent } from './service/repair-order/repair-order.component';
+import { RepairOrderComponent } from './FrontMain/repair-order/repair-order.component';
 import { ShopManagementComponent } from './Admin/Shop/ShopManagement/shop-management/shop-management.component';
 import { ArticleLineComponent } from './Admin/Shop/ShopManagement/ArticleLines/article-line/article-line.component';
 import { SectionComponentComponent } from './Admin/Shop/ShopManagement/Sections/section-component/section-component.component';
@@ -222,7 +221,7 @@ export function JwtTokenGetter(): any {
 
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  providers: [ ProductServiceService, DataserviceService, AuthService, AuthAdminGuard, AuthGuard, EditProductComponent, ClientServiceService, WarehouseComponent, HomeShopComponent],
+  providers: [ ProductServiceService, OrderService, AuthService, AuthAdminGuard, AuthGuard, EditProductComponent, ClientServiceService, WarehouseComponent, HomeShopComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
