@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/cor
 import {Product, ProductServiceService} from '../../product-service.service';
 import {ProductBasket, OrderService} from '../../order.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DataserviceService} from '../../dataservice.service';
 import {Options} from '@angular-slider/ngx-slider';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
@@ -58,7 +57,7 @@ export class DetailsCurrentCoffeMachineComponent implements OnInit, OnDestroy{
 
 
   constructor(private router: Router, private productService: ProductServiceService,
-              private dataService: DataserviceService, private route: ActivatedRoute,
+              private route: ActivatedRoute,
               private ngxService: NgxUiLoaderService,
               private modalService: BsModalService,
               private orderService: OrderService,

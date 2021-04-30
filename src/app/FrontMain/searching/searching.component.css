@@ -2,30 +2,60 @@
   .article-title
   {
     text-align: center;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     width: 80vw;
     border-bottom: 3px solid #fad38e;
-    margin:auto;
     font-size: 20px;
-    margin-top: 30px;
+    margin: 30px auto auto;
   }
   .selectButton
   {
-    margin-top: 10px;
+    margin-top: 20px;
     margin-right: auto;
     margin-left: auto;
     width: 200px;
   }
+
+  .ngcontainer_col_3
+  {
+    margin-top: 5vh;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
 }
+
 
 @media (min-width: 576px) {
-
-
+  .ngcontainer_col_3
+  {
+    margin-top: 10vh;
+    width: 50%;
+  }
+  .article-title
+  {
+    text-align: center;
+    padding-bottom: 10px;
+    width: 80vw;
+    border-bottom: 3px solid #fad38e;
+    font-size: 20px;
+    margin: 30px auto auto;
+  }
+  .selectButton
+  {
+    margin-top: 5vh;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
 
 }
 
+
 @media (min-width: 768px) {
+
 
   .article-title
   {
@@ -39,27 +69,41 @@
   }
   .selectButton
   {
-    margin-top: 10px;
+    margin-top: 20px;
     position: relative;
-    left: 83vw;
     width: 200px;
+  }
+
+
+  .ngcontainer_col_3
+  {
+    margin-top: 5vh;
+    width: 50%;
   }
 
 
 }
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
 
 
+  .ngcontainer_col_3
+  {
+    margin-top: 5vh;
+    width: 33.3%;
+  }
 }
+
 
 @media (min-width: 1200px) {
 
-
+  .ngcontainer_col_3
+  {
+    margin-top: 5vh;
+    width: 25%;
+  }
 
 }
-
-
 
 
 
@@ -81,6 +125,8 @@
   z-index: 1;
   margin: auto !important;
   display: block;
+  box-shadow: 0px 0px 6px black;
+
 }
 
 .product_image_name
@@ -96,10 +142,7 @@
 {
   font-weight: 700;
 }
-.ngcontainer_col_3
-{
-  margin-top: 5vh;
-}
+
 .details_span
 {
   cursor: pointer;

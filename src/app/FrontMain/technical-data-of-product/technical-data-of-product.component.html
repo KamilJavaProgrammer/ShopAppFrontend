@@ -1,10 +1,12 @@
 <div class="container-fluid">
   <div class="row">
-     <div class="col-sm img_container">
+     <div class="img_container">
        <img class="colImg" id="img" [src]="product.imageByte" alt="ImageProblem">
+
+
      </div>
 
-    <div class="col-sm descriptionContainer">
+    <div class="descriptionContainer">
       <div class="nameProduct">{{product.productName}}</div>
       <div class="priceProduct">{{productPrice}} PLN</div>
 
@@ -38,13 +40,15 @@
       <button (click)="AddToBasket(product)" class="btn btn-outline-danger addToBasketButton">Dodaj do koszyka</button>
   </div>
 
+    <div class="bottomRow">
+      <a routerLink="/shop" ><button  class="btn btn-outline-primary returnButton" >Powrót</button></a>
+    </div>
+
   </div>
 
 
 
-<div class="bottomRow">
-  <a routerLink="/shop" ><button  class="btn btn-outline-primary returnButton" >Powrót</button></a>
-</div>
+
 
 </div>
 

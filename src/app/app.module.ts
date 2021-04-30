@@ -59,7 +59,6 @@ import { ShopClientADDComponent } from './Admin/Product/Help/clients/shop-client
 import {ShopOrdersComponent} from './Admin/Shop/shop-orders/shop-orders.component';
 import { PriceListComponent } from './FrontMain/price-list/price-list.component';
 import {AccordionModule} from 'ngx-bootstrap/accordion';
-import {AnimationBuilder} from '@angular/animations';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RepairOrderComponent } from './FrontMain/repair-order/repair-order.component';
 import { ShopManagementComponent } from './Admin/Shop/ShopManagement/shop-management/shop-management.component';

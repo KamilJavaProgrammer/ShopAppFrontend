@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ProductBasket, OrderService} from '../../order.service';
 import {Product, ProductServiceService} from '../../product-service.service';
-import {DataserviceService} from '../../dataservice.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {BsModalService} from 'ngx-bootstrap/modal';

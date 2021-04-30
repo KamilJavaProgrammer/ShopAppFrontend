@@ -2,12 +2,10 @@ import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/cor
 import {User, UserService} from '../../user.service';
 import {ProductServiceService} from '../../product-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DataserviceService} from '../../dataservice.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {HomeShopComponent} from '../home-shop/home-shop.component';
 import {AuthService} from '../../auth.service';
-import {first} from 'rxjs/operators';
-import {AuthGuard} from '../../auth.guard';
+
 
 
 @Component({
@@ -36,7 +34,6 @@ export class LoginUserComponent implements OnInit, OnDestroy {
 
 
   constructor(private modalService: BsModalService,
-              private dataserviceService: DataserviceService,
               private userService: UserService,
               private productServiceService: ProductServiceService,
               private router: Router, private route: ActivatedRoute,

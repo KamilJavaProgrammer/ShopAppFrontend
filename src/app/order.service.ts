@@ -29,8 +29,8 @@ export class OrderService {
 
   AddOneInvoice(invoiceObject: InvoiceInterface): Observable<any>{
 
-    this.headers = new HttpHeaders();
-    this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
+    // this.headers = new HttpHeaders();
+    // this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
     return this.httpClient.post<any>(this.urlInvoice, invoiceObject, {headers: this.headers, observe: 'response'})
       .pipe(map(response => {
         if (response.status === 200){

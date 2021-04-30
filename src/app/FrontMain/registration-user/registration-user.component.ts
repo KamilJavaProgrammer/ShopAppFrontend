@@ -2,9 +2,7 @@ import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {User, UserService} from '../../user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BsModalService} from 'ngx-bootstrap/modal';
-import {DataserviceService} from '../../dataservice.service';
-import {ProductServiceService} from '../../product-service.service';
-import {HomeShopComponent} from '../home-shop/home-shop.component';
+
 
 @Component({
   selector: 'app-registration-user',

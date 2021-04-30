@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User, UserService} from '../../user.service';
-import {Router} from '@angular/router';
-import {DataserviceService} from '../../dataservice.service';
+
 
 @Component({
   selector: 'app-forgot-password',

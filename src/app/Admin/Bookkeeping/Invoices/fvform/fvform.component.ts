@@ -131,6 +131,7 @@ export class FVformComponent implements OnInit {
       this.invoice.nameProduct = this.products[index].productName;
       this.search = '';
       this.invoice.cod = this.products[index].cod;
+      this.invoice.id = this.products[index].id;
       this.invoice.discount = 0;
       this.invoice.rateVat = '23%';
       this.invoice.nettoPrice = +(+this.products[index].productPrice / 1.23).toFixed(2);
@@ -231,7 +232,13 @@ export class FVformComponent implements OnInit {
   SaveInvoice(): void {
 
     this.dataArray.forEach(value2 => {
+      console.log(value2.id);
+      console.log(value2.id);
+      console.log(value2.id);
+      console.log(value2.id);
       const productBasket: ProductBasket = ({
+
+        idProduct: value2.id,
         vatRate: value2.rateVat,
          cod: value2.cod,
         numberOfItems: value2.quantity,

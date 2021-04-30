@@ -1,7 +1,6 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {User, UserService} from '../../../user.service';
 import {BsModalService} from 'ngx-bootstrap/modal';
-import {DataserviceService} from '../../../dataservice.service';
 import {ProductServiceService} from '../../../product-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HomeShopComponent} from '../../../FrontMain/home-shop/home-shop.component';
@@ -20,7 +19,6 @@ export class LoginAdminComponent implements OnInit {
   @ViewChild('alert') alert: TemplateRef<any>;
 
   constructor(private modalService: BsModalService,
-              private dataserviceService: DataserviceService,
               private userService: UserService,
               private productServiceService: ProductServiceService,
               private router: Router, private route: ActivatedRoute,

@@ -1,11 +1,10 @@
 import {Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Product, ProductServiceService} from '../../product-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DataserviceService} from '../../dataservice.service';
 import {ProductBasket, OrderService} from '../../order.service';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
-import {ArticleLine, Section, SectionCategories, SectionService, SectionSubCategories} from '../../section.service';
+import {ArticleLine, Section, SectionService} from '../../section.service';
 import {HttpClient} from '@angular/common/http';
 import {AuthGuard} from '../../auth.guard';
 
@@ -18,13 +17,13 @@ import {AuthGuard} from '../../auth.guard';
 export class HomeShopComponent implements OnInit, OnDestroy {
 
 
-  constructor(private dataService: DataserviceService, private productService: ProductServiceService, private router: Router,
-              private ngxService: NgxUiLoaderService, private route: ActivatedRoute,
-              private orderService: OrderService,
-              private modalService: BsModalService,
-              private sectionService: SectionService,
-              private httpClient: HttpClient,
-              private authGuard: AuthGuard){}
+  constructor( private productService: ProductServiceService, private router: Router,
+               private ngxService: NgxUiLoaderService, private route: ActivatedRoute,
+               private orderService: OrderService,
+               private modalService: BsModalService,
+               private sectionService: SectionService,
+               private httpClient: HttpClient,
+               private authGuard: AuthGuard){}
 
 
 

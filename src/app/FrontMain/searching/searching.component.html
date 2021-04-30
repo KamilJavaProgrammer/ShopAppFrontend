@@ -13,7 +13,6 @@
 
             <div class="col">
             <div class="form-group selectButton">
-
             <select autocomplete="off" id="sorting"  (change)="Sort()" [(ngModel)]="sorting" class="form-control">
               <option>Sortuj wg</option>
               <option>Alfabetycznie</option>
@@ -27,7 +26,7 @@
       <div class="row unit_product">
         <ng-container *ngFor="let product of products | paginate:{id:'listing_pagination',itemsPerPage:12, currentPage:page,totalItems:totalRecords}">
 
-          <div class="col-lg-3 ngcontainer_col_3" >
+          <div class="ngcontainer_col_3">
 
             <img class="images_product" [src]="product.imageByte"  (click)="RedirectToTechnicalDataComponent(product.id)" alt="ImageProblem" >
             <div class="product_image_name">
@@ -37,12 +36,9 @@
               <br>
               <span class="addBasketButton" (click)="AddToBasket(product)">Dodaj do koszyka</span> | <span class="detailsButton" (click)="RedirectToTechnicalDataComponent(product.id)">Szczegóły</span>
 
-
             </div>
           </div>
-
         </ng-container>
-
       </div>
 
 
@@ -72,28 +68,6 @@
     </div>
   </div>
 </article>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
