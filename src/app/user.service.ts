@@ -14,8 +14,6 @@ export class UserService {
   port = '8088';
 
 
-  urlRegistration = 'http://localhost:' + this.port + '/registration';
-  urlVerfication = 'http://localhost:' + this.port + '/verification';
   urlLogin = 'http://localhost:' + this.port + '/login';
   urlChangePassword = 'http://localhost:' + this.port + '/changePassword';
   urlRole = 'http://localhost:' + this.port + '/role';
@@ -31,6 +29,7 @@ export class UserService {
   constructor(private httpClient: HttpClient) {
     this.httpClient = httpClient;
   }
+
 
 
   public GetUserFromServerWithJwt(): Observable<User>{
@@ -106,20 +105,6 @@ export class UserService {
 
 
 
-
-
-
-
-
-
-     public RegistrationUser(user: User): Observable<string>{
-    return this.httpClient.post(this.urlRegistration, user, {responseType: 'text'});
-  }
-
-  public SendVerificationCode(user: User): Observable<string> {
-    return this.httpClient.patch(this.urlVerfication, user, {responseType : 'text'});
-
-  }
 
   public Login(user: User): Observable<string>{
     return this.httpClient.post(this.urlLogin, user, {responseType: 'text'});

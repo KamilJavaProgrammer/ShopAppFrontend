@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/cor
 import {User, UserService} from '../../user.service';
 import {ProductServiceService} from '../../product-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import {BsModalService} from 'ngx-bootstrap/modal';
 import {HomeShopComponent} from '../home-shop/home-shop.component';
 import {AuthService} from '../../auth.service';
 
@@ -17,9 +17,6 @@ export class LoginUserComponent implements OnInit, OnDestroy {
   user: User;
   username: string;
   password: string;
-  token: string;
-  div: HTMLElement;
-  role: string;
   sub: any;
   id: any;
 
@@ -27,11 +24,6 @@ export class LoginUserComponent implements OnInit, OnDestroy {
 
   @ViewChild('alert')
   alert: TemplateRef<any>;
-
-
-
-
-
 
   constructor(private modalService: BsModalService,
               private userService: UserService,
@@ -74,7 +66,7 @@ export class LoginUserComponent implements OnInit, OnDestroy {
       username : this.username
     });
 
-    this.authService.login(this.user).subscribe(value => {
+    this.authService.LoginUser(this.user).subscribe(value => {
       if (value === true){
 
          this.router.navigate(['/shop', {outlets: {route4: 'konto'}}]);
@@ -88,10 +80,8 @@ export class LoginUserComponent implements OnInit, OnDestroy {
         this.Clear();
       }
     }, error => {
-      console.log('error');
+      console.log(error);
     });
   }
-
-
 
 }

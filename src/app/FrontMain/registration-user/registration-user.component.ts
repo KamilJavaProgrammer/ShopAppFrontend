@@ -1,7 +1,8 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {User, UserService} from '../../user.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {User} from '../../user.service';
+import {Router} from '@angular/router';
 import {BsModalService} from 'ngx-bootstrap/modal';
+import {AuthService} from '../../auth.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class RegistrationUserComponent implements OnInit, OnDestroy{
   username: string;
   result: string;
 
-  constructor(private modalService: BsModalService, private userService: UserService,
+  constructor(private modalService: BsModalService, private authService: AuthService,
               private router: Router) {}
 
   ngOnInit(): void {
@@ -41,11 +42,11 @@ export class RegistrationUserComponent implements OnInit, OnDestroy{
 
     });
 
-    this.userService.RegistrationUser(this.user).subscribe(value => {
+    this.authService.RegistrationUser(this.user).subscribe(value => {
 
     if (value === 'OK'){
 
-      this.result = prompt('Write your verification code');
+      this.result = prompt('Podaj kod weryfikacyjny wysłany na adres e-mail');
 
       if (this.result != null) {
         this.user = ({
@@ -55,7 +56,7 @@ export class RegistrationUserComponent implements OnInit, OnDestroy{
           codeVerification: this.result
         });
 
-        this.userService.SendVerificationCode(this.user).subscribe(response => {
+        this.authService.SendVerificationCode(this.user).subscribe(response => {
           if (response === 'OK') {
             alert('Udało się! Zaloguj się!');
             this.router.navigate(['/shop', {outlets: {route4: ['logowanie']}}]);
@@ -83,7 +84,7 @@ export class RegistrationUserComponent implements OnInit, OnDestroy{
 
   public RepeatSendCode(): void {
 
-    this.result = prompt('Wpisz Twój kod weryfikacyjny');
+    this.result = prompt('Podaj kod weryfikacyjny wysłany na adres e-mail');
     this.user = ({
           username: this.username,
           password: this.password,
@@ -91,7 +92,7 @@ export class RegistrationUserComponent implements OnInit, OnDestroy{
           codeVerification: this.result
         });
 
-    this.userService.SendVerificationCode(this.user).subscribe(response => {
+    this.authService.SendVerificationCode(this.user).subscribe(response => {
 
           if (response === 'OK') {
             alert('Udało się! Zaloguj się!');

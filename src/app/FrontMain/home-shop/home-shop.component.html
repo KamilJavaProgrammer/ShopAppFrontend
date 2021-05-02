@@ -320,7 +320,7 @@
          <div class="row unit_product">
            <ng-container *ngFor="let product of articleLine.productList">
 
-             <div class="ngcontainer_col_3" style="border: 1px solid red;" >
+             <div class="ngcontainer_col_3" >
 
                <img class="images_product" [src]="product.imageByte"  (click)="RedirectToTechnicalDataComponent(product.id)" alt="ImageProblem">
 
@@ -348,7 +348,7 @@
 
 
    <footer>
-     <div id="contact" class="row footer_start_row ">
+     <div id="contact" class="row footer_start_row">
        <div class="col-sm-5  footer_main_text footer_main_text_left">
          Nawigacja
          <div class="footer_description_container" ><i class="fa fa-arrow-circle-right"></i><span class="footer_text"> Regulamin </span> </div>
