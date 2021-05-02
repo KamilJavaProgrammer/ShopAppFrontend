@@ -58,6 +58,13 @@ export class LoginUserComponent implements OnInit, OnDestroy {
     this.password = '';
   }
 
+  ViewModalIncorrectDataLogin(): void{
+    this.text = 'Niepoprawne dane logowania!';
+    this.homeShopComponent.account = 'Zaloguj się';
+    this.modalService.show(this.alert, {class: 'modal-lg'});
+    this.Clear();
+  }
+
 
 
   Login(): void {
@@ -74,13 +81,11 @@ export class LoginUserComponent implements OnInit, OnDestroy {
       }
       else
       {
-        this.text = 'Niepoprawne dane logowania!';
-        this.homeShopComponent.account = 'Zaloguj się';
-        this.modalService.show(this.alert, {class: 'modal-lg'});
-        this.Clear();
+        this.ViewModalIncorrectDataLogin();
       }
-    }, error => {
-      console.log(error);
+    },
+      error => {
+        this.ViewModalIncorrectDataLogin();
     });
   }
 

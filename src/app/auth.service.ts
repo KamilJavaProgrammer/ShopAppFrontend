@@ -32,19 +32,44 @@ export class AuthService {
   }
 
 
+
   LoginUser(user: User): Observable<boolean> {
     return this.httpClient.post<any>(this.urlLogin, user, {observe: 'response'}).
-      pipe(map(value => {
-        if (value.body.statusCodeValue === 202){
-            sessionStorage.setItem('accessToken', value.body.body);
-            return true;
-         }
-         else
-         {
-           return false;
-         }
-      }));
+
+    pipe(map(value => {
+
+      if (value.body.statusCodeValue === 202){
+        sessionStorage.setItem('accessToken', value.body.body);
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }));
   }
+
+
+
+
+
+  //
+  // LoginUser(user: User): Observable<boolean> {
+  //   return this.httpClient.post<any>(this.urlLogin, user, {observe: 'response'}).
+  //
+  //     pipe(map(value => {
+  //       console.log('!');
+  //       console.log(value);
+  //       if (value.body.statusCodeValue === 202){
+  //           sessionStorage.setItem('accessToken', value.body.body);
+  //           return true;
+  //        }
+  //        else
+  //        {
+  //          return false;
+  //        }
+  //     }));
+  // }
 
 
 
