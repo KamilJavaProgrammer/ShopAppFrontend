@@ -32,11 +32,11 @@ export class AuthService {
   }
 
 
-
   LoginUser(user: User): Observable<boolean> {
     return this.httpClient.post<any>(this.urlLogin, user, {observe: 'response'}).
 
     pipe(map(value => {
+      console.log('dupcuje serwisanata');
 
       if (value.body.statusCodeValue === 202){
         sessionStorage.setItem('accessToken', value.body.body);
