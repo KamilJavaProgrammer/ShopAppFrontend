@@ -22,10 +22,10 @@ export class AuthService {
   public RegistrationUser(user: User): Observable<boolean>{
     return this.httpClient.post<any>(this.urlRegistration, user, {observe: 'response'}).pipe(map(response => {
 
-      if (response.status === 201){
+      if (response.body.status === 201){
         return true;
       }
-      else if (response.status === 200){
+      else if (response.body.status === 200){
         return false;
       }
     }));
@@ -35,10 +35,10 @@ export class AuthService {
   public SendVerificationCode(user: User): Observable<boolean>{
     return this.httpClient.patch<any>(this.urlVerfication, user, {observe: 'response'}).pipe(map(response => {
 
-      if (response.status === 201){
+      if (response.body.status === 201){
         return true;
       }
-      else if (response.status === 401){
+      else if (response.body.status === 401){
         return false;
       }
     }));
@@ -46,53 +46,22 @@ export class AuthService {
 
 
 
-  LoginUser(user: User): Observable<boolean> {
-    return this.httpClient.post<any>(this.urlLogin, user, {observe: 'response'}).
+  LoginUser(user: User): Observable<number> {
+    return this.httpClient.post<any>(this.urlLogin, user, {observe: 'response'}).pipe(map(response => {
 
-    pipe(map(value => {
-      console.log('dupcuje serwisanata');
-
-      if (value.body.statusCodeValue === 202){
-        sessionStorage.setItem('accessToken', value.body.body);
-        return true;
-      }
-      else
+      if (response.body.status === 200)
       {
-        return false;
+        sessionStorage.setItem('accessToken', response.body.message);
       }
+      return response.body.status;
     }));
   }
-
-
-
-
-
-  //
-  // LoginUser(user: User): Observable<boolean> {
-  //   return this.httpClient.post<any>(this.urlLogin, user, {observe: 'response'}).
-  //
-  //     pipe(map(value => {
-  //       console.log('!');
-  //       console.log(value);
-  //       if (value.body.statusCodeValue === 202){
-  //           sessionStorage.setItem('accessToken', value.body.body);
-  //           return true;
-  //        }
-  //        else
-  //        {
-  //          return false;
-  //        }
-  //     }));
-  // }
-
-
 
   loginAdmin(user: User): Observable<boolean> {
     return this.httpClient.post<any>(this.urlLoginAdmin, user, {observe: 'response'}).
     pipe(map(value => {
-      console.log(value);
-      if (value.body.statusCodeValue === 202){
-        sessionStorage.setItem('adminAccessToken', value.body.body);
+      if (value.body.status === 200){
+        sessionStorage.setItem('adminAccessToken', value.body.message);
         return true;
       }
       else
@@ -104,7 +73,10 @@ export class AuthService {
 
 
   logout(): void {
-    localStorage.removeItem('accessToken');
+    sessionStorage.removeItem('accessToken');
+  }
+  LogoutAdmin(): void {
+    sessionStorage.removeItem('adminAccessToken');
   }
 
   public get loggedIn(): boolean {

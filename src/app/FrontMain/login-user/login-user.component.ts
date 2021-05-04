@@ -19,6 +19,7 @@ export class LoginUserComponent implements OnInit, OnDestroy {
   password: string;
   sub: any;
   id: any;
+  result: string;
 
   text: string;
 
@@ -74,18 +75,47 @@ export class LoginUserComponent implements OnInit, OnDestroy {
     });
 
     this.authService.LoginUser(this.user).subscribe(value => {
-      if (value === true){
+      if (value === 200){
 
-         this.router.navigate(['/shop', {outlets: {route4: 'konto'}}]);
+        this.router.navigate(['/shop', {outlets: {route4: 'konto'}}]);
          this.homeShopComponent.account = 'Twoje konto';
       }
-      else
+
+     else if (value === 403){
+
+
+        this.result = prompt('Podaj kod weryfikacyjny wysłany na adres e-mail');
+
+        if (this.result != null) {
+          this.user = ({
+            username: this.username,
+            password: this.password,
+            codeVerification: this.result
+          });
+
+          this.authService.SendVerificationCode(this.user).subscribe(response => {
+            if (response === true) {
+              alert('Udało się! Zaloguj się!');
+              this.router.navigate(['/shop', {outlets: {route4: ['logowanie']}}]);
+            }
+            else {
+              alert('Wpisz kod!');
+              this.Clear();
+            }
+          });
+        }
+        else {
+          alert('Wpisz kod!');
+        }
+
+     }
+     else
       {
         this.ViewModalIncorrectDataLogin();
       }
     },
       error => {
-      // console.log(error.error);
+        console.log(error);
         this.ViewModalIncorrectDataLogin();
     });
   }

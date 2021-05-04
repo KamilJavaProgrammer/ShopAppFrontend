@@ -81,6 +81,8 @@ export class RegistrationUserComponent implements OnInit, OnDestroy{
     }, error => {
       console.log(error);
       alert('Rejestracja nie powiodła się');
+      this.Clear();
+
     });
   }
 

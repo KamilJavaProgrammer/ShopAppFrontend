@@ -18,7 +18,7 @@
                        </div>
 
                        <div >
-                         <input class="txtb" placeholder="Hasło" type="password" name="password" [(ngModel)]="password"  autocomplete="off" required pattern="[a-zA-Z0-9.]*" >
+                         <input class="txtb" placeholder="Hasło" type="password" name="password" [(ngModel)]="password"  autocomplete="off" required pattern="[a-zA-Z0-9/S]*" >
                        </div>
 
                        <div [routerLink]="['/shop', {outlets: {route4: ['haslo','zmiana']}}]" class="bottom-text">
