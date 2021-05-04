@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User, UserService} from '../../user.service';
+import {AuthService} from '../../auth.service';
 
 
 @Component({
@@ -9,12 +10,9 @@ import {User, UserService} from '../../user.service';
 })
 export class ForgotPasswordComponent implements OnInit, OnDestroy {
 
-  password: string;
-  email: string;
-  confirmPassword: string;
-  user: User;
+  user: User = ({});
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     document.getElementById('navbar123').style.display = 'none';
@@ -25,7 +23,9 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     document.getElementById('article').style.display = 'block';
   }
   ChangePassword(): void {
+      this.authService.ChangePassword(this.user).subscribe(value => {
 
+      });
   }
 }
 

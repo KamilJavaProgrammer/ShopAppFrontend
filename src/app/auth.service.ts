@@ -14,6 +14,8 @@ export class AuthService {
   urlLoginAdmin = 'http://localhost:' + this.port + '/login/admin';
   urlRegistration = 'http://localhost:' + this.port + '/registration';
   urlVerfication = 'http://localhost:' + this.port + '/verification';
+  urlChangePassword = 'http://localhost:' + this.port + '/changePassword';
+
 
 
 
@@ -62,6 +64,20 @@ export class AuthService {
     pipe(map(value => {
       if (value.body.status === 200){
         sessionStorage.setItem('adminAccessToken', value.body.message);
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }));
+  }
+
+
+  ChangePassword(user: User): Observable<boolean> {
+    return this.httpClient.post<any>(this.urlChangePassword, user, {observe: 'response'}).
+    pipe(map(value => {
+      if (value.body.status === 200){
         return true;
       }
       else

@@ -78,7 +78,7 @@ export class LoginUserComponent implements OnInit, OnDestroy {
       if (value === 200){
 
         this.router.navigate(['/shop', {outlets: {route4: 'konto'}}]);
-         this.homeShopComponent.account = 'Twoje konto';
+        this.homeShopComponent.account = 'Twoje konto';
       }
 
      else if (value === 403){

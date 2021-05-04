@@ -14,17 +14,10 @@ export class UserService {
   port = '8088';
 
 
-  urlLogin = 'http://localhost:' + this.port + '/login';
-  urlChangePassword = 'http://localhost:' + this.port + '/changePassword';
-  urlRole = 'http://localhost:' + this.port + '/role';
-  urlNameUser = 'http://localhost:' + this.port + '/name12';
-  urlAddress = 'http://localhost:' + this.port + '/client/address';
   urlShopClient = 'http://localhost:' + this.port + '/shop/client';
-
   test = 'http://localhost:' + this.port + '/user';
-
-  httpOptions: any;
   headers: any;
+
 
   constructor(private httpClient: HttpClient) {
     this.httpClient = httpClient;
@@ -85,49 +78,6 @@ export class UserService {
         }
       }));
   }
-
-
-
-
-
-
-
-
-
-
-  public GetClient(): Observable<Client>{
-    this.headers = new HttpHeaders();
-    this.headers = this.headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
-    this.headers = this.headers.append('Content-Type', `application/json`);
-
-    return this.httpClient.get<Client>(this.urlShopClient, { headers: this.headers});
-  }
-
-
-
-
-
-
-
-  public SendCodeForChangePassword(user: User): Observable<string>{
-    return this.httpClient.patch(this.urlChangePassword, user, {responseType : 'text'});
-  }
-
-  public ChangePassword(user: User): Observable<string>{
-    return this.httpClient.post(this.urlChangePassword, user, {responseType : 'text'});
-  }
-
-  public GetRolefromServer(user: User): Observable<string>{
-    return this.httpClient.post(this.urlRole, user, {responseType: 'text'});
-  }
-
-  public GetNameOfUser(): Observable<string>{
-
-    this.headers = new HttpHeaders();
-    this.headers = this.headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
-    return this.httpClient.get(this.urlNameUser, {headers: this.headers, responseType: 'text'});
-  }
-
 
 }
 

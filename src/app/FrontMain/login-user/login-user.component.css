@@ -370,7 +370,9 @@
 
 
 
-
+.forgot-password-text:hover{
+  cursor: pointer;
+}
 
 
 
