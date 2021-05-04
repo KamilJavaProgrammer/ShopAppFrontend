@@ -44,7 +44,7 @@ export class RegistrationUserComponent implements OnInit, OnDestroy{
 
     this.authService.RegistrationUser(this.user).subscribe(value => {
 
-    if (value === 'OK'){
+    if (value === true){
 
       this.result = prompt('Podaj kod weryfikacyjny wysłany na adres e-mail');
 
@@ -70,14 +70,16 @@ export class RegistrationUserComponent implements OnInit, OnDestroy{
         });
       }
       else {
-        alert('Code is null!');
+        alert('Wpisz kod!');
       }
     }
-    else if (value === 'LoginExists' || value === 'EmailExists')
+    else
     {
-      alert('Login or Email already Exists.Try Again');
+      alert('Login lub E-mail juz istnieje.');
       this.Clear();
     }
+    }, error => {
+      console.log(error);
     });
   }
 

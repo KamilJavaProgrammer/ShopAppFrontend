@@ -19,9 +19,16 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public RegistrationUser(user: User): Observable<string>{
-    return this.httpClient.post<any>(this.urlRegistration, user, {observe: 'response'}).pipe(map(value => {
-      return value.body.body;
+  public RegistrationUser(user: User): Observable<boolean>{
+    return this.httpClient.post<any>(this.urlRegistration, user, {observe: 'response'}).pipe(map(response => {
+
+      if (response.status === 201){
+        return true;
+      }
+      else if (response.status === 200){
+        return false;
+      }
+
     }));
 
   }
