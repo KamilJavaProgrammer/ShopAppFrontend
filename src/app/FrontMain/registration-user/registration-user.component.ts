@@ -57,7 +57,7 @@ export class RegistrationUserComponent implements OnInit, OnDestroy{
         });
 
         this.authService.SendVerificationCode(this.user).subscribe(response => {
-          if (response === 'OK') {
+          if (response === true) {
             alert('Udało się! Zaloguj się!');
             this.router.navigate(['/shop', {outlets: {route4: ['logowanie']}}]);
           }
@@ -80,6 +80,7 @@ export class RegistrationUserComponent implements OnInit, OnDestroy{
     }
     }, error => {
       console.log(error);
+      alert('Rejestracja nie powiodła się');
     });
   }
 
@@ -96,7 +97,7 @@ export class RegistrationUserComponent implements OnInit, OnDestroy{
 
     this.authService.SendVerificationCode(this.user).subscribe(response => {
 
-          if (response === 'OK') {
+          if (response === true) {
             alert('Udało się! Zaloguj się!');
             this.router.navigate(['/shop', {outlets: {route4: ['logowanie']}}]);
           }

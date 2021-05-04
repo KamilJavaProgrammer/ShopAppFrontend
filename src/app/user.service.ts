@@ -106,9 +106,6 @@ export class UserService {
 
 
 
-  public Login(user: User): Observable<string>{
-    return this.httpClient.post(this.urlLogin, user, {responseType: 'text'});
-  }
 
 
 

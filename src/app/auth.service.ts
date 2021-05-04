@@ -28,15 +28,22 @@ export class AuthService {
       else if (response.status === 200){
         return false;
       }
-
     }));
-
   }
 
-  public SendVerificationCode(user: User): Observable<string> {
-    return this.httpClient.patch(this.urlVerfication, user, {responseType : 'text'});
 
+  public SendVerificationCode(user: User): Observable<boolean>{
+    return this.httpClient.patch<any>(this.urlVerfication, user, {observe: 'response'}).pipe(map(response => {
+
+      if (response.status === 201){
+        return true;
+      }
+      else if (response.status === 401){
+        return false;
+      }
+    }));
   }
+
 
 
   LoginUser(user: User): Observable<boolean> {
