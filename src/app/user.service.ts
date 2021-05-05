@@ -87,7 +87,7 @@ export interface User{
   password?: string;
   email?: string;
   codeVerification?: string;
-  password1?: string;
+  changedPassword?: string;
   shopClient?: ShopClient;
   authorization?: boolean;
   role?: string;

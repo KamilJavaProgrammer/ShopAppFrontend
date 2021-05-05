@@ -27,7 +27,6 @@ export class LoginAdminComponent implements OnInit {
   ) {  }
 
   ngOnInit(): void {
-    document.getElementById('navbar123').style.display = 'none';
 
   }
 

@@ -50,7 +50,6 @@ export class LoginUserComponent implements OnInit, OnDestroy {
 
 
   setFront(): void {
-    document.getElementById('navbar123').style.display = 'none';
     document.getElementById('article').style.display = 'none';
   }
 

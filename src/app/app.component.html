@@ -1,27 +1,8 @@
-<div class="container-fluid ContainerAll">
-  <div  id=navbar123 class="row navbar navbar-nav navbartop ">
-    <div class="col-8">
 
-
-    </div>
-    <div class="col-2">
-      <a routerLink="/login"> Login </a>
-    </div>
-    <div class="col-2">
-
-      <a routerLink="/registration"> Registration </a>
-
-    </div>
+<div class="container-fluid">
+  <div>
+    <ngx-ui-loader  [hasProgressBar]="false" loaderId="6"  fgsColor="black" fgsType="ball-spin" overlayColor="white"></ngx-ui-loader>
   </div>
-
-  <div class="row">
-    <div class="col-12">
-      <router-outlet></router-outlet>
-    </div>
-
-
-  </div>
-
-
+  <router-outlet></router-outlet>
 </div>
 

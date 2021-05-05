@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {User} from './user.service';
+import {Router} from '@angular/router';
+import {NgxUiLoaderService} from 'ngx-ui-loader';
 
 
 @Injectable({
@@ -14,12 +16,13 @@ export class AuthService {
   urlLoginAdmin = 'http://localhost:' + this.port + '/login/admin';
   urlRegistration = 'http://localhost:' + this.port + '/registration';
   urlVerfication = 'http://localhost:' + this.port + '/verification';
-  urlChangePassword = 'http://localhost:' + this.port + '/changePassword';
+  urlChangePassword = 'http://localhost:' + this.port + '/users/passwords';
 
 
 
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private router: Router,
+              private ngxService: NgxUiLoaderService) { }
 
   public RegistrationUser(user: User): Observable<boolean>{
     return this.httpClient.post<any>(this.urlRegistration, user, {observe: 'response'}).pipe(map(response => {
@@ -74,17 +77,43 @@ export class AuthService {
   }
 
 
+
+
   ChangePassword(user: User): Observable<boolean> {
-    return this.httpClient.post<any>(this.urlChangePassword, user, {observe: 'response'}).
+    return this.httpClient.patch<any>(this.urlChangePassword, user, {observe: 'response'}).
     pipe(map(value => {
-      if (value.body.status === 200){
-        return true;
-      }
-      else
-      {
-        return false;
-      }
+      return value.status === 200;
     }));
+  }
+
+
+  SendUserEmail(email: string): Observable<boolean> {
+    return this.httpClient.post<any>(this.urlChangePassword, email, {observe: 'response'}).
+    pipe(map(value => {
+      return value.status === 200;
+    }));
+  }
+
+  CodeVerificationHandle(user: User, callback): void{
+     const result = prompt('Podaj kod weryfikacyjny wysłany na adres e-mail');
+
+     if (result != null) {
+      user.codeVerification = result;
+
+      this.ChangePassword(user).subscribe(response => {
+        if (response === true) {
+          alert('Udało się! Zaloguj się!');
+          this.router.navigate(['/shop', {outlets: {route4: ['logowanie']}}]);
+        }
+        else {
+          alert('Wpisz kod!');
+          callback();
+        }
+      });
+    }
+    else {
+      alert('Wpisz kod!');
+    }
   }
 
 
