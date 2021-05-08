@@ -52,10 +52,7 @@ export class TechnicalDataOfProductComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.ngxService.start();
-    setTimeout(() => {
-      this.ngxService.stop();
-    }, 100);
+    this.ngxService.startLoader('1');
 
     document.getElementById('article').style.display = 'none';
 
@@ -69,6 +66,8 @@ export class TechnicalDataOfProductComponent implements OnInit, OnDestroy {
         this.numberOfItems = value.numberOfItems;
         this.productService.getImageFromService(value).subscribe(blob => {
           this.createImageFromBlob(blob);
+          this.ngxService.stopLoader('1');
+
         });
 
       });

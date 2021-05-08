@@ -1,10 +1,9 @@
-.circle {
-  width:60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #3DB3D6;
+.noProductInscription
+{
   text-align: center;
-  color: white;
-  padding-top: 4px;
-  font-size: 32px;
+  font-size: 23px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 92px;
+
 }

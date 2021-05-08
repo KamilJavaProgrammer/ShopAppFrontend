@@ -62,13 +62,7 @@ export class HomeShopComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-
-    this.ngxService.start();
-    setTimeout(() => {
-      this.ngxService.stop();
-    }, 500);
-
-
+    this.ngxService.startLoader('1');
     this.orders = JSON.parse(sessionStorage.getItem('tableOrders'));
     this.basketSum = 0;
     this.productAmount = 0;
@@ -104,6 +98,8 @@ export class HomeShopComponent implements OnInit, OnDestroy {
 
     this.sectionService.GetAllSectionsFromBackend().subscribe(value => {
             this.sections = value;
+            this.ngxService.stopLoader('1');
+
     });
   }
 

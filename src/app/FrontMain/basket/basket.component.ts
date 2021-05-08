@@ -25,10 +25,7 @@ export class BasketComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.ngxService.start();
-    setTimeout(() => {
-      this.ngxService.stop();
-    }, 100);
+    this.ngxService.startLoader('1');
 
     this.setFront();
 
@@ -45,6 +42,8 @@ export class BasketComponent implements OnInit, OnDestroy {
     this.orders.forEach(value => {
         this.sumMoney = this.sumMoney + (value.bruttoPrice * value.numberOfItems);
     });
+    this.ngxService.stopLoader('1');
+
 
   }
 

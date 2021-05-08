@@ -68,6 +68,10 @@ import { AddArticleLineComponent } from './Admin/Shop/ShopManagement/ArticleLine
 import { AddSectionComponent } from './Admin/Shop/ShopManagement/Sections/add-section/add-section.component';
 import {AuthAdminGuard} from './auth-admin.guard';
 import { SalesDocumentStateComponent } from './Admin/Bookkeeping/Invoices/sales-document-state/sales-document-state.component';
+import {MessageService} from './message.service';
+import {InterceptorService} from './interceptor.service';
+import { MessagesComponent } from './Admin/Messagess/messages/messages.component';
+import { MessageComponentComponent } from './Message/message-component/message-component.component';
 
 
 
@@ -94,6 +98,7 @@ const routes: Routes = [{
        {path: 'sklep/zarzadzanie/nawigacja/dodaj', component: AddSectionComponent, outlet:  'administrator'},
        {path: 'ksiegowosc/faktury', component: SalesDocumentStateComponent, outlet:  'administrator'},
        {path: 'ksiegowosc/faktury/dodaj', component: FVformComponent, outlet:  'administrator'},
+       {path: 'wiadomosci', component: MessagesComponent, outlet:  'administrator'},
     ]
 
   },
@@ -186,7 +191,9 @@ export function JwtTokenGetter(): any {
     SectionComponentComponent,
     AddArticleLineComponent,
     AddSectionComponent,
-    SalesDocumentStateComponent
+    SalesDocumentStateComponent,
+    MessagesComponent,
+    MessageComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -220,7 +227,7 @@ export function JwtTokenGetter(): any {
 
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  providers: [ ProductServiceService, OrderService, AuthService, AuthAdminGuard, AuthGuard, EditProductComponent, ClientServiceService, WarehouseComponent, HomeShopComponent],
-  bootstrap: [AppComponent],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }, ProductServiceService, OrderService, AuthService, AuthAdminGuard, AuthGuard, EditProductComponent, ClientServiceService, WarehouseComponent, HomeShopComponent, MessageService],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

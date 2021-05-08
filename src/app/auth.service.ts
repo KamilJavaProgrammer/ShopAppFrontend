@@ -5,6 +5,7 @@ import {map} from 'rxjs/operators';
 import {User} from './user.service';
 import {Router} from '@angular/router';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
+import {HomeShopComponent} from './FrontMain/home-shop/home-shop.component';
 
 
 @Injectable({
@@ -22,7 +23,7 @@ export class AuthService {
 
 
   constructor(private httpClient: HttpClient, private router: Router,
-              private ngxService: NgxUiLoaderService) { }
+              private homeShopComponent: HomeShopComponent) { }
 
   public RegistrationUser(user: User): Observable<boolean>{
     return this.httpClient.post<any>(this.urlRegistration, user, {observe: 'response'}).pipe(map(response => {
@@ -119,6 +120,7 @@ export class AuthService {
 
   logout(): void {
     sessionStorage.removeItem('accessToken');
+
   }
   LogoutAdmin(): void {
     sessionStorage.removeItem('adminAccessToken');
@@ -127,4 +129,9 @@ export class AuthService {
   public get loggedIn(): boolean {
     return (localStorage.getItem('accessToken') !== null);
   }
+
+}
+
+export enum AccountOption {
+  'Zaloguj się', 'Twoje konto'
 }

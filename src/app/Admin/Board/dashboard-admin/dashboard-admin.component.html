@@ -92,7 +92,7 @@
 
            <li (click)="messages = !messages" class="panel">
              <div>
-               <a>  <i class="fa fa-envelope" style="margin-right: 10px;"></i>Wiadomości</a>
+               <a [routerLink]="['/admin', { outlets: {'administrator': ['wiadomosci']}}]">  <i class="fa fa-envelope" style="margin-right: 10px;"></i>Wiadomości</a>
                <div *ngIf="messages" class="panel1">
                </div>
              </div>
@@ -137,7 +137,6 @@
         <div class="row justify-content-around" >
         <div class="col-12 align-self-center">
           <router-outlet name="administrator">
-            <ngx-ui-loader  [hasProgressBar]="false" loaderId="3"  fgsColor="black" fgsType="ball-scale-multiple" overlayColor="white"></ngx-ui-loader>
 
           </router-outlet>
 

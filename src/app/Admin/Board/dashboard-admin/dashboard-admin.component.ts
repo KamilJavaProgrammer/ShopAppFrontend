@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
+import {NgxUiLoaderService} from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -21,13 +22,16 @@ export class DashboardAdminComponent implements OnInit {
   users: boolean;
   settings: boolean;
 
-  constructor(config: NgbDropdownConfig,private router: Router) {
+  constructor(config: NgbDropdownConfig, private router: Router, private ngxService: NgxUiLoaderService) {
    config.autoClose = false;
   }
 
   ngOnInit(): void {
      // this.router.navigate(['/admin', { outlets: {'administrator': ['panel']}}]);
-
+    this.ngxService.startLoader('1');
+    setTimeout(() => {
+      this.ngxService.stopLoader('1');
+    }, 500);
   }
 
 

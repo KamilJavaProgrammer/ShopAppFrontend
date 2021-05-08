@@ -71,10 +71,8 @@ export class DetailsCurrentCoffeMachineComponent implements OnInit, OnDestroy{
 
   this.sub = this.route.params.subscribe(params => {
 
-      this.ngxService.start();
-      setTimeout(() => {
-        this.ngxService.stop();
-      }, 100);
+      this.ngxService.startLoader('1');
+
 
       this.id = params.id;
       this.idTable = this.id.split('/');
@@ -119,6 +117,8 @@ export class DetailsCurrentCoffeMachineComponent implements OnInit, OnDestroy{
 
       this.value12 = prices[0];
       this.highValue12 =  prices[prices.length - 1];
+      this.ngxService.stopLoader('1');
+
     });
   }
 

@@ -49,14 +49,13 @@ export class SearchingComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-     document.getElementById('article').style.display = 'none';
+    this.ngxService.startLoader('1');
+
+    document.getElementById('article').style.display = 'none';
 
 
      this.sub = this.route.params.subscribe(params => {
-       this.ngxService.start();
-       setTimeout(() => {
-       this.ngxService.stop();
-     }, 100);
+
        this.id = params.name;
 
        this.sorting = 'Sortuj wg';
@@ -80,6 +79,8 @@ export class SearchingComponent implements OnInit, OnDestroy {
         });
       });
     });
+    this.ngxService.stopLoader('1');
+
   }
 
 

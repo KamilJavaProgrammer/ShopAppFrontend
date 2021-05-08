@@ -1,8 +1,10 @@
 import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, Scroll} from '@angular/router';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {AuthGuard} from '../../../auth.guard';
-import {AuthService} from '../../../auth.service';
+import {AccountOption, AuthService} from '../../../auth.service';
+import {NgxUiLoaderService} from 'ngx-ui-loader';
+import {HomeShopComponent} from '../../../FrontMain/home-shop/home-shop.component';
 
 @Component({
   selector: 'app-user-panel',
@@ -23,17 +25,21 @@ export class UserPanelComponent implements OnInit, OnDestroy{
   constructor(private router: Router,
               private modalService: BsModalService,
               private authGuard: AuthGuard,
-              private authService: AuthService) {}
+              private authService: AuthService,
+              private ngxService: NgxUiLoaderService,
+              private homeShopComponent: HomeShopComponent) {}
 
 
 
   ngOnInit(): void {
 
-
+    this.ngxService.startLoader('1');
     this.setFront();
     this.nameOfUser  = this.authGuard.DecodeJwt();
+    this.ngxService.stopLoader('1');
 
-}
+
+  }
 
   ngOnDestroy(): void {
     document.getElementById('article').style.display = 'block';
@@ -52,7 +58,10 @@ export class UserPanelComponent implements OnInit, OnDestroy{
     this.authService.logout();
     this.modalService.show(this.logOutAlert, {class: 'modal-lg'});
     this.router.navigate(['/shop']);
-  }
+    document.getElementById('mainAnchor').scrollIntoView({behavior: 'smooth'});
+
+    this.homeShopComponent.account = AccountOption[0].toString();
+   }
 
 
   ShowMenuSmallDevices(): void {

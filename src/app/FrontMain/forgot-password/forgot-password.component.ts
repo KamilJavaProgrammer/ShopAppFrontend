@@ -26,10 +26,10 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
 
   ChangePassword(): void {
 
-    this.ngxService.startLoader('6');
+    this.ngxService.startLoader('3');
     setTimeout(() => {
-      this.ngxService.stopLoader('6');
-    }, 2000);
+      this.ngxService.stopLoader('3');
+    }, 300);
     this.authService.SendUserEmail(this.user.email).subscribe(response => {
       if (response === true) {
         this.authService.CodeVerificationHandle(this.user, () => this.Clear());

@@ -16,6 +16,7 @@ export class UserService {
 
   urlShopClient = 'http://localhost:' + this.port + '/shop/client';
   test = 'http://localhost:' + this.port + '/user';
+  test1 = 'http://localhost:' + this.port + '/users';
   headers: any;
 
 
@@ -41,6 +42,31 @@ export class UserService {
           throwError(error('Faul'));
         }
       }));
+  }
+
+
+  public GetAdminData(): Observable<User>{
+
+    this.headers = new HttpHeaders();
+    this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('adminAccessToken')}`);
+    this.headers = this.headers.append('Content-Type', 'application/json');
+
+    return this.httpClient.get<any>(this.test, {headers: this.headers, observe: 'response'})
+      .pipe(map(value => {
+        if (value.status === 200){
+          console.log(value);
+          return value.body.body;
+        }
+        else {
+          throwError(error('Faul'));
+        }
+      }));
+  }
+
+  GetAllUsers(): Observable<Array<User>>{
+    return this.httpClient.get<any>(this.test1, {observe: 'response'}).pipe(map(value => {
+        return value.body.body;
+    }));
   }
 
   public ChangeShopClientAddress(shopClient: ShopClient): Observable<ShopClient>{

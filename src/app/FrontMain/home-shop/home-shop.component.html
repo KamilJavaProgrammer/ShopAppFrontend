@@ -2,7 +2,6 @@
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<ngx-ui-loader fgsColor="black" fgsType="square-jelly-box" overlayColor="white"></ngx-ui-loader>
 
 
  <div id="anchor" class="container-fluid container_main">
@@ -14,7 +13,7 @@
         <span>{{headerData}}</span>
       </div>
       <div class="col-4  header-navbar-col3 navbar-nav ">
-        <span (click)="Login()"> <i class="fa fa-user-o"></i> {{account}}</span>
+        <span class="accountString"  (click)="Login()"> <i class="fa fa-user-o"></i> {{account}}</span>
       </div>
     </div>
   </header>
