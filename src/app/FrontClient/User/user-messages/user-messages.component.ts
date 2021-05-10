@@ -18,8 +18,10 @@ export class UserMessagesComponent implements OnInit {
 
   messages: Array<Message> = [];
   message = '';
-  user: User;
+  user: User = ({});
   pipe = new DatePipe('pl-PL');
+  users: Array<User> = [];
+
 
 
   constructor(private ngxService: NgxUiLoaderService, private messageService: MessageService, private userService: UserService) {}
@@ -28,12 +30,17 @@ export class UserMessagesComponent implements OnInit {
     this.ngxService.startLoader('2');
 
     this.userService.GetUserFromServerWithJwt().subscribe(value => {
-        this.user = value;
+      console.log('user to');
+      console.log(value);
+      this.user = value;
       },
       error => {
         console.log(error);
       });
-
+    this.userService.GetAllUsers().subscribe(users => {
+      this.users = users;
+      console.log(users);
+    });
 
     const stompClient = this.messageService.connect();
     stompClient.connect({}, frame => {

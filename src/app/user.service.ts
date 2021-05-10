@@ -5,6 +5,7 @@ import {Client, Product} from './product-service.service';
 import {ShopClient} from './client-service.service';
 import {map} from 'rxjs/operators';
 import {error} from '@angular/compiler/src/util';
+import {Message} from './message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -117,6 +118,8 @@ export interface User{
   shopClient?: ShopClient;
   authorization?: boolean;
   role?: string;
+  messages?: Array<Message>;
+
 
 }
 
