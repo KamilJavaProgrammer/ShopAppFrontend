@@ -99,6 +99,6 @@ export class MessagesComponent implements OnInit {
     }
 
     this.messages =  this.messageService.SortMessage(this.messages);
-
+    console.log(this.messages);
   }
 }
