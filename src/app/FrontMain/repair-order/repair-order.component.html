@@ -1,0 +1,84 @@
+
+
+<div class="container-fluid ContainerAddForm">
+
+  <div class="row">
+    <div class="col-12 ">
+      <div class="title" >
+        {{titlePage}}
+      </div>
+      <form ngNativeValidate (ngSubmit)="SendProductToDatabase()">
+
+        <div class="row">
+            <div class="col-4">
+              <label for="name">Imię</label>
+              <input #nameInput class="form-control" type="text" name="name" id="name" [(ngModel)]="repairOrder.serviceClient.name" required pattern="[a-zA-Z]*" >
+            </div>
+
+            <div class="col-4">
+              <label for="surname">Nazwisko</label>
+              <input #surnameInput class="form-control"   type="text" name="surname" id="surname" [(ngModel)]="repairOrder.serviceClient.surname " required pattern="[a-zA-Z]*">
+            </div>
+
+            <div class="col-4">
+              <label for="address">Adres</label>
+              <input class="form-control"   type="text" name="address" id="address" [(ngModel)]="repairOrder.serviceClient.address.placeOfresident" required >
+            </div>
+          </div>
+
+
+        <div class="row">
+
+          <div class="col">
+            <div class="form-group">
+              <label for="postCode">Kod pocztowy</label>
+              <input type="text" name="postCode" id="postCode" class="form-control" [(ngModel)]="repairOrder.serviceClient.address.postCode" required pattern="[0-9]{2}(-?)([0-9]{3})">
+            </div>
+          </div>
+
+
+          <div class="col">
+            <div class="form-group">
+              <label for="town">Miasto</label>
+              <input type="text" name="town" id="town" class="form-control" [(ngModel)]="repairOrder.serviceClient.address.town" required pattern="[a-zA-Z]*">
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="phoneNumber">Numer Telefonu</label>
+              <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" [(ngModel)]="repairOrder.serviceClient.phoneNumber" required pattern="(\+?)[0-9]{9,15}">
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="description">Opis usterki</label>
+              <textarea type="text" name="description" id="description" class="form-control" [(ngModel)]="repairOrder.description" ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">
+            <label for="file">Zdjęcia</label>
+            <input #fileInput type="file" id="file" class="form-control" name="fileupload" (change)="SelectFile($event)">
+          </div>
+        </div>
+
+        <div class="row buttonsDiv">
+          <div class="col-4">
+            <button type="submit" name="buttonSave" class="btn btn-primary buttonSave" value="Save" >Zapisz</button>
+            <button type="submit" class="btn btn-danger buttonClear" value="Clear" (click)="Clear()">Zeruj</button>
+          </div>
+        </div>
+
+      </form>
+
+
+    </div>
+  </div>
+
+</div>

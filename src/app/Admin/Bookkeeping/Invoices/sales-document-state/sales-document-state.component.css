@@ -1,0 +1,111 @@
+.productImg
+{
+  height: 45px;
+  width: 45px;
+}
+
+.noProductInscription
+{
+  text-align: center;
+  font-size: 23px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 92px;
+}
+.paginationContainer
+{
+  text-align: center;
+}
+
+.page-title
+{
+  font-family: Roboto;
+  text-align: left;
+  font-size: 22px;
+  font-weight: 500;
+  padding-top: 40px;
+
+
+}
+.btn-table
+{
+  font-family: Roboto;
+  color: #f3f3f3;
+}
+.btn-table-left
+{
+  margin-left: 12px;
+}
+
+#button-one
+{
+  background-color: forestgreen;
+
+}
+#button-two
+{
+  background-color: crimson;
+
+}
+#button-three
+{
+  background-color: forestgreen;
+
+}
+#button-four
+{
+  background-color: crimson;
+
+}
+#button-five
+{
+  border: 1px solid grey;
+}
+.buttons-line-row
+{
+  padding-top: 30px;
+}
+.table-row
+{
+  padding-top: 10px;
+}
+.select-option
+{
+  border: 1px solid grey;
+
+}
+button
+{
+  margin-bottom: 5px;
+}
+
+
+tr:nth-child(2n) {background: #CCC;}
+tr:nth-child(2n+1) {background: #EFEFEF;}
+
+.checkbox
+
+{
+  margin-left: 30px;
+  margin-top: 10px;
+  transform: scale(1.5);
+
+}
+thead td
+{
+  color: black;
+  font-weight: 600;
+  text-align: center;
+  background-color: grey;
+}
+
+tbody td
+{
+  color: black;
+  font-weight: 400;
+  text-align: center;
+}
+td
+{
+  word-break: break-all;
+}

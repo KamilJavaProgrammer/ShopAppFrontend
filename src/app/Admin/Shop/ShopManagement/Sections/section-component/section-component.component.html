@@ -1,0 +1,38 @@
+<div class="page-title">
+  Pasek Nawigacji
+</div>
+<div class="buttons-line-col">
+  <button [routerLink]="['/admin', { outlets: {'administrator': ['sklep','zarzadzanie','nawigacja','dodaj']}}]"   class="btn btn-table button-one">Dodaj nowy</button>
+</div>
+
+<ng-container *ngFor="let section of sections;let i = index;">
+  <div class="" style= "width: 90%; margin-left: auto; margin-right: auto; text-align: center; padding: 0;">
+    <accordion [isAnimated]="true">
+      <div class="subpages">
+
+        <accordion-group [panelClass]="customClass">
+          <div  accordion-heading>
+            {{section.name}}
+            <span> <i style="color:#FFC107; margin-left: 20px; margin-right: 8px; font-size: 17px;" class="fa fa-pencil" aria-hidden="true"></i></span>
+            <span> <i (click)="DeleteOneSection(section.id)" style="color:#E34724; margin-left: 8px; font-size: 17px;" class="fa fa-trash" aria-hidden="true"></i></span>
+
+          </div>
+
+          <ng-container *ngFor="let sectionCategories of section.sectionCategoriesList; let i = index;">
+            <div class=" listMenu">
+              <div class="menu">{{sectionCategories.name}}</div>
+              <ng-container *ngFor="let sectionSubCategories of sectionCategories.sectionSubCategoriesList;let i = index;">
+                <button  class=" itemList btn" >{{sectionSubCategories.name}}</button>
+                <br>
+              </ng-container>
+            </div>
+          </ng-container>
+          <!--                 </div>-->
+
+
+        </accordion-group>
+      </div>
+    </accordion>
+
+  </div>
+</ng-container>

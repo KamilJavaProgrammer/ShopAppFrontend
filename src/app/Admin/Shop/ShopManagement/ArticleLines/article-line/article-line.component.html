@@ -1,0 +1,119 @@
+<div class="page-title">
+  Sekcje produktów
+</div>
+<div class="buttons-line-col">
+  <button  [routerLink]="['/admin', { outlets: {'administrator': ['sklep','zarzadzanie','sekcje','dodaj']}}]"  class="btn btn-table button-one">Dodaj nowy</button>
+</div>
+
+<div class="table-row">
+
+  <table class="table" id="table" >
+    <thead>
+    <tr>
+      <td>Nazwa Sekcji</td>
+      <td>Produkty</td>
+      <td>Akcje</td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr class="tr-data" *ngFor="let articleLine of articleLines| paginate:{id:'listing_pagination',itemsPerPage:3, currentPage:page,totalItems:totalRecords};let i = index">
+      <td>{{articleLine.name}}</td>
+      <td><span (click)="OpenProductsModal(articleLine)"><i class="fa fa-eye" aria-hidden="true"></i></span></td>
+      <td>
+        <span [routerLink]="['/admin', { outlets: {'administrator': ['sklep','klienci','edytuj',articleLine.id]}}]" > <i style="color:#FFC107; margin-right: 8px; font-size: 17px;" class="fa fa-pencil" aria-hidden="true"></i></span>
+        <span (click)="ShowAlertDeleteOneArticleLine(articleLine)"> <i style="color:#E34724; margin-left: 8px; font-size: 17px;" class="fa fa-trash" aria-hidden="true"></i></span>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+
+<ng-container *ngIf="articleLines.length > 3; then exists; else noexists"></ng-container>
+
+<ng-template #exists >
+  <div class="paginationContainer">
+    <pagination-controls id="listing_pagination" maxSize="3" directionLinks="true" (pageChange)="page=$event"></pagination-controls>
+  </div>
+</ng-template>
+
+<ng-template #noexists>
+</ng-template>
+
+
+
+
+<ng-template #ProductsLineModal>
+
+  <div  style="text-align: center;" class="alert  fade show" role="alert">
+
+    <button  (click)="CloseAlertModal()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div class="row" style="margin-top: 20px; padding-left: 10px;">
+      <div class="col-12" style="text-align: center;font-size: 24px;">
+
+
+        <table class="table" >
+          <thead>
+          <tr>
+            <td>Zdjęcie</td>
+            <td>Nazwa</td>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr class="tr-data" *ngFor="let product of products| paginate:{id:'listing_pagination',itemsPerPage:3, currentPage:page,totalItems:totalRecords};let i = index">
+            <td><img style="height: 60px; width: 60px;" [src]="product.imageByte"></td>
+            <td><span> {{product.productName}}</span></td>
+          </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+</ng-template>
+
+
+
+<ng-template #DeleteAlert>
+
+  <div  style="text-align: center;" class="alert  fade show" role="alert">
+
+    <button  (click)="CloseAlertModal()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div class="row">
+      <div class="col-12" style="text-align: center;font-size: 24px;">
+
+        <strong>Czy napewno chcesz usunąć tą sekcje?</strong>
+      </div>
+    </div>
+
+
+    <div class="row " style="margin-top: 30px; margin-right: auto; margin-left: auto;">
+
+
+      <div class="col">
+        <button (click)="ConfirmDelete()"  type="button" class="btn btn-outline-danger"> Tak, chcę usunąć</button>
+      </div>
+
+      <div class="col">
+        <button (click)="RejectDelete()" type="button" class="btn btn-outline-success">Nie chce usuwać</button>
+      </div>
+
+
+    </div>
+  </div>
+</ng-template>
+
+
+
+
+
