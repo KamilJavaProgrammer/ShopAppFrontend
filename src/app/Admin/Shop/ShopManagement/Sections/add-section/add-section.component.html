@@ -1,0 +1,43 @@
+
+<div  style="text-align: center;">
+
+
+  <div class="row">
+    <div class="col-12" style="text-align: center;font-size: 27px; margin-top: 30px;">
+
+      <strong>Nowy element nawigacji sklepu</strong>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12" style="text-align: center;font-size: 23px; margin-top: 20px; margin-left: auto; margin-right: auto; ">
+
+      <label for="sectionName">Nazwa elementu</label>
+      <input style="margin-left: auto; margin-right: auto; width: 30%;" class="form-control"  type="text" name="sectionName" id="sectionName" [(ngModel)]="section.name">
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12" style="text-align: center;font-size: 23px; margin-top: 20px; margin-left: auto; margin-right: auto; ">
+
+      <label for="sectionName1">Kategoria</label>
+      <input style="margin-left: auto; margin-right: auto; width: 30%;" class="form-control"  type="text" name="sectionName" id="sectionName1" [(ngModel)]="name">
+      <button style="margin-top: 10px;" (click)="AddSubCategory()" class="btn btn-success">Dodaj subkategorie</button>
+
+      <ng-container *ngFor="let obj1 of sectionSubCategoriesList; let i=index">
+      <input style="margin-left: auto; margin-right: auto; width: 30%; margin-top: 15px;" type="text" name="codl{{i}}"  class="form-control" [(ngModel)]="obj1.name">
+
+      </ng-container>
+      <div class="row"  style="margin-top: 20px;">
+        <button style="margin-left: auto; margin-right: auto; width: 15%;" (click)="savepart()"  class="btn btn-primary">zapisz</button>
+      </div>
+
+      <div class="row" style="margin-top: 20px;">
+        <button style="margin-left: auto; margin-right: auto; width: 15%;"  (click)="savetoDatabase()" class="btn btn-success">zapisz do bazy</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>

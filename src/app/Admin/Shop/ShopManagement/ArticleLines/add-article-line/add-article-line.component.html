@@ -1,0 +1,76 @@
+
+  <div  style="text-align: center;" >
+
+    <div class="row">
+      <div class="col-12" style="text-align: center;font-size: 27px; margin-top: 30px;">
+
+        <strong>Dodawanie sekcji produktów</strong>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-12" style="text-align: center;font-size: 23px; margin-top: 20px; margin-left: auto; margin-right: auto; ">
+
+        <label for="sectionName">Nazwa sekcji produktów</label>
+        <input style="margin-left: auto; margin-right: auto; width: 30%;" class="form-control"  type="text" name="sectionName" id="sectionName" [(ngModel)]="articleLine.name">
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="row" style="font-family: Roboto;">
+      <div class="col-12" style="text-align: center;font-size: 24px;">
+
+
+        <div class="row" style="width: 90%; margin-left: auto; margin-right: auto;">
+          <label for="products">Wybierz produkty</label>
+
+          <table  id="products" class="table" >
+            <thead>
+            <tr>
+              <td></td>
+              <td>Zdjęcie</td>
+              <td>Nazwa</td>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr class="tr-data" *ngFor="let product of products| paginate:{id:'listing_pagination',itemsPerPage:3, currentPage:page,totalItems:totalRecords};let i = index">
+              <td><label  class="checkbox"> <input #checkboxSelectedInput [(ngModel)]="checkboxSelected[((page-1)*itemsPerPage)+i]"  type="checkbox" name="selectedInput" (click)="SelectRow(product,i)"> </label></td>
+              <td><img style="height: 60px; width: 60px;" [src]="product.imageByte"></td>
+              <td><span> {{product.productName}}</span></td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+
+        <ng-container *ngIf="products.length > 3; then exists; else noexists"></ng-container>
+
+        <ng-template #exists >
+          <div class="paginationContainer">
+            <pagination-controls [nextLabel]="'Następny'" [previousLabel]="'Poprzedni'" id="listing_pagination" maxSize="3" directionLinks="true" (pageChange)="page=$event"></pagination-controls>
+          </div>
+        </ng-template>
+
+        <ng-template #noexists>
+        </ng-template>
+
+        <div class="row" style="display: flex;align-items: center;justify-content: center;">
+          <button (click)="SaveArticleLines()" class="btn btn-primary">Dodaj sekcję do widoku</button>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+  </div>
