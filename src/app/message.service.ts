@@ -135,14 +135,14 @@ export class MessageService {
 
 
   compareDate(a: Message, b: Message): number {
-    const datetimeA =  a.date.split(' ');
-    const datetimeB =  b.date.split(' ');
+    const datetimeA =  a.date.split(', ');
+    const datetimeB =  b.date.split(', ');
 
-    const dateA: Array<string> = datetimeA[0].split('-');
-    const dateB: Array<string> = datetimeB[0].split('-');
+    const dateA: Array<string> = datetimeA[0].split('.');
+    const dateB: Array<string> = datetimeB[0].split('.');
 
-    const timeA: Array<string> = datetimeA[1].split('-');
-    const timeB: Array<string> = datetimeB[1].split('-');
+    const timeA: Array<string> = datetimeA[1].split(':');
+    const timeB: Array<string> = datetimeB[1].split(':');
 
 
     dateA.forEach((value, index) => {
@@ -194,7 +194,7 @@ export class  Message {
   recipient?: string;
 
 
-  constructor(messageText: string, author: User, date?: string, recipient?: string, state?: string) {
+  constructor(messageText: string, author?: User, date?: string, recipient?: string, state?: string) {
     this.messageText = messageText;
     this.author = author;
     this.date = date;

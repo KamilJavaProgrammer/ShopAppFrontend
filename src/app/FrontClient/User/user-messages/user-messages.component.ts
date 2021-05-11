@@ -78,13 +78,8 @@ export class UserMessagesComponent implements OnInit {
     if (this.message !== null && this.message !== '')
     {
       const now = Date.now();
-      const myFormattedDate = this.pipe.transform(now, 'short');
+      const myFormattedDate = this.pipe.transform(now, 'dd.MM.yyyy, HH:mm:ss');
       const messageToSend = new Message(this.message, this.admin, myFormattedDate, this.recipient.username );
-      console.log(messageToSend);
-      console.log(messageToSend);
-      console.log(messageToSend);
-      console.log(messageToSend);
-      console.log(messageToSend);
       messageToSend.login = true;
       this.messages.push(messageToSend);
       this.messageService.SendMessageUser(messageToSend);

@@ -72,6 +72,7 @@ import {MessageService} from './message.service';
 import {InterceptorService} from './interceptor.service';
 import { MessagesComponent } from './Admin/Messagess/messages/messages.component';
 import { MessageComponentComponent } from './Message/message-component/message-component.component';
+import { DatePipe } from './date.pipe';
 
 
 
@@ -194,6 +195,7 @@ export function JwtTokenGetter(): any {
     SalesDocumentStateComponent,
     MessagesComponent,
     MessageComponentComponent,
+    DatePipe,
   ],
   imports: [
     BrowserModule,
