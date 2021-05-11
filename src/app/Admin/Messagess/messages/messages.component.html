@@ -9,14 +9,15 @@
         </div>
         <div class="srch_bar">
           <div class="stylish-input-group">
-            <input type="text" class="search-bar"  placeholder="Search" >
+            <input (keyup)="Search($event)" type="text" class="search-bar"  placeholder="Search" >
+
           </div>
         </div>
       </div>
 
       <div class="inbox_chat scroll">
 
-        <div class="chat_list active_chat" *ngFor="let user of users; let i = index;" (click)="ChangeUser(user)">
+        <div class="chat_list active_chat tr-data"  *ngFor="let user of users; let i = index;" (click)="ChangeUser(user)">
           <div class="chat_people">
             <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
             <div class="chat_ib">
@@ -36,9 +37,6 @@
 
 
         <ng-container *ngFor="let message of messages; let i = index;">
-<!--        <ng-container *ngFor="let message of users[0].messages; let i = index;">-->
-
-
 
           <div *ngIf="message != null && message.login === false " class="incoming_msg">
             <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>

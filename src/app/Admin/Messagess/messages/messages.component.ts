@@ -19,6 +19,8 @@ export class MessagesComponent implements OnInit {
   message = '';
   admin: User;
 
+  recipient: User;
+
   pipe = new DatePipe('pl-PL');
 
 
@@ -31,23 +33,36 @@ export class MessagesComponent implements OnInit {
 
         this.admin = value;
 
+
+        this.userService.GetAllUsers().subscribe(users => {
+
+          users.forEach((user, index) => {
+            if (user.id === this.admin.id)
+            {
+              users.splice(index, 1);
+            }
+          });
+          this.users = users;
+          this.ChangeUser(this.users[0]);
+        });
+
       },
       error => {
         console.log(error);
       });
 
-    this.userService.GetAllUsers().subscribe(users => {
-      this.users = users;
-      console.log(users);
-    });
 
 
     const stompClient = this.messageService.connect();
     stompClient.connect({}, frame => {
 
-      stompClient.subscribe('/topic/admin', message => {
 
-         this.messages.push(JSON.parse(message.body));
+      stompClient.subscribe('/topic/' + this.admin.username, response => {
+
+        const message: Message = JSON.parse(response.body);
+        message.login = false;
+
+        this.messages.push(message);
       });
       this.ngxService.stopLoader('2');
     });
@@ -61,9 +76,15 @@ export class MessagesComponent implements OnInit {
     {
       const now = Date.now();
       const myFormattedDate = this.pipe.transform(now, 'short');
-      const messageToSend = new Message(this.message, this.admin, myFormattedDate);
+      const messageToSend = new Message(this.message, this.admin, myFormattedDate, this.recipient.username );
+         console.log(messageToSend);
+         console.log(messageToSend);
+         console.log(messageToSend);
+         console.log(messageToSend);
+         console.log(messageToSend);
+      messageToSend.login = true;
       this.messages.push(messageToSend);
-      this.messageService.SendMessageAdmin(messageToSend);
+      this.messageService.SendMessageUser(messageToSend);
       this.message = '';
     }
     else
@@ -82,6 +103,9 @@ export class MessagesComponent implements OnInit {
 
 
   ChangeUser(user: User): void {
+    this.recipient = this.users[0];
+
+
     this.messages = [];
     user.messages.forEach(value => {
       value.login = false;
@@ -101,4 +125,23 @@ export class MessagesComponent implements OnInit {
     this.messages =  this.messageService.SortMessage(this.messages);
     console.log(this.messages);
   }
+
+  Search(event: any): void {
+    const spanItems = document.querySelectorAll('.tr-data');
+    const searchItem = event.target.value.toLowerCase();
+
+    spanItems.forEach(value => {
+      if (value.textContent.toLowerCase().indexOf(searchItem) !== -1) {
+
+        value.closest<HTMLElement>('.tr-data').style.display = '';
+
+      } else {
+        value.closest<HTMLElement>('.tr-data').style.display = 'none';
+      }
+
+    });
+
+  }
+
+
 }

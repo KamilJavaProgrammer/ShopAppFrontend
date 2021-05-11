@@ -191,12 +191,14 @@ export class  Message {
   date?: string;
   state?: string;
   login?: boolean;
+  recipient?: string;
 
 
-  constructor(messageText: string, author: User, date?: string, state?: string) {
+  constructor(messageText: string, author: User, date?: string, recipient?: string, state?: string) {
     this.messageText = messageText;
     this.author = author;
     this.date = date;
+    this.recipient = recipient;
     this.state = state;
   }
 
