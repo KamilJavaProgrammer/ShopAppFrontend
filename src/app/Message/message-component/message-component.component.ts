@@ -85,30 +85,39 @@ export class MessageComponentComponent implements OnInit {
   }
 
 
-  SendMessage(): void{
+  SendMessage(): void {
 
+    if (this.recipient.id !== null && this.recipient.id !== '' && this.recipient.id !== undefined && this.recipient.id !== 'undefined') {
 
-    if (this.message !== null && this.message !== '')
-    {
-      const now = Date.now();
+        if (this.message !== null && this.message !== '') {
+          const now = Date.now();
 
-      const myFormattedDate = this.pipe.transform(now, 'dd.MM.yyyy, HH:mm:ss');
-      const messageToSend = new Message(this.message, this.admin, myFormattedDate, this.recipient );
-      messageToSend.state = MessageState.notDisplayed;
+          const myFormattedDate = this.pipe.transform(now, 'dd.MM.yyyy, HH:mm:ss');
+          const messageToSend = new Message(this.message, this.admin, myFormattedDate, this.recipient);
+          messageToSend.state = MessageState.notDisplayed;
 
-      messageToSend.login = true;
-      this.messages.push(messageToSend);
-      this.messageService.SendMessageUser(messageToSend);
-      this.message = '';
-    }
+          messageToSend.login = true;
+          this.messages.push(messageToSend);
+          this.messageService.SendMessageUser(messageToSend);
+          this.message = '';
+        }
+        else {
+          alert('Pusta wiadomość');
+        }
+      }
     else
-    {
-      alert('Pusta wiadomość');
-    }
-
-
+      {
+        alert('Wybierz Odbiorce wiadomości!');
+        this.Clear();
+      }
 
   }
+
+ Clear(): void
+ {
+   this.message = '';
+ }
+
 
   setScrollBottom(): void {
     const scrolledDiv = document.getElementById('messageDiv');
