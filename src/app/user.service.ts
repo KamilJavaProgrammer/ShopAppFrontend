@@ -18,6 +18,7 @@ export class UserService {
   urlShopClient = 'http://localhost:' + this.port + '/shop/client';
   test = 'http://localhost:' + this.port + '/user';
   test1 = 'http://localhost:' + this.port + '/users';
+  test2 = 'http://localhost:' + this.port + '/names';
   headers: any;
 
 
@@ -35,9 +36,11 @@ export class UserService {
 
     return this.httpClient.get<any>(this.test, {headers: this.headers, observe: 'response'})
       .pipe(map(value => {
+
         if (value.status === 200){
+          console.log('start');
           console.log(value);
-          return value.body.body;
+          return value.body;
         }
         else {
           throwError(error('Faul'));
@@ -46,17 +49,33 @@ export class UserService {
   }
 
 
-  public GetAdminData(): Observable<User>{
 
-    this.headers = new HttpHeaders();
-    this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('adminAccessToken')}`);
-    this.headers = this.headers.append('Content-Type', 'application/json');
 
-    return this.httpClient.get<any>(this.test, {headers: this.headers, observe: 'response'})
-      .pipe(map(value => {
+
+
+    GetAdminData(name: string): Observable<User>{
+
+      this.headers = new HttpHeaders();
+      this.headers = this.headers.append('Content-Type', 'application/json');
+
+      if (name === 'admin')
+    {
+      this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('adminAccessToken')}`);
+    }
+
+      else if (name === 'user')
+      {
+        this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
+      }
+
+
+      return this.httpClient.get<any>(this.test, {headers: this.headers, observe: 'response'})
+      .pipe(map(  value => {
+        console.log(value);
         if (value.status === 200){
-          console.log(value);
-          return value.body.body;
+
+          return value.body;
+
         }
         else {
           throwError(error('Faul'));
@@ -65,8 +84,17 @@ export class UserService {
   }
 
   GetAllUsers(): Observable<Array<User>>{
-    return this.httpClient.get<any>(this.test1, {observe: 'response'}).pipe(map(value => {
-        return value.body.body;
+    // this.headers = new HttpHeaders();
+    // this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
+    // this.headers = this.headers.append('Content-Type', `application/json`);
+    return this.httpClient.get<any>(this.test1, { observe: 'response'}).pipe(map(value => {
+        return value.body;
+    }));
+  }
+
+  GetAllNamesOfUsers(): Observable<Array<string>>{
+    return this.httpClient.get<any>(this.test2, {observe: 'response'}).pipe(map(value => {
+      return value.body.body;
     }));
   }
 

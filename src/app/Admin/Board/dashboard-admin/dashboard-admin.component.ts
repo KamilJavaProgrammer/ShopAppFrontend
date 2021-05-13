@@ -27,6 +27,7 @@ export class DashboardAdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
      // this.router.navigate(['/admin', { outlets: {'administrator': ['panel']}}]);
     this.ngxService.startLoader('1');
     setTimeout(() => {
@@ -37,7 +38,7 @@ export class DashboardAdminComponent implements OnInit {
 
   LogOut(): void {
     this.router.navigateByUrl('admin/logowanie');
-     sessionStorage.clear();
+    sessionStorage.clear();
 
   }
 }

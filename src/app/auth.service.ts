@@ -67,7 +67,11 @@ export class AuthService {
     return this.httpClient.post<any>(this.urlLoginAdmin, user, {observe: 'response'}).
     pipe(map(value => {
       if (value.body.status === 200){
+
+        sessionStorage.clear();
         sessionStorage.setItem('adminAccessToken', value.body.message);
+
+
         return true;
       }
       else

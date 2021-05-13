@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpEvent, HttpHandler, HttpRequest} from '@angular/common/http';
 import {User} from './user.service';
 import {daLocale} from 'ngx-bootstrap/chronos';
+import {Observable} from 'rxjs';
 const SockJs = require('sockjs-client');
 const Stomp = require('stompjs');
 
@@ -16,6 +17,7 @@ export class MessageService {
   urlMessagesADMIN = 'http://localhost:' + this.port + '/messagesAdmin';
   urlMessages = 'http://localhost:' + this.port + '/messages';
 
+
   constructor(private httpClient: HttpClient) {
 
   }
@@ -28,7 +30,7 @@ export class MessageService {
   }
 
   SendMessageUser(body: any): any{
-    return this.httpClient.post(this.urlMessages, body).subscribe(value => {
+    return this.httpClient.put(this.urlMessages, body).subscribe(value => {
     });
 
   }
@@ -183,6 +185,9 @@ export class MessageService {
   }
 
 
+  ChangeMessagesStatus(messages: Array<Message>): Observable<any> {
+     return this.httpClient.patch(this.urlMessages, messages);
+  }
 }
 
 export class  Message {
@@ -191,10 +196,10 @@ export class  Message {
   date?: string;
   state?: string;
   login?: boolean;
-  recipient?: string;
+  recipient?: User;
 
 
-  constructor(messageText: string, author?: User, date?: string, recipient?: string, state?: string) {
+  constructor(messageText: string, author?: User, date?: string, recipient?: User, state?: string) {
     this.messageText = messageText;
     this.author = author;
     this.date = date;
@@ -202,6 +207,12 @@ export class  Message {
     this.state = state;
   }
 
+
+
+}
+
+export enum MessageState {
+   'displayed' = 'displayed', 'notDisplayed' = 'notDisplayed'
 }
 
 
