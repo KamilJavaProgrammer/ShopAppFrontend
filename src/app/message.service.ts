@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpEvent, HttpHandler, HttpRequest} from '@angular/common/http';
 import {User} from './user.service';
-import {daLocale} from 'ngx-bootstrap/chronos';
 import {Observable} from 'rxjs';
 const SockJs = require('sockjs-client');
 const Stomp = require('stompjs');
@@ -14,7 +13,6 @@ export class MessageService {
 
 
   port = '8088';
-  urlMessagesADMIN = 'http://localhost:' + this.port + '/messagesAdmin';
   urlMessages = 'http://localhost:' + this.port + '/messages';
 
 
@@ -29,18 +27,12 @@ export class MessageService {
     return stompClient;
   }
 
-  SendMessageUser(body: any): any{
+  SendMessageToServer(body: any): any{
     return this.httpClient.put(this.urlMessages, body).subscribe(value => {
     });
 
   }
 
-
-  SendMessageAdmin(body: any): any{
-    return this.httpClient.post(this.urlMessagesADMIN, body).subscribe(value => {
-    });
-
-  }
 
 
   compareYear(a: Array<string>, b: Array<string>, timeA: Array<string>, timeB: Array<string>): number{

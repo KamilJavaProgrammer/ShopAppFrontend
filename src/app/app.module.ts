@@ -73,6 +73,9 @@ import {InterceptorService} from './interceptor.service';
 import { MessagesComponent } from './Admin/Messagess/messages/messages.component';
 import { MessageComponentComponent } from './Message/message-component/message-component.component';
 import { DatePipe } from './date.pipe';
+import {NgSimpleSidebarModule} from 'ng-simple-sidebar';
+import {SidebarModule} from 'ng-sidebar';
+import {AngularDropdownModule} from 'angular-dropdown';
 
 
 
@@ -200,6 +203,7 @@ export function JwtTokenGetter(): any {
   imports: [
     BrowserModule,
     HttpClientModule,
+    AngularDropdownModule,
     FormsModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
@@ -214,6 +218,8 @@ export function JwtTokenGetter(): any {
     ModalModule.forRoot(),
     NgxCaptureModule,
     AlertModule.forRoot(),
+    NgSimpleSidebarModule,
+    SidebarModule.forRoot(),
     JwtModule.forRoot({
       config: {
 

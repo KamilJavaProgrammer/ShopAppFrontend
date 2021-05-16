@@ -98,7 +98,7 @@ export class MessageComponentComponent implements OnInit {
 
           messageToSend.login = true;
           this.messages.push(messageToSend);
-          this.messageService.SendMessageUser(messageToSend);
+          this.messageService.SendMessageToServer(messageToSend);
           this.message = '';
         }
         else {

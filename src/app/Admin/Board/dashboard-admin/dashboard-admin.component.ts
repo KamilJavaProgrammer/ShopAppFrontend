@@ -1,14 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
+import {delay} from 'rxjs/operators';
+import set = Reflect.set;
+
+
 
 @Component({
   selector: 'app-dashboard-admin',
   templateUrl: './dashboard-admin.component.html',
   styleUrls: ['./dashboard-admin.component.css']
 })
-export class DashboardAdminComponent implements OnInit {
+export class DashboardAdminComponent implements OnInit, OnDestroy {
   adminName: string;
 
   shop: boolean;
@@ -22,17 +26,42 @@ export class DashboardAdminComponent implements OnInit {
   users: boolean;
   settings: boolean;
 
+
+  refreshIntervalId: any;
+
+
+  i = 0;
+
+
   constructor(config: NgbDropdownConfig, private router: Router, private ngxService: NgxUiLoaderService) {
-   config.autoClose = false;
+    config.autoClose = false;
   }
 
   ngOnInit(): void {
 
-     // this.router.navigate(['/admin', { outlets: {'administrator': ['panel']}}]);
+    // this.router.navigate(['/admin', { outlets: {'administrator': ['panel']}}]);
     this.ngxService.startLoader('1');
     setTimeout(() => {
       this.ngxService.stopLoader('1');
     }, 500);
+
+
+    // const icon: HTMLElement =  document.getElementById('testkoperta');
+    //
+    // this.refreshIntervalId =   setInterval(() => {
+    //
+    //   document.getElementById('testkoperta').style.color = 'yellow';
+    //   setTimeout( () => {
+    //     document.getElementById('testkoperta').style.color = 'white';
+    //   }, 800);
+    //
+    //   }, 2000);
+
+
+  }
+
+
+  ngOnDestroy(): void {
   }
 
 
@@ -41,6 +70,49 @@ export class DashboardAdminComponent implements OnInit {
     sessionStorage.clear();
 
   }
+
+  //
+  // clear(): void{
+  //   clearInterval(this.refreshIntervalId);
+  // }
+
+  ViewMenu(): void {
+
+    const d = document.querySelectorAll('.sidebar-menu');
+    const e = document.querySelectorAll('.nav-link-name');
+
+
+    d.forEach(value => {
+      value.classList.toggle('full-side-bar');
+      value.classList.remove('flowHide');
+    });
+
+
+
+    setTimeout(() => {
+
+      e.forEach(value => {
+        value.classList.toggle('name-hide');
+      });
+    }, 150);
+
+  }
+
+
+  // // functio(): void {
+  //       this.i++;
+  //       console.log(this.i);
+  //       const k = document.getElementById('outlet-container');
+  //
+  //       if (this.i % 2 === 0){
+  //     k.classList.remove('small-size');
+  //     k.classList.toggle('big-size');
+  //       }
+  //       else
+  //       {
+  //         k.classList.remove('big-size');
+  //         k.classList.toggle('small-size');
+  //       }
+  // }
+
 }
-
-

@@ -1,154 +1,224 @@
-<head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
 
-<div class="row">
-  <div class="col-12">
-
-    <div class="row">
-      <div  class="col-2 left-sidebar">
-       <div class="testfixed">
-
-         <ul  class="side-nav">
-
-           <li class="panel">
-             <a  [routerLink]="['/admin', { outlets: {'administrator': ['panel']}}]">  <i style="margin-right: 10px;" class="fa fa-desktop "></i> Tablica </a>
-           </li>
-
-
-           <li (click)="shop = !shop" class="panel">
-             <div>
-               <a><i class="fa fa-shopping-cart" style="margin-right: 10px;"></i>Sklep</a>
-             </div>
-               <div  *ngIf="shop" class="panel1">
-                <div class="subMenu"   [routerLink]="['/shop']">1.Do sklepu</div>
-                <div class="subMenu"   [routerLink]="['/admin', { outlets: {'administrator': ['sklep','asortyment']}}]" >2.Magazyn</div>
-                <div class="subMenu" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','klienci']}}]" >3.Klienci</div>
-                <div class="subMenu" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','zamowienia']}}]" >4.Zamówienia</div>
-                <div class="subMenu" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','zarzadzanie']}}]" >5.Zarządzanie</div>
-
-             </div>
-           </li>
-
-
-
-           <li (click)="service = !service" class="panel">
-             <div>
-               <a>  <i class="fa fa-database" style="margin-right: 10px;"></i>Serwis</a>
-               <div *ngIf="service" class="panel1" >
-                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['serwis','asortyment']}}]" >1.Magazyn</div>
-                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]" >2.Zlecenia</div>
-
-               </div>
-             </div>
-           </li>
-
-           <li (click)="bookkeeping = !bookkeeping" class="panel">
-             <div>
-               <a>  <i class="fa fa-book" style="margin-right: 10px;"></i>Księgowość</a>
-               <div *ngIf="bookkeeping" class="panel1">
-                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['ksiegowosc','faktury']}}]">1.Faktury</div>
-                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['ksiegowosc','faktury','dodaj']}}]">2.Dodaj fakturę</div>
-               </div>
-             </div>
-           </li>
-
-           <li (click)="staff = !staff" class="panel">
-             <div>
-               <a>  <i class="fa fa-address-book" style="margin-right: 10px;"></i>Kadry i Płace</a>
-               <div *ngIf="staff" class="panel1">
-                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">1.Pracownicy</div>
-                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">2.Dokumenty</div>
-               </div>
-             </div>
-           </li>
-
-           <li (click)="administration = !administration" class="panel">
-             <div>
-               <a>  <i class="fa fa-graduation-cap " style="margin-right: 10px;"></i>Administracja</a>
-               <div *ngIf="administration" class="panel1">
-               </div>
-             </div>
-           </li>
-
-
-
-           <li (click)="reports = !reports" class="panel">
-             <div>
-               <a>  <i class="fa fa-file" style="margin-right: 10px;"></i>Raporty</a>
-               <div *ngIf="reports" class="panel1">
-               </div>
-             </div>
-           </li>
-
-           <li (click)="statistics = !statistics" class="panel">
-             <div>
-               <a>  <i class="fa fa-area-chart" style="margin-right: 10px;"></i>Statystyki</a>
-               <div *ngIf="statistics" class="panel1">
-               </div>
-             </div>
-           </li>
-
-
-           <li (click)="messages = !messages" class="panel">
-             <div>
-               <a [routerLink]="['/admin', { outlets: {'administrator': ['wiadomosci']}}]">  <i class="fa fa-envelope" style="margin-right: 10px;"></i>Wiadomości</a>
-               <div *ngIf="messages" class="panel1">
-               </div>
-             </div>
-           </li>
-
-
-           <li (click)="users = !users" class="panel">
-             <div>
-               <a>  <i class="fa fa-user" style="margin-right: 10px;"></i>Użytkownicy</a>
-               <div *ngIf="users" class="panel1">
-               </div>
-             </div>
-           </li>
-
-           <li (click)="settings = !settings" class="panel">
-             <div>
-               <a>  <i class="fa fa-cogs" style="margin-right: 10px;"></i>Ustawienia</a>
-               <div *ngIf="settings" class="panel1">
-               </div>
-             </div>
-           </li>
-         </ul>
-       </div>
-
-      </div>
-
-
-      <div class="col-10">
-
-        <div class="row ">
-          <div class="col-12   top-bar">
-            <div class="col align-self-center" style=" margin-top: 10px; text-align: right;">
-              <span style="margin-right: 30px; "> {{adminName}}</span>
-              <span style="margin-right: 30px;"><i class="fa fa-envelope "></i></span>
-              <span style="margin-right: 30px;"><i class="fa fa-bell"  ></i></span>
-              <span (click)="LogOut()" style="margin-right: 5px;"><i class="fa fa-sign-out "></i> </span>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="row justify-content-around" >
-        <div class="col-12 align-self-center">
-          <router-outlet name="administrator">
-
-          </router-outlet>
-
-        </div>
-
-        </div>
-
-      </div>
-
+<div class="navbar navbar-expand-sm bg-dark navbar-dark" style="height: 50px; width: 100%; position: fixed; top: 0%;  z-index: 1;">
+  <div (click)="ViewMenu()" class="hamburger" id="menubutton">
+    <div class="cta">
+      <div class="toggle-btn type14"></div>
     </div>
   </div>
+
+  <!-- Brand/logo -->
+  <a class="navbar-brand" href="#">
+    <img  alt="logo" style="width:140px;">
+  </a>
+
+  <!-- Links -->
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="#"><img alt=""></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><img  alt=""></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><img  alt=""></a>
+    </li>
+  </ul>
 </div>
+
+
+
+<section  class="side-bar-warp" >
+  <div class="sidebar-menu small-side-bar flowHide" style=" float: left;">
+<!--    <nav>-->
+      <ul class="navbar-nav" style="position: fixed;   ">
+
+        <li class="elementLi">
+          <div class="li-body">
+
+              <div class="li-icon-container">
+                <i  class="las la-desktop li-icon-container-icon"></i>
+              </div>
+
+              <a role="button" aria-expanded="false" aria-controls="multiCollapseExample1" data-toggle="collapse" href="#multiCollapseExample1">
+               <div  class="fadeInRight  animated nav-link-name name-hide tax-show description-container">ksiegowsc</div>
+             </a>
+
+          </div>
+
+          <div style="clear: both; border: 1px solid red; " class="collapse multi-collapse" id="multiCollapseExample1" >
+            <div class="dropdown-container">
+              <ul class="dropdown-list">
+                <li><div  class="subMenu"  [routerLink]="['/shop']"> Do sklepu</div></li>
+                <li><div  class="subMenu sub-menu-last-item" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','asortyment']}}]"> Magazyn</div></li>
+              </ul>
+            </div>
+          </div>
+
+        </li>
+
+
+
+      </ul>
+<!--    </nav>-->
+  </div>
+
+
+</section>
+  <div id="outlet-container" class="big-size" style="border: 2px solid green; margin-top: 80px; float: left; "     >
+    <router-outlet name="administrator"></router-outlet>
+  </div>
+
+
+
+
+
+
+
+
+
+<!--      <div  class="col-2 left-sidebar">-->
+<!--       <div class="testfixed">-->
+
+<!--         <ul  class="side-nav">-->
+
+<!--           <li class="panel">-->
+<!--             <a  [routerLink]="['/admin', { outlets: {'administrator': ['panel']}}]">  <i style="margin-right: 10px;" class="fa fa-desktop "></i> Tablica </a>-->
+<!--           </li>-->
+
+
+<!--           <li (click)="shop = !shop" class="panel">-->
+<!--             <div>-->
+<!--               <a><i class="fa fa-shopping-cart" style="margin-right: 10px;"></i>Sklep</a>-->
+<!--             </div>-->
+<!--               <div  *ngIf="shop" class="panel1">-->
+<!--                <div class="subMenu"  [routerLink]="['/shop']">1.Do sklepu</div>-->
+<!--                <div class="subMenu"   [routerLink]="['/admin', { outlets: {'administrator': ['sklep','asortyment']}}]" >2.Magazyn</div>-->
+<!--                <div class="subMenu" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','klienci']}}]" >3.Klienci</div>-->
+<!--                <div class="subMenu" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','zamowienia']}}]" >4.Zamówienia</div>-->
+<!--                <div class="subMenu" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','zarzadzanie']}}]" >5.Zarządzanie</div>-->
+
+<!--             </div>-->
+<!--           </li>-->
+
+
+
+<!--           <li (click)="service = !service" class="panel">-->
+<!--             <div>-->
+<!--               <a>  <i class="fa fa-database" style="margin-right: 10px;"></i>Serwis</a>-->
+<!--               <div *ngIf="service" class="panel1" >-->
+<!--                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['serwis','asortyment']}}]" >1.Magazyn</div>-->
+<!--                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]" >2.Zlecenia</div>-->
+
+<!--               </div>-->
+<!--             </div>-->
+<!--           </li>-->
+
+<!--           <li (click)="bookkeeping = !bookkeeping" class="panel">-->
+<!--             <div>-->
+<!--               <a>  <i class="fa fa-book" style="margin-right: 10px;"></i>Księgowość</a>-->
+<!--               <div *ngIf="bookkeeping" class="panel1">-->
+<!--                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['ksiegowosc','faktury']}}]">1.Faktury</div>-->
+<!--                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['ksiegowosc','faktury','dodaj']}}]">2.Dodaj fakturę</div>-->
+<!--               </div>-->
+<!--             </div>-->
+<!--           </li>-->
+
+<!--           <li (click)="staff = !staff" class="panel">-->
+<!--             <div>-->
+<!--               <a>  <i class="fa fa-address-book" style="margin-right: 10px;"></i>Kadry i Płace</a>-->
+<!--               <div *ngIf="staff" class="panel1">-->
+<!--                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">1.Pracownicy</div>-->
+<!--                 <div class="subMenu"  [routerLink]="['/admin', { outlets: {'administrator': ['asortyment']}}]">2.Dokumenty</div>-->
+<!--               </div>-->
+<!--             </div>-->
+<!--           </li>-->
+
+<!--           <li (click)="administration = !administration" class="panel">-->
+<!--             <div>-->
+<!--               <a>  <i class="fa fa-graduation-cap " style="margin-right: 10px;"></i>Administracja</a>-->
+<!--               <div *ngIf="administration" class="panel1">-->
+<!--               </div>-->
+<!--             </div>-->
+<!--           </li>-->
+
+
+
+<!--           <li (click)="reports = !reports" class="panel">-->
+<!--             <div>-->
+<!--               <a>  <i class="fa fa-file" style="margin-right: 10px;"></i>Raporty</a>-->
+<!--               <div *ngIf="reports" class="panel1">-->
+<!--               </div>-->
+<!--             </div>-->
+<!--           </li>-->
+
+<!--           <li (click)="statistics = !statistics" class="panel">-->
+<!--             <div>-->
+<!--               <a>  <i class="fa fa-area-chart" style="margin-right: 10px;"></i>Statystyki</a>-->
+<!--               <div *ngIf="statistics" class="panel1">-->
+<!--               </div>-->
+<!--             </div>-->
+<!--           </li>-->
+
+
+<!--           <li (click)="messages = !messages" class="panel">-->
+<!--             <div>-->
+<!--               <a [routerLink]="['/admin', { outlets: {'administrator': ['wiadomosci']}}]">  <i class="fa fa-envelope" style="margin-right: 10px;"></i>Wiadomości</a>-->
+<!--               <div *ngIf="messages" class="panel1">-->
+<!--               </div>-->
+<!--             </div>-->
+<!--           </li>-->
+
+
+<!--           <li (click)="users = !users" class="panel">-->
+<!--             <div>-->
+<!--               <a>  <i class="fa fa-user" style="margin-right: 10px;"></i>Użytkownicy</a>-->
+<!--               <div *ngIf="users" class="panel1">-->
+<!--               </div>-->
+<!--             </div>-->
+<!--           </li>-->
+
+<!--           <li (click)="settings = !settings" class="panel">-->
+<!--             <div>-->
+<!--               <a>  <i class="fa fa-cogs" style="margin-right: 10px;"></i>Ustawienia</a>-->
+<!--               <div *ngIf="settings" class="panel1">-->
+<!--               </div>-->
+<!--             </div>-->
+<!--           </li>-->
+<!--         </ul>-->
+<!--       </div>-->
+
+<!--      </div>-->
+
+
+<!--      <div class="col-10">-->
+
+<!--        <div class="row ">-->
+<!--          <div class="col-12   top-bar">-->
+<!--            <div class="col align-self-center" style=" margin-top: 10px; text-align: right;">-->
+<!--              <span style="margin-right: 30px; "> {{adminName}}</span>-->
+<!--              <span style="margin-right: 30px;"><i class="fa fa-envelope " id="testkoperta" ></i></span>-->
+<!--              <span style="margin-right: 30px;"><i class="fa fa-bell"  ><sup style="margin-left: 5px; color: yellow;   font-size: 15px;">5</sup></i></span>-->
+<!--              <span (click)="LogOut()" style="margin-right: 5px;"><i class="fa fa-sign-out "></i> </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+
+<!--        <div class="row justify-content-around" >-->
+<!--        <div class="col-12 align-self-center">-->
+<!--          <router-outlet name="administrator">-->
+
+<!--          </router-outlet>-->
+
+<!--        </div>-->
+
+<!--        </div>-->
+
+<!--      </div>-->
+
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
 
 
