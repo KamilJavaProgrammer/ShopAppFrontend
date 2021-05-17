@@ -1,5 +1,6 @@
+<script src= "src/assets/scripts/js.js"></script>
 
-<div class="navbar navbar-expand-sm bg-dark navbar-dark" style="height: 50px; width: 100%; position: fixed; top: 0%;  z-index: 1;">
+<div class="navbar navbar-expand-sm bg-dark navbar-dark" style="height: 6.5%; width: 100%; position: fixed; top: 0%;  z-index: 1;">
   <div (click)="ViewMenu()" class="hamburger" id="menubutton">
     <div class="cta">
       <div class="toggle-btn type14"></div>
@@ -27,10 +28,9 @@
 
 
 
-<section  class="side-bar-warp" >
   <div class="sidebar-menu small-side-bar flowHide" style=" float: left;">
 <!--    <nav>-->
-      <ul class="navbar-nav" style="position: fixed;   ">
+      <ul class="navbar-nav" style="position: fixed; top: 7%; width: 15%;  ">
 
         <li class="elementLi">
           <div class="li-body">
@@ -39,13 +39,14 @@
                 <i  class="las la-desktop li-icon-container-icon"></i>
               </div>
 
-              <a role="button" aria-expanded="false" aria-controls="multiCollapseExample1" data-toggle="collapse" href="#multiCollapseExample1">
+              <a (click)="i=1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" data-toggle="collapse" href="#multiCollapseExample1">
                <div  class="fadeInRight  animated nav-link-name name-hide tax-show description-container">ksiegowsc</div>
              </a>
 
           </div>
 
-          <div style="clear: both; border: 1px solid red; " class="collapse multi-collapse" id="multiCollapseExample1" >
+          <ng-container  *ngIf="i === 1">
+          <div   style="clear: both; border: 1px solid red; " class="collapse multi-collapse" id="multiCollapseExample1" >
             <div class="dropdown-container">
               <ul class="dropdown-list">
                 <li><div  class="subMenu"  [routerLink]="['/shop']"> Do sklepu</div></li>
@@ -53,7 +54,7 @@
               </ul>
             </div>
           </div>
-
+          </ng-container>
         </li>
 
 
@@ -63,8 +64,7 @@
   </div>
 
 
-</section>
-  <div id="outlet-container" class="big-size" style="border: 2px solid green; margin-top: 80px; float: left; "     >
+  <div id="outlet-container" class="big-size rest"   >
     <router-outlet name="administrator"></router-outlet>
   </div>
 

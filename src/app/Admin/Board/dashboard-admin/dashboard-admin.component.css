@@ -191,7 +191,7 @@ body{
 .small-side-bar{
   /*position: fixed;*/
 
-  margin-top: 50px;
+  /*margin-top: 50px;*/
   width:3.6%;
   transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
@@ -354,11 +354,29 @@ body{
 .small-size
 {
   width: 85%;
-}
-.big-size
-{
-  /*width: auto;*/
+
 }
 
+
+.big-size
+{
+  width:96.4%;
+
+}
+/*.big-size*/
+/*{*/
+/*   width: 96.4%;*/
+/*}*/
+.rest
+{
+
+  margin-left: auto;
+  margin-right: auto;
+  float: left;
+  margin-top: 80px;
+  max-width: 96.4%;
+  min-width: 85%;
+
+}
 
 

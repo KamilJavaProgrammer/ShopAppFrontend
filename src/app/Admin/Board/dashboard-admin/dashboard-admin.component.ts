@@ -76,43 +76,42 @@ export class DashboardAdminComponent implements OnInit, OnDestroy {
   //   clearInterval(this.refreshIntervalId);
   // }
 
-  ViewMenu(): void {
+   ViewMenu(): any {
+    this.i = 0;
+   const d = document.querySelectorAll('.sidebar-menu');
+   const e = document.querySelectorAll('.nav-link-name');
+   const k = document.getElementById('outlet-container');
 
-    const d = document.querySelectorAll('.sidebar-menu');
-    const e = document.querySelectorAll('.nav-link-name');
 
 
-    d.forEach(value => {
+   d.forEach( value => {
       value.classList.toggle('full-side-bar');
       value.classList.remove('flowHide');
     });
 
 
 
-    setTimeout(() => {
+   setTimeout(() => {
 
       e.forEach(value => {
         value.classList.toggle('name-hide');
       });
-    }, 150);
+
+
+   }, 150);
+
+   k.classList.toggle('small-size');
+   k.classList.toggle('big-size');
+
+
 
   }
 
 
-  // // functio(): void {
-  //       this.i++;
-  //       console.log(this.i);
-  //       const k = document.getElementById('outlet-container');
-  //
-  //       if (this.i % 2 === 0){
-  //     k.classList.remove('small-size');
-  //     k.classList.toggle('big-size');
-  //       }
-  //       else
-  //       {
-  //         k.classList.remove('big-size');
-  //         k.classList.toggle('small-size');
-  //       }
-  // }
+
+  HideDropDowns(): void {
+  }
+
+
 
 }
