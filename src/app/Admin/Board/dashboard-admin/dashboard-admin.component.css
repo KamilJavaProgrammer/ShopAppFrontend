@@ -77,6 +77,10 @@ body{
   transition: all 1s ease;
 }
 
+.hamburger:hover {
+  color: red;
+}
+
 .cta {
   height: 50px;
   width: 50px;
@@ -152,18 +156,12 @@ body{
 
 /*============================SIDE BAR START============================*/
 .sidebar-menu {
-  /*position: fixed;*/
-  /*left: 0%;*/
-  /*top: 0%;*/
-  /*z-index: 99;*/
   height: 100vh;
-  /*display: inline-block;*/
   background-color: #292929;
   box-shadow: 9px 0px 16px 0 rgba(0,0,0,0.2), 9px 0px 20px 0 rgba(0,0,0,0.19);
   display: block;
   min-height: 100%;
   transition: all .3s cubic-bezier(.55,0,.1,1);
-  /*    transform: translate3d(-200px,0,0);*/
 }
 
 .sidebar-menu .navbar-nav .nav-link {
@@ -178,7 +176,7 @@ body{
   margin-bottom:5px;
 }
 .sidebar-menu .nav-link:hover {
-  background-color: #171717;
+  /*background-color: #171717;*/
 }
 
 /*SMALL SIDE BAR****************/
@@ -306,6 +304,11 @@ body{
 }
 
 
+.description-container:hover
+{
+  cursor: pointer;
+  color: dodgerblue;
+}
 
 
 
@@ -378,5 +381,18 @@ body{
   min-width: 85%;
 
 }
+a
+{
+  color:#c8c8c8;
+}
 
-
+i:hover
+{
+  color: dodgerblue;
+  cursor: pointer;
+}
+ .top-bar-icons:hover
+ {
+   color: dodgerblue;
+   cursor: pointer;
+ }

@@ -14,23 +14,9 @@ import set = Reflect.set;
 })
 export class DashboardAdminComponent implements OnInit, OnDestroy {
   adminName: string;
-
-  shop: boolean;
-  service: boolean;
-  bookkeeping: boolean;
-  staff: boolean;
-  administration: boolean;
-  reports: boolean;
-  statistics: boolean;
-  messages: boolean;
-  users: boolean;
-  settings: boolean;
-
-
   refreshIntervalId: any;
-
-
   i = 0;
+  j = 0;
 
 
   constructor(config: NgbDropdownConfig, private router: Router, private ngxService: NgxUiLoaderService) {
@@ -77,40 +63,41 @@ export class DashboardAdminComponent implements OnInit, OnDestroy {
   // }
 
    ViewMenu(): any {
+
+
     this.i = 0;
-   const d = document.querySelectorAll('.sidebar-menu');
-   const e = document.querySelectorAll('.nav-link-name');
-   const k = document.getElementById('outlet-container');
+
+    const d = document.querySelectorAll('.sidebar-menu');
+    const e = document.querySelectorAll('.nav-link-name');
+    const k = document.getElementById('outlet-container');
 
 
 
-   d.forEach( value => {
-      value.classList.toggle('full-side-bar');
-      value.classList.remove('flowHide');
-    });
+    d.forEach( value => {
+         value.classList.toggle('full-side-bar');
+         value.classList.remove('flowHide');
+       });
 
 
 
-   setTimeout(() => {
+    setTimeout(() => {
 
-      e.forEach(value => {
-        value.classList.toggle('name-hide');
-      });
+         e.forEach(value => {
+           value.classList.toggle('name-hide');
+         });
 
 
-   }, 150);
+       }, 150);
 
-   k.classList.toggle('small-size');
-   k.classList.toggle('big-size');
-
+    k.classList.toggle('small-size');
+    k.classList.toggle('big-size');
 
 
   }
 
 
 
-  HideDropDowns(): void {
-  }
+
 
 
 
