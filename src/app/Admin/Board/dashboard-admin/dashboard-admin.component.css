@@ -1,11 +1,90 @@
 
+@media (max-width: 576px) {
+
+  .small-side-bar{
+    width: 0%;
+    transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+  }
+  .sidebar-menu {
+
+    height: 100vh;
+    background-color: #292929;
+    box-shadow: 9px 0px 16px 0 rgba(0,0,0,0.2), 9px 0px 20px 0 rgba(0,0,0,0.19);
+    display: block;
+    min-height: 100%;
+    transition: all .3s cubic-bezier(.55,0,.1,1);
+  }
+
+  .full-side-bar-small-devices {
+    width:100%!important;
+    transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+
+  }
+
+  .sidebar-menu-ul-small-devices
+  {
+    width: 100%;
+    position: relative;
+    top: 7%;
+  }
+
+
+
+}
+
+
+
+
+
+
+
+
+@media (min-width: 577px)
+{
+  .sidebar-menu-ul
+  {
+    width: 15%;
+    position: fixed;
+    top: 7%;
+  }
+}
+
+
+
+
+
+.full-side-bar {
+  width: 15%!important;
+  transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+}
+.small-side-bar{
+  width:3.6%;
+  transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+}
+.sidebar-menu {
+  float: left;
+  height: 157vh;
+  background-color: #292929;
+  box-shadow: 9px 0px 16px 0 rgba(0,0,0,0.2), 9px 0px 20px 0 rgba(0,0,0,0.19);
+  display: block;
+  min-height: 100%;
+  transition: all .3s cubic-bezier(.55,0,.1,1);
+}
+
 
 @font-face {
   font-family: 'TitilliumWeb';
 }
 @font-face {
   font-family: 'Comfortaa';
-
 }
 
 *
@@ -44,12 +123,6 @@ body{
 
 /*===========================SUPPORT CLASS===========================*/
 
-.trans{
-  transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -webkit-transition: all 0.5s ease;
-}
-
 .flowHide{
   overflow: hidden;
 }
@@ -65,71 +138,6 @@ body{
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
-/*HAMBURGER START*************************/
-
-.hamburger {
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0px 10px 0px 0px;
-  margin-left: -15px;
-  transition: all 1s ease;
-}
-
-.hamburger:hover {
-  color: red;
-}
-
-.cta {
-  height: 50px;
-  width: 50px;
-  cursor: pointer; }
-
-.toggle-btn {
-  height: 2px;
-  width: 25px;
-  background-color: #fff;
-  position: relative;
-  top: 50%;
-  left: 0;
-  margin: auto;
-  transition: all 0.3s ease-in-out;
-}
-.toggle-btn:before {
-  content: "";
-  height: 2px;
-  width: 25px;
-  box-shadow: 0 -10px 0 0 #fff;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: all 0.3s ease-in-out;
-}
-.toggle-btn:after {
-  content: "";
-  height: 2px;
-  width: 25px;
-  box-shadow: 0 10px 0 0 #fff;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: all 0.3s ease-in-out;
-}
-
-.active .type14 {
-  background-color: #fff;
-  width: 12px;
-  margin: auto;
-}
-.active .type14:before {
-  width: 6px;
-}
-.active .type14:after {
-  width: 25px;
-}
-
-/*HAMBURGER END*************************/
 
 .nav-item .nav-link{
   display: block;
@@ -155,14 +163,6 @@ body{
 }
 
 /*============================SIDE BAR START============================*/
-.sidebar-menu {
-  height: 100vh;
-  background-color: #292929;
-  box-shadow: 9px 0px 16px 0 rgba(0,0,0,0.2), 9px 0px 20px 0 rgba(0,0,0,0.19);
-  display: block;
-  min-height: 100%;
-  transition: all .3s cubic-bezier(.55,0,.1,1);
-}
 
 .sidebar-menu .navbar-nav .nav-link {
   padding: 15px;
@@ -180,37 +180,7 @@ body{
 }
 
 /*SMALL SIDE BAR****************/
-.full-side-bar {
-  width: 15%!important;
-  transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -webkit-transition: all 0.5s ease;
-}
-.small-side-bar{
-  /*position: fixed;*/
 
-  /*margin-top: 50px;*/
-  width:3.6%;
-  transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -webkit-transition: all 0.5s ease;
-}
-
-.nav-link-name{
-  /*position: relative;*/
-  /*margin-left: 15px;*/
-
-}
-.nav-link-name {
-  /*position: absolute;*/
-  /*white-space: nowrap;*/
-  /*transition: opacity 0.4s ease-out 0s;*/
-  /*border-radius: 0.6rem;*/
-  /*padding: 4px 10px;*/
-  /*top: 9px;*/
-  /*left: 50px;*/
-
-}
 .tax-active > .tax-show{
   display: inline-block !important;
   position: absolute;
@@ -310,9 +280,6 @@ body{
   color: dodgerblue;
 }
 
-
-
-
 .li-body
 {
   display: block;
@@ -366,17 +333,14 @@ body{
   width:96.4%;
 
 }
-/*.big-size*/
-/*{*/
-/*   width: 96.4%;*/
-/*}*/
+
 .rest
 {
 
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: auto !important;
+  margin-right: auto!important;
   float: left;
-  margin-top: 80px;
+  margin-top: 49px;
   max-width: 96.4%;
   min-width: 85%;
 

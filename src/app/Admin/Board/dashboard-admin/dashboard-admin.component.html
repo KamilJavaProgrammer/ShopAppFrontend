@@ -1,46 +1,33 @@
 <script src= "src/assets/scripts/js.js"></script>
 
-<div class="navbar navbar-expand-sm bg-dark navbar-dark" style="height: 6.5%; width: 100%; position: fixed; top: 0%;  z-index: 1;">
-  <div (click)="ViewMenu()" class="hamburger top-bar-icons" id="menubutton">
-    <div class="cta">
-      <div class="toggle-btn type14"></div>
-    </div>
+<div class="navbar navbar-expand-sm bg-dark navbar-dark" style="height: 6.5%; width: 100%;padding: 0; margin: 0; position: fixed; top: 0%;  z-index: 1;">
+  <div (click)="ViewMenu()" class="top-bar-icons" id="menubutton " style=" width: 3.6%; text-align: center;">
+    <span style="color:#c8c8c8; font-size: 27px;"><i class="las la-bars" ></i></span>
   </div>
 
+   <div style="text-align: right; width: 96.4%;">
+     <span style="color: #c8c8c8; margin-right: 2%;">
+        <span style="margin-right: 30px; color:#c8c8c8; "> {{adminName}}</span>
+        <span style="margin-right: 30px; color:#c8c8c8;"><i class="fa fa-envelope  "  id="testkoperta" ></i></span>
+        <span style="margin-right: 30px; color:#c8c8c8;"><i class="fa fa-bell"  ><sup style="margin-left: 5px; color: yellow;   font-size: 15px;">5</sup></i></span>
+        <span (click)="LogOut()" style="margin-right: 5px; color:#c8c8c8;"><i class="fa fa-sign-out "></i> </span>
+    </span>
+  </div>
 
-
-  <!-- Links -->
-  <ul class="navbar-nav ml-auto" >
-    <li class="nav-item">
-      <span style="margin-right: 30px; color:#c8c8c8; "> {{adminName}}</span>
-    </li>
-    <li class="nav-item top-bar-icons">
-      <span style="margin-right: 30px; color:#c8c8c8;"><i class="fa fa-envelope " id="testkoperta" ></i></span>
-    </li>
-    <li class="nav-item top-bar-icons">
-      <span style="margin-right: 30px; color:#c8c8c8;"><i class="fa fa-bell"  ><sup style="margin-left: 5px; color: yellow;   font-size: 15px;">5</sup></i></span>
-    </li>
-
-    <li class="nav-item top-bar-icons">
-      <span (click)="LogOut()" style="margin-right: 5px; color:#c8c8c8;"><i class="fa fa-sign-out "></i> </span>
-    </li>
-  </ul>
 </div>
 
 
 
-  <div class="sidebar-menu small-side-bar flowHide" style=" float: left;">
-      <ul class="navbar-nav" style="position: fixed; top: 7%; width: 15%;  ">
-
-
+  <div class="sidebar-menu small-side-bar flowHide">
+      <ul id="sidebar-menu-list" class="navbar-nav  sidebar-menu-ul">
 
         <li class="elementLi">
           <div class="li-body">
 
             <div class="li-icon-container">
-              <i  class="las la-desktop li-icon-container-icon"></i>
+              <i [routerLink]="['/admin', { outlets: {'administrator': ['panel']}}]"   class="las la-desktop li-icon-container-icon"></i>
             </div>
-            <div  class="fadeInRight  animated nav-link-name name-hide tax-show description-container">Tablica</div>
+            <div [routerLink]="['/admin', { outlets: {'administrator': ['panel']}}]"  class="fadeInRight  animated nav-link-name name-hide tax-show description-container">Tablica</div>
           </div>
         </li>
 
@@ -60,13 +47,13 @@
           </div>
 
           <ng-container  *ngIf="i === 1">
-          <div   style="clear: both; border: 1px solid red; " class="collapse multi-collapse" id="multiCollapseExample1" >
+          <div   style="clear: both;" class="collapse multi-collapse" id="multiCollapseExample1" >
             <div class="dropdown-container">
               <ul class="dropdown-list">
                 <li><div  class="subMenu"  [routerLink]="['/shop']"> Do sklepu</div></li>
-                <li><div  class="subMenu sub-menu-last-item" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','asortyment']}}]"> Magazyn</div></li>
-                <li><div  class="subMenu sub-menu-last-item" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','klienci']}}]"> Klienci</div></li>
-                <li><div  class="subMenu sub-menu-last-item" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','zamowienia']}}]"> Zamówienia</div></li>
+                <li><div  class="subMenu " [routerLink]="['/admin', { outlets: {'administrator': ['sklep','asortyment']}}]"> Magazyn</div></li>
+                <li><div  class="subMenu " [routerLink]="['/admin', { outlets: {'administrator': ['sklep','klienci']}}]"> Klienci</div></li>
+                <li><div  class="subMenu " [routerLink]="['/admin', { outlets: {'administrator': ['sklep','zamowienia']}}]"> Zamówienia</div></li>
                 <li><div  class="subMenu sub-menu-last-item" [routerLink]="['/admin', { outlets: {'administrator': ['sklep','zarzadzanie']}}]"> Zarządzanie</div></li>
               </ul>
             </div>
@@ -95,7 +82,7 @@
             <div   style="clear: both; border: 1px solid red; " class="collapse multi-collapse" id="multiCollapseExample2" >
               <div class="dropdown-container">
                 <ul class="dropdown-list">
-                  <li><div  class="subMenu sub-menu-last-item" [routerLink]="['/admin', { outlets: {'administrator': ['serwis','asortyment']}}]"> Magazyn</div></li>
+                  <li><div  class="subMenu " [routerLink]="['/admin', { outlets: {'administrator': ['serwis','asortyment']}}]"> Magazyn</div></li>
                   <li><div  class="subMenu sub-menu-last-item" [routerLink]="['/admin', { outlets: {'administrator': ['serwis','asortyment']}}]"> Zlecenia</div></li>
                 </ul>
               </div>
@@ -123,7 +110,7 @@
             <div   style="clear: both; border: 1px solid red; " class="collapse multi-collapse" id="multiCollapseExample3" >
               <div class="dropdown-container">
                 <ul class="dropdown-list">
-                  <li><div  class="subMenu sub-menu-last-item" [routerLink]="['/admin', { outlets: {'administrator': ['ksiegowosc','faktury']}}]"> Faktury</div></li>
+                  <li><div  class="subMenu " [routerLink]="['/admin', { outlets: {'administrator': ['ksiegowosc','faktury']}}]"> Faktury</div></li>
                   <li><div  class="subMenu sub-menu-last-item" [routerLink]="['/admin', { outlets: {'administrator': ['ksiegowosc','faktury','dodaj']}}]"> Dodaj Fakturę</div></li>
                 </ul>
               </div>

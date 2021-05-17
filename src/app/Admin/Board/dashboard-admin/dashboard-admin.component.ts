@@ -65,22 +65,61 @@ export class DashboardAdminComponent implements OnInit, OnDestroy {
    ViewMenu(): any {
 
 
-    this.i = 0;
+     const x = window.matchMedia('(max-width: 576px)');
 
-    const d = document.querySelectorAll('.sidebar-menu');
-    const e = document.querySelectorAll('.nav-link-name');
-    const k = document.getElementById('outlet-container');
+     if (x.matches)
+      {
+
+        this.i = 0;
+
+        const d = document.querySelectorAll('.sidebar-menu');
+        const e = document.querySelectorAll('.nav-link-name');
+        const k = document.getElementById('outlet-container');
+        const lista = document.getElementById('sidebar-menu-list');
 
 
 
-    d.forEach( value => {
+        d.forEach( value => {
+          value.classList.toggle('full-side-bar-small-devices');
+          value.classList.remove('flowHide');
+        });
+
+        lista.classList.toggle('sidebar-menu-ul-small-devices');
+        lista.classList.toggle('sidebar-menu-ul');
+
+
+
+        setTimeout(() => {
+
+          e.forEach(value => {
+            value.classList.toggle('name-hide');
+          });
+
+
+        }, 150);
+
+        k.classList.toggle('small-size');
+        k.classList.toggle('big-size');
+      }
+
+     else
+     {
+       this.i = 0;
+
+       const d = document.querySelectorAll('.sidebar-menu');
+       const e = document.querySelectorAll('.nav-link-name');
+       const k = document.getElementById('outlet-container');
+
+
+
+       d.forEach( value => {
          value.classList.toggle('full-side-bar');
          value.classList.remove('flowHide');
        });
 
 
 
-    setTimeout(() => {
+       setTimeout(() => {
 
          e.forEach(value => {
            value.classList.toggle('name-hide');
@@ -89,11 +128,13 @@ export class DashboardAdminComponent implements OnInit, OnDestroy {
 
        }, 150);
 
-    k.classList.toggle('small-size');
-    k.classList.toggle('big-size');
-
+       k.classList.toggle('small-size');
+       k.classList.toggle('big-size');
+     }
 
   }
+
+
 
 
 
