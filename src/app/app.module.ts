@@ -76,6 +76,8 @@ import { DatePipe } from './date.pipe';
 import {NgSimpleSidebarModule} from 'ng-simple-sidebar';
 import {SidebarModule} from 'ng-sidebar';
 import {AngularDropdownModule} from 'angular-dropdown';
+import { NewComponent } from './new/new.component';
+import { TimePipe } from './time.pipe';
 
 
 
@@ -109,7 +111,7 @@ const routes: Routes = [{
 
 
 
-  {path: 'shop', component:  HomeShopComponent,
+  {path: 'shop', component:  NewComponent,
 
     children: [
 
@@ -199,6 +201,8 @@ export function JwtTokenGetter(): any {
     MessagesComponent,
     MessageComponentComponent,
     DatePipe,
+    NewComponent,
+    TimePipe,
   ],
   imports: [
     BrowserModule,

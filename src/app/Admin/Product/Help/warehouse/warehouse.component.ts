@@ -49,7 +49,7 @@ export class WarehouseComponent implements OnInit {
   };
 
   selectedRow: Array<Product> = [];
-  itemsPerPage = 3;
+  itemsPerPage = 5;
   @Input() tableTitle: string;
 
   product: Product;
