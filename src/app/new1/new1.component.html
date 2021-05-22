@@ -1,0 +1,219 @@
+<section class="shop spad">
+<ng-container *ngIf="products.length > 0; else emptyProductList">
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="shop__sidebar">
+          <div class="shop__sidebar__search">
+            <form action="#">
+              <input (keyup)="Search($event)"  type="text" placeholder="Wyszukaj w sklepie..">
+              <button type="submit"><span class="icon_search"></span></button>
+            </form>
+          </div>
+          <div class="shop__sidebar__accordion">
+            <div class="accordion" id="accordionExample">
+
+              <ng-container *ngIf="mapLength>0">
+
+
+              <div class="card">
+                <div class="card-heading">
+                  <a data-toggle="collapse" data-target="#collapseOne">Kategorie</a>
+                </div>
+                <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="shop__sidebar__categories">
+                      <ul class="nice-scroll" style="height: 100%;">
+                        <ng-container *ngFor="let category of categories|keyvalue;let p = index;">
+                          <li><a> {{category.key|categories}} ({{category.value}}) </a></li>
+                        </ng-container>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </ng-container>
+
+              <div class="card">
+                <div class="card-heading">
+                  <a data-toggle="collapse" data-target="#collapseTwo">Producent</a>
+                </div>
+                <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="shop__sidebar__brand">
+                      <ul>
+                        <li><a href="#">Louis Vuitton</a></li>
+                        <li><a href="#">Chanel</a></li>
+                        <li><a href="#">Hermes</a></li>
+                        <li><a href="#">Gucci</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="card">
+                <div class="card-heading">
+                  <a  data-toggle="collapse" data-target="#collapseThree">Cena</a>
+                </div>
+                <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="shop__sidebar__price">
+                      <ul>
+                        <li [attr.data-low] = "0" [attr.data-high] = "positiveinfinity"  (click)="SortingPriceRanges($event)"><a>Wszystkie</a></li>
+                        <li [attr.data-low] = "0" [attr.data-high] = "50"  (click)="SortingPriceRanges($event)"><a>0.00 zł - 50.00 zł</a></li>
+                        <li [attr.data-low] = "50" [attr.data-high] = "100"   (click)="SortingPriceRanges($event)"><a>50.00 zł - 100.00 zł</a></li>
+                        <li [attr.data-low] = "150" [attr.data-high] = "200"  (click)="SortingPriceRanges($event)"><a>150.00 zł - 200.00 zł</a></li>
+                        <li [attr.data-low] = "200" [attr.data-high] = "250" (click)="SortingPriceRanges($event)"><a>200.00 zł - 250.00 zł</a></li>
+                        <li [attr.data-low] = "250" [attr.data-high] = "positiveinfinity"  (click)="SortingPriceRanges($event)"><a>250.00 zł +</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="card">
+                <div class="card-heading">
+                  <a data-toggle="collapse" data-target="#collapseFive">Stan</a>
+                </div>
+                <div id="collapseFive" class="collapse show" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="shop__sidebar__price">
+                      <ul>
+                        <li><a href="#">Nowe</a></li>
+                        <li><a href="#">Używane</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="card">
+                <div class="card-heading">
+                  <a data-toggle="collapse" data-target="#collapseFour">Waga</a>
+                </div>
+                <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="shop__sidebar__size">
+                      <label for="xs">250g
+                        <input type="radio" id="xs">
+                      </label>
+                      <label for="sm">500g
+                        <input type="radio" id="sm">
+                      </label>
+                      <label for="md">1kg
+                        <input type="radio" id="md">
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="shop__product__option">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <ng-container *ngIf="page !== 1; else noPagination; then pagination"></ng-container>
+
+              <ng-template #pagination>
+                <div class="shop__product__option__left">
+                  <p> Wyświetlanie 1–9 z {{productsCount}} wyników</p>
+                </div>
+              </ng-template>
+
+
+              <ng-template #noPagination>
+                <div class="shop__product__option__left">
+                  <p> Wyświetlanie wszystkich wyników : {{productsCount}}</p>
+                </div>
+              </ng-template>
+
+
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="shop__product__option__right">
+                <div style="width: 45%; margin-left: 55%;">
+                <select class="form-control" autocomplete="off" id="sorting"  (change)="Sort()" [(ngModel)]="sorting" >
+                  <option>Sortuj wg</option>
+                  <option>Alfabetycznie</option>
+                  <option>Cena rosnąco</option>
+                  <option>Cena malejąco</option>
+                </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row">
+
+          <ng-container *ngIf="products.length > 0">
+            <ng-container  *ngFor="let product of products| paginate:{id:'listing_pagination',itemsPerPage:12, currentPage:page,totalItems:totalRecords}">
+          <div class="col-lg-4 col-md-6 col-sm-6 productContainer">
+            <div class="product__item">
+              <div class="product__item__pic set-bg" style="background-image: url({{product.imageByte}});">
+                <span class="label">New</span>
+              </div>
+              <div class="product__item__text">
+                <h6>{{product.productName}}</h6>
+                <a href="#" class="add-cart">+ Dodaj do koszyka</a>
+                <div class="rating" style="letter-spacing: 5px;">
+                  <i style="color: #f7941d;" class="la la-star"></i>
+                  <i style="color: #f7941d;" class="la la-star"></i>
+                  <i  style="color: #f7941d;" class="la la-star"></i>
+                  <i  style="color: #f7941d;" class="la la-star"></i>
+                  <i  style="color: #f7941d;" class="la la-star"></i>
+
+                </div>
+                <h5>{{product.productPrice}} zł</h5>
+                <div class="product__color__select">
+                  Szczegóły
+                </div>
+              </div>
+            </div>
+          </div>
+            </ng-container>
+            </ng-container>
+        </div>
+
+
+        <ng-container *ngIf="products.length > 12; then exists; else noexists"></ng-container>
+
+        <ng-template #exists >
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="product__pagination">
+                <pagination-controls id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="page=$event"></pagination-controls>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template #noexists>
+
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+</ng-container>
+
+<ng-template #emptyProductList>
+  <div class="col-12 noProductInscription" >
+    Brak produktów
+  </div>
+</ng-template>
+
+</section>

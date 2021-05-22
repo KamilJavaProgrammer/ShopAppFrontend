@@ -8,6 +8,7 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {ArticleLine, Section, SectionService} from '../section.service';
 import {HttpClient} from '@angular/common/http';
 import {AuthGuard} from '../auth.guard';
+import {NgbCarousel, NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-new',
@@ -24,7 +25,20 @@ export class NewComponent implements OnInit, OnDestroy {
                private modalService: BsModalService,
                private sectionService: SectionService,
                private httpClient: HttpClient,
-               private authGuard: AuthGuard){}
+               private authGuard: AuthGuard,
+               config: NgbCarouselConfig)
+
+  {
+
+    config.interval = 4000;
+    config.keyboard = true;
+    config.pauseOnHover = true;
+    config.wrap = true;
+  }
+
+
+
+
 
 
 

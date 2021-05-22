@@ -1,3 +1,4 @@
+
 /******************************************************************
   Template Name: Male Fashion
   Description: Male Fashion - ecommerce teplate
@@ -140,7 +141,7 @@ ol {
 }
 
 .spad {
-  padding-top: 100px;
+  padding-top: 200px;
   padding-bottom: 100px;
 }
 
@@ -3855,13 +3856,13 @@ ol {
     height: 250px;
   }
 }
- .basket-shop {
-   font-size: 17px;
-   margin-left: 10px;
-   color: inherit;
-   font-weight: 700;
-   font-family: "Nunito Sans", sans-serif;
- }
+.basket-shop {
+  font-size: 17px;
+  margin-left: 10px;
+  color: inherit;
+  font-weight: 700;
+  font-family: "Nunito Sans", sans-serif;
+}
 
 .header__nav__option .icon-span
 {
@@ -3920,32 +3921,13 @@ ol {
 {
 
 }
-.carousel-item.active {
-  -webkit-animation: flip-in-ver-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-  animation: flip-in-ver-left 1.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
 
-@-webkit-keyframes flip-in-ver-left {
-  0% {
-    -webkit-transform: rotateY(80deg);
-    transform: rotateY(80deg);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: rotateY(0);
-    transform: rotateY(0);
-    opacity: 1;
-  }
-}
-@keyframes flip-in-ver-left {
-  0% {
-    -webkit-transform: rotateY(80deg);
-    transform: rotateY(80deg);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: rotateY(0);
-    transform: rotateY(0);
-    opacity: 1;
-  }
+.noProductInscription
+{
+  text-align: center;
+  font-size: 23px;
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+
 }

@@ -67,7 +67,7 @@
         <nav class="header__menu mobile-menu">
           <ul>
             <li class="active"><a href="./index.html">Kawa</a></li>
-            <li><a href="./shop.html">Ekspresy</a></li>
+            <li><a  [routerLink]="['/shop', { outlets: {'route4': ['dy','1']}}]">Ekspresy</a></li>
             <li><a href="./shop.html">Młynki</a></li>
             <li><a href="./shop.html">Części zamienne</a></li>
             <li><a href="./shop.html">Akcesoria</a>
@@ -98,9 +98,18 @@
 <!-- Header Section End -->
 
 <!-- Hero Section Begin -->
+<div id="articleRouter">
+
+
+
+
 <section class="hero">
   <div class="hero__slider owl-carousel">
-    <div  class="hero__items set-bg  main-background">
+
+
+    <ngb-carousel >
+      <ng-template ngbSlide >
+    <div  class="hero__items set-bg  main-background carousel-item active"  style="background-image: url('/assets/img/kawa9.webp');">
       <div class="container">
         <div class="row">
           <div class="col-xl-5 col-lg-7 col-md-8" >
@@ -115,6 +124,130 @@
         </div>
       </div>
     </div>
+      </ng-template>
+
+
+
+      <ng-template ngbSlide>
+        <div  class="hero__items set-bg  main-background carousel-item active"  style="background-image: url('/assets/img/kawa9.jpg');">
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-5 col-lg-7 col-md-8" >
+                <h2 class="" data-aos="zoom-in-right"  style="color: pink;font-family: 'Nunito Sans';">Przyjemność która</h2>
+
+                <div class="" data-aos="fade-left" data-aos-delay="350">
+                  <h2 style="color: violet; padding-top: 10px;">mieści się w filiżance kawy</h2>
+                  <p style="color: #f3f3f3;">Stwórz kawiarnię we własnym domu</p>
+                  <a href="#" style="border: 1px solid white; color: #f3f3f3;" class="btn">Sprawdź ofertę<i class="la la-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+
+
+      <ng-template ngbSlide>
+        <div  class="hero__items set-bg  main-background carousel-item active" data-aos="fade-up" data-aos-delay="2000"  style="background-image: url('/assets/img/kawa2.jpg');">
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-5 col-lg-7 col-md-8" >
+                <h2 class="" data-aos="zoom-in-right"  style="color: pink;font-family: 'Nunito Sans';">Przyjemność która</h2>
+
+                <div class="" data-aos="fade-left" data-aos-delay="350">
+                  <h2 style="color: violet; padding-top: 10px;">mieści się w filiżance kawy</h2>
+                  <p style="color: #f3f3f3;">Stwórz kawiarnię we własnym domu</p>
+                  <a href="#" style="border: 1px solid white; color: #f3f3f3;" class="btn">Sprawdź ofertę<i class="la la-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+
+      <ng-template ngbSlide>
+        <div  class="hero__items set-bg  main-background carousel-item active"  style="background-image: url('/assets/img/kawa3.jpg');">
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-5 col-lg-7 col-md-8" >
+                <h2 class="" data-aos="zoom-in-right"  style="color: pink;font-family: 'Nunito Sans';">Przyjemność która</h2>
+
+                <div class="" data-aos="fade-left" data-aos-delay="350">
+                  <h2 style="color: violet; padding-top: 10px;">mieści się w filiżance kawy</h2>
+                  <p style="color: #f3f3f3;">Stwórz kawiarnię we własnym domu</p>
+                  <a href="#" style="border: 1px solid white; color: #f3f3f3;" class="btn">Sprawdź ofertę<i class="la la-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+
+
+      <ng-template ngbSlide>
+        <div  class="hero__items set-bg  main-background carousel-item active"  style="background-image: url('/assets/img/kawa4.jpg');">
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-5 col-lg-7 col-md-8" >
+                <h2 class="" data-aos="zoom-in-right"  style="color: pink;font-family: 'Nunito Sans';">Przyjemność która</h2>
+
+                <div class="" data-aos="fade-left" data-aos-delay="350">
+                  <h2 style="color: violet; padding-top: 10px;">mieści się w filiżance kawy</h2>
+                  <p style="color: #f3f3f3;">Stwórz kawiarnię we własnym domu</p>
+                  <a href="#" style="border: 1px solid white; color: #f3f3f3;" class="btn">Sprawdź ofertę<i class="la la-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+
+
+
+      <ng-template ngbSlide>
+        <div  class="hero__items set-bg  main-background carousel-item active"  style="background-image: url('/assets/img/kawa5.jpg');">
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-5 col-lg-7 col-md-8" >
+                <h2 class="" data-aos="zoom-in-right"  style="color: pink;font-family: 'Nunito Sans';">Przyjemność która</h2>
+
+                <div class="" data-aos="fade-left" data-aos-delay="350">
+                  <h2 style="color: violet; padding-top: 10px;">mieści się w filiżance kawy</h2>
+                  <p style="color: #f3f3f3;">Stwórz kawiarnię we własnym domu</p>
+                  <a href="#" style="border: 1px solid white; color: #f3f3f3;" class="btn">Sprawdź ofertę<i class="la la-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+
+      <ng-template ngbSlide>
+        <div  class="hero__items set-bg  main-background carousel-item active"  style="background-image: url('/assets/img/kawa6.jpg');">
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-5 col-lg-7 col-md-8" >
+                <h2 class="" data-aos="zoom-in-right"  style="color: pink;font-family: 'Nunito Sans';">Przyjemność która</h2>
+
+                <div class="" data-aos="fade-left" data-aos-delay="350">
+                  <h2 style="color: violet; padding-top: 10px;">mieści się w filiżance kawy</h2>
+                  <p style="color: #f3f3f3;">Stwórz kawiarnię we własnym domu</p>
+                  <a href="#" style="border: 1px solid white; color: #f3f3f3;" class="btn">Sprawdź ofertę<i class="la la-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+
+    </ngb-carousel>
+
     <div class="hero__items set-bg" data-setbg="img/hero/hero-2.jpg">
       <div class="container">
         <div class="row">
@@ -153,9 +286,7 @@
           <li class="listElement"  (click)="SwitchProductsSection(i,$event)" data-filter="*">{{articleLine.name}}</li>
 
           </ng-container>
-<!--                    <li class="active" data-filter="*">Najbardziej popularne</li>-->
-<!--          <li data-filter=".new-arrivals">Najnowsze</li>-->
-<!--          <li data-filter=".hot-sales">Polecane przez nas</li>-->
+
         </ul>
       </div>
     </div>
@@ -164,6 +295,7 @@
    <ng-container *ngIf="articleLines.length > 0">
      <ng-container *ngFor="let product of articleLines[articleLineIndex].productList; let i=index;">
        <div data-aos="fade-up" data-aos-delay="150" class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
+
          <div class="product__item">
            <div class="product__item__pic set-bg" style="background-image: url({{product.imageByte}});">
              <span class="label">New</span>
@@ -185,6 +317,7 @@
              </div>
            </div>
          </div>
+
        </div>
 
      </ng-container>
@@ -293,6 +426,16 @@
 <!-- Latest Blog Section End -->
 
 <!-- Footer Section Begin -->
+
+
+<!--  articlerouter-->
+</div>
+<!---->
+
+
+<router-outlet name="route4"></router-outlet>
+
+
 <div id="footer"></div>
 <footer class="footer">
   <div class="container">
