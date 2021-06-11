@@ -1,0 +1,35 @@
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+
+    <div class="fadeIn first" >
+      <img  [routerLink]="['/sklep']" [src]="'assets/img/123456.PNG'" id="icon" alt="User Icon" />
+
+
+    </div>
+
+    <form>
+      <input [(ngModel)]="adminLogin" type="text" id="login" class="fadeIn second" name="login" placeholder="Login">
+      <input  [(ngModel)]="adminPassword" type="password" id="password" class="fadeIn third" name="password" placeholder="Hasło">
+      <input (click)="Login()" type="submit" class="fadeIn fourth" value="Zaloguj">
+    </form>
+
+    <div id="formFooter">
+      <a class="underlineHover" [routerLink]="['/sklep']">Przejdź do sklepu</a>
+    </div>
+
+  </div>
+</div>
+
+
+<ng-template #alert>
+  <div   style="text-align: center; font-size: 20px;" class="alert  alert-dismissible fade show" role="alert">
+    <button (click)="CloseAlertModal()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Uwaga!</strong> {{text}}
+
+  </div>
+
+
+</ng-template>

@@ -1,0 +1,104 @@
+.labelInput
+{
+  font-size: 17px;
+}
+.formGroup
+{
+  padding-bottom: 5px;
+}
+.description
+{
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  color: rgb(112, 112, 112);
+  margin-top: 4px;
+}
+.adressSelect
+{
+
+
+
+}
+.addressOptionName
+{
+  font-size: 24px;
+  line-height: 30px;
+  padding-top: 10px;
+  padding-left:25px;
+  color: #333333;
+  font-family: Roboto;
+}
+.noteDescription
+{
+  padding-top: 10px;
+  padding-left:25px;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 26px;
+  color: #333333;
+}
+.editButton
+{
+  padding-top: 10px;
+  padding-left:25px;
+  font-family: Roboto;
+
+}
+
+#addressForm
+{
+  display: none;
+}
+
+.testklasa
+{
+  height: 150px;
+  width: 450px;
+  margin-top: 50px;
+  border-radius: 15px;
+  box-shadow:0px 0px 5px black;
+  background-color:#e6f0ff;
+}
+
+
+
+
+@media (max-width: 576px) {
+
+  .testklasa
+  {
+    height: 150px;
+    width: 92%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    border-radius: 15px;
+    box-shadow:0px 0px 5px black;
+    background-color:#e6f0ff;
+  }
+
+  .addressOptionName
+  {
+    font-size: 18px;
+    line-height: 30px;
+    padding-top: 10px;
+    padding-left:25px;
+    color: #333333;
+    font-family: Roboto;
+  }
+  .noteDescription
+  {
+    padding-top: 10px;
+    padding-left:25px;
+    font-family: "Nunito Sans";
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 26px;
+    color: #333333;
+  }
+
+
+
+}

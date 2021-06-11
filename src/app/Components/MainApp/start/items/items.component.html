@@ -1,0 +1,227 @@
+<section class="shop spad" id="productStart">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="shop__sidebar">
+          <div class="shop__sidebar__search">
+            <form>
+              <input style="color: #727883; font-family: Raleway; "  name="search" [(ngModel)]="searchPhrase" (keydown.enter)="Search()" type="text" placeholder="Wyszukaj w sklepie.." />
+              <button title="Szukaj" (click)="Search()"><span class="la la-search"></span></button>
+            </form>
+          </div>
+          <div class="shop__sidebar__accordion">
+            <div>
+
+
+
+              <div class="card" >
+                <div class="card-heading">
+                  <a class="waves-light" (click)="test.toggle()" mdbWavesEffect>Kategorie</a>
+                </div>
+                <div mdbCollapse [isCollapsed]="true" #test="bs-collapse">
+                  <div class="card-body">
+                    <div class="shop__sidebar__categories">
+                      <ul style="height: 100%;">
+
+                        <ng-container *ngFor="let key of keys;let p = index;">
+
+                          <li style=" padding-top:7px; padding-bottom: 7px; border-bottom: 1px solid rgba(169, 174, 189, 0.3)"><a style="color: #727883; font-family: Raleway;"> {{key|test|categories}} </a>
+                            <ul style="height: 100%;" *ngFor="let d of valueReady[p]">
+                              <li  (click)="GetGivenProducts(d)" style="margin-left: 50px; user-select: none;"><a style="color: #727883; font-family: Raleway;">
+                                {{d|test2|categories}}
+                              </a></li>
+                            </ul>
+                          </li>
+
+                          <!--                          <li><a style="color: #666666;"> {{category.key|categories}} ({{category.value}}) </a></li>-->
+                        </ng-container>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+              <div class="card">
+                <div class="card-heading">
+                  <a class="waves-light" (click)="test1.toggle()" mdbWavesEffect >Cena</a>
+                </div>
+                <div mdbCollapse [isCollapsed]="true" #test1="bs-collapse">
+                  <div class="card-body">
+                    <div class="shop__sidebar__price">
+                      <ul>
+                        <li [attr.data-low] = "0" [attr.data-high] = "100000"  (click)="SortingPriceRanges($event)"><a style="color: #727883; font-family: Raleway; " >Wszystkie</a></li>
+                        <li [attr.data-low] = "0" [attr.data-high] = "50"  (click)="SortingPriceRanges($event)"><a style="color: #727883; font-family: Raleway; " >0.00 zł - 50.00 zł</a></li>
+                        <li [attr.data-low] = "50" [attr.data-high] = "100"   (click)="SortingPriceRanges($event)"><a style="color: #727883; font-family: Raleway; " >50.00 zł - 100.00 zł</a></li>
+                        <li [attr.data-low] = "150" [attr.data-high] = "200"  (click)="SortingPriceRanges($event)"><a style="color: #727883; font-family: Raleway; " >150.00 zł - 200.00 zł</a></li>
+                        <li [attr.data-low] = "200" [attr.data-high] = "250" (click)="SortingPriceRanges($event)"><a style="color: #727883; font-family: Raleway; " >200.00 zł - 250.00 zł</a></li>
+                        <li [attr.data-low] = "250" [attr.data-high] = "100000"  (click)="SortingPriceRanges($event)"><a style="color: #727883; font-family: Raleway; " >250.00 zł +</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+              <div class="card" *ngIf="filterManufacturersList.length>1">
+                <div class="card-heading">
+                  <a class="waves-light" (click)="test2.toggle()" mdbWavesEffect>Producent</a>
+                </div>
+                <div mdbCollapse [isCollapsed]="true" #test2="bs-collapse">
+                  <div class="card-body">
+                    <div class="shop__sidebar__brand">
+                      <ul *ngFor="let manufacturer of filterManufacturersList">
+                        <li><a style="color: #727883; font-family: Raleway; user-select: none;">{{manufacturer}}</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="card">
+                <div class="card-heading">
+                  <a class="waves-light" (click)="test3.toggle()" mdbWavesEffect>Stan</a>
+                </div>
+                <div mdbCollapse [isCollapsed]="true" #test3="bs-collapse">
+                  <div class="card-body">
+                    <div class="shop__sidebar__price">
+                      <ul>
+                        <li><a style="color: #727883; font-family: Raleway; user-select: none;">Nowe</a></li>
+                        <li><a style="color: #727883; font-family: Raleway; user-select: none;">Używane</a></li>
+                        <li><a style="color: #727883; font-family: Raleway; user-select: none;">Powystawowe</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+
+        <ng-container *ngIf="products.length > 0; else emptyProductList">
+
+          <div class="shop__product__option">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <ng-container *ngIf="page !== 1; else noPagination; then pagination"></ng-container>
+
+                <ng-template #pagination>
+                  <div class="shop__product__option__left">
+                    <p> Wyświetlanie 1–9 z {{productsCount}} wyników</p>
+                  </div>
+                </ng-template>
+
+
+                <ng-template #noPagination>
+                  <div class="shop__product__option__left">
+                    <p> Wyświetlanie wszystkich wyników : {{productsCount}}</p>
+                  </div>
+                </ng-template>
+
+
+
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="shop__product__option__right">
+                  <div style="width: 45%; margin-left: 55%;">
+                    <select class="form-control" autocomplete="off" id="sorting"  (change)="Sort()" [(ngModel)]="sorting" >
+                      <option>Sortuj wg</option>
+                      <option>Alfabetycznie</option>
+                      <option>Cena rosnąco</option>
+                      <option>Cena malejąco</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+
+            <ng-container *ngIf="products.length > 0">
+              <ng-container  *ngFor="let product of products| paginate:{id:'listing_pagination',itemsPerPage:9, currentPage:page,totalItems:totalRecords}">
+                <div class="col-lg-4 col-md-6 col-sm-6 productContainer">
+                  <div class="product__item">
+                    <div class="product__item__pic set-bg" style="background-image: url({{product.imageByte}});">
+                    </div>
+                    <div class="product__item__text">
+                      <h6>{{product.productName}}</h6>
+                      <a class="add-cart"><span class="button " (click)="AddToBasket(product)">+ Dodaj do koszyka</span> <span  style="color: black; margin-left: 5px;" >|</span><span class="button "  style="color: blue; margin-left: 5px;" >Szczegóły</span> </a>
+                      <div class="rating" style="letter-spacing: 5px;">
+                        <i style="color: #f7941d;" class="la la-star"></i>
+                        <i style="color: #f7941d;" class="la la-star"></i>
+                        <i  style="color: #f7941d;" class="la la-star"></i>
+                        <i  style="color: #f7941d;" class="la la-star"></i>
+                        <i  style="color: #f7941d;" class="la la-star"></i>
+
+                      </div>
+                      <h5>{{product.productPrice}} zł</h5>
+                      <div class="product__color__select">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+
+
+          <ng-container *ngIf="products.length > 10; then exists; else noexists"></ng-container>
+
+          <ng-template #exists >
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="product__pagination">
+                  <pagination-controls id="listing_pagination" maxSize="9" directionLinks="true" (pageChange)="page=$event"></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template #noexists>
+
+          </ng-template>
+
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+
+  <ng-template #emptyProductList>
+    <div class="col-12 noProductInscription" >
+      Brak produktów
+    </div>
+  </ng-template>
+
+</section>
+
+
+
+
+<ng-template  #alert>
+  <app-amount-product-alert [maxValue]="maxValue"></app-amount-product-alert>
+</ng-template>
+
+<ng-template  #addProductBasket>
+  <app-add-basket-alert [product]="product"></app-add-basket-alert>
+</ng-template>
+
+

@@ -1,0 +1,191 @@
+<div class="row">
+  <div class="col-12">
+
+    <div id="adressSquares">
+
+      <div class="row">
+         <div  class="col-md-12 ">
+           <div class="testklasa">
+            <div class="row">
+               <div class="col addressOptionName">
+                <span>Adres do wysyłki</span>
+              </div>
+           </div>
+           <div class="row">
+             <div class="col noteDescription">
+                <span>Naciśnij by zmienić adres wysyłki</span>
+            </div>
+          </div>
+
+
+
+           <div class="row">
+             <div class="col editButton">
+              <button (click)="EditAdrress('Wysyłkowy')"  class="btn btn-outline-primary">Edytuj</button>
+            </div>
+          </div>
+           </div>
+         </div>
+      </div>
+
+
+      <div class="row">
+      <div class=" col-md-12" >
+        <div class="testklasa" style=" background-color: #ffebe6;">
+        <div class="row">
+          <div class="col addressOptionName">
+           <span>Adres rozliczeniowy</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col noteDescription">
+            <span>Naciśnij by zmienić adres rozliczeniowy</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col editButton">
+            <button (click)="EditAdrress('Rozliczeniowy')" class="btn btn-outline-primary">Edytuj</button>
+          </div>
+        </div>
+        </div>
+       </div>
+      </div>
+    </div>
+
+    <div id="addressForm" >
+      <ng-container [ngTemplateOutlet]="template"></ng-container>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<ng-template #shipmentAdrressTemplate>
+
+<div class="row">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-12" style="font-size: 25px;line-height: 30px; padding-bottom: 15px; ">
+        Adres do wysyłki
+      </div>
+    </div>
+    <form enctype="multipart/form-data">
+      <div class="row">
+        <div class="col-6 form-group formGroup" >
+          <label class="labelInput" for="name">Imię</label>
+          <input [(ngModel)]="user.shopClient.name" name="name" class="form-control" type="text" id="name" placeholder="Imie">
+        </div>
+        <div class="col-6 form-group formGroup">
+          <label class="labelInput" for="surname">Nazwisko</label>
+          <input  [(ngModel)]="user.shopClient.surname" name="surname" class="form-control" type="text" id="surname" placeholder="Nazwisko">
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-6 form-group formGroup">
+          <label class="labelInput" for="street">Ulica</label>
+          <input [(ngModel)]="user.shopClient.address.placeOfresident" name="placeOfResident" class="form-control" type="text" id="street" placeholder="Ulica">
+        </div>
+
+        <div class="col-6 form-group formGroup">
+          <label class="labelInput" for="postCode">Kod pocztowy</label>
+          <input [(ngModel)]="user.shopClient.address.postCode" name="postCode" class="form-control" type="text" id="postCode" placeholder="Kod pocztowy">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 form-group formGroup">
+          <label class="labelInput" for="town">Miasto</label>
+          <input [(ngModel)]="user.shopClient.address.town" name="town" class="form-control" id="town" placeholder="Miasto" type="text">
+        </div>
+
+        <div class="col-6 form-group formGroup">
+          <label class="labelInput" for="phoneNumber">Telefon</label>
+          <input [(ngModel)]="user.shopClient.phoneNumber" name="phoneNumber" class="form-control" id="phoneNumber" placeholder="Telefon" type="text">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 form-group formGroup">
+          <label class="labelInput" for="email">E-mail</label>
+          <input [(ngModel)]="user.shopClient.email" name="email" class="form-control" type="email" id="email" placeholder="E-mail">
+        </div>
+      </div>
+     <button (click)="SaveData()" class="btn btn-outline-primary">Zapisz</button>
+    </form>
+  </div>
+</div>
+</ng-template>
+
+
+
+
+<ng-template #settlementAdrresssTemplate>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12" style="font-size: 25px;line-height: 30px; padding-bottom: 15px; ">
+          Adres Rozliczeniowy
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 form-group formGroup">
+          <label class="labelInput" for="businessEmail">E-mail</label>
+          <input [(ngModel)]="user.shopClient.business.email" class="form-control" name="businessEmail" type="email" id="businessEmail" placeholder="E-mail">
+        </div>
+
+        <div class="col-6 form-group formGroup">
+          <label class="labelInput" for="businessName">Nazwa firmy</label>
+          <input [(ngModel)]="user.shopClient.business.name" name="businessName" class="form-control" type="text" id="businessName" placeholder="Nazwa firmy">
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-6 form-group formGroup">
+          <label class="labelInput" for="businessPlaceOfResident">Ulica</label>
+          <input [(ngModel)]="user.shopClient.business.address.placeOfresident" name="businessPlaceOfResident" class="form-control" type="text" id="businessPlaceOfResident" placeholder="Ulica">
+        </div>
+
+        <div class="col-6 form-group formGroup">
+          <label class="labelInput" for="businessPostCode">Kod pocztowy</label>
+          <input [(ngModel)]="user.shopClient.business.address.postCode" name="businessPostCode" class="form-control" type="text" id="businessPostCode" placeholder="Kod pocztowy">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 form-group formGroup">
+          <label class="labelInput" for="businessTown">Miasto</label>
+          <input [(ngModel)]="user.shopClient.business.address.town" name="businessTown" class="form-control" id="businessTown" placeholder="Miasto" type="text">
+        </div>
+
+        <div class="col-6 form-group formGroup">
+          <label class="labelInput" for="businessPhoneNumber">Telefon</label>
+          <input [(ngModel)]="user.shopClient.business.phoneNumber" name="businessPhoneNumber" class="form-control" id="businessPhoneNumber" placeholder="Telefon" type="text">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 form-group formGroup">
+          <label class="labelInput" for="nip">NIP</label>
+          <input [(ngModel)]="user.shopClient.business.nip" name="nip" class="form-control" id="nip" placeholder="Numer Identyfikacji Podatkowej" type="text">
+        </div>
+
+        <div class="col-6 form-group formGroup">
+          <label class="labelInput" for="regon">REGON</label>
+          <input [(ngModel)]="user.shopClient.business.regon" name="regon" class="form-control" id="regon" placeholder="Numer Regon" type="text">
+        </div>
+      </div>
+      <button (click)="SaveData()" class="btn btn-outline-primary">Zapisz</button>
+
+    </div>
+  </div>
+</ng-template>
+
+
+

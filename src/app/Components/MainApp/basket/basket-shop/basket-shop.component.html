@@ -1,0 +1,96 @@
+<section class="shopping-cart spad">
+
+
+  <ng-container *ngIf="orders.length > 0, else empty,then contains "></ng-container>
+
+  <ng-template #contains>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="shopping__cart__table">
+            <table>
+              <thead>
+              <tr>
+
+                <th>Produkt</th>
+                <th>Ilość</th>
+                <th>Koszt</th>
+                <th></th>
+
+              </tr>
+              </thead>
+              <tbody>
+
+
+              <tr *ngFor="let order of orders; let i = index;">
+
+                <td class="product__cart__item">
+                  <div class="product__cart__item__pic">
+                    <img class="productImage" [src]="order.image" alt="">
+                  </div>
+                  <div class="product__cart__item__text">
+                    <h6>{{order.nameOfProduct}}</h6>
+                    <h5>{{order.bruttoPrice}} zł</h5>
+                  </div>
+                </td>
+                <td class="quantity__item">
+                  <div class="quantity">
+                    <div class="pro-qty-2">
+                      <i class="la la-arrow-left" (click)="SubtractOneProduct(order, i)"></i>
+                      <input name="numberOfItems"  style="width: 25%;" [(ngModel)]="order.numberOfItems"    (input)="Count(order)"  autocomplete="off"  type="text" value="1">
+                      <i class="la la-arrow-right" (click)="AddOneProduct(order, i)"></i>
+                    </div>
+                  </div>
+                </td>
+                <td class="cart__price">{{order.bruttoPrice * order.numberOfItems}} zł </td>
+                <td class="cart__close"><span class="close-icon"><i  (click)="DeleteProduct(order.idProduct)" class="la la-close"></i></span></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="continue__btn ">
+                <a class="hreftohome" (click)="RedirectToHomeComponent()" style=" color: #ffffff; background-color: #000000;">Wróć do sklepu </a>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="continue__btn update__btn">
+                <!--              <a href="#"><i class="fa fa-spinner"></i>Wróć do sklepu </a>-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="cart__discount">
+            <h6>Kod rabatowy</h6>
+            <form action="#">
+              <input type="text" placeholder="Wpisz kod">
+              <button type="submit">Zapisz</button>
+            </form>
+          </div>
+          <div class="cart__total">
+            <h6>Podsumowanie</h6>
+            <ul>
+              <li>Przesyłka <span>+18 zł</span></li>
+              <li>Suma <span>67 zł</span></li>
+            </ul>
+            <a (click)="ShowDeliveryDiv()" class="primary-btn">Dostawa i Płatność</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: none;" id="delivery-payment">
+      <app-delivery  [orders]="orders" [sumMoney]="sumMoney"></app-delivery>
+    </div>
+  </ng-template>
+</section>
+
+
+
+<ng-template  #empty>
+  <div class="col-12 noProductInscription">
+    Twój koszyk jest pusty
+  </div>
+</ng-template>

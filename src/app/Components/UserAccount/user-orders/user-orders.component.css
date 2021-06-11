@@ -1,0 +1,55 @@
+.container
+{
+  padding-top: 50px;
+}
+
+
+.paginationContainer
+{
+  text-align: center;
+}
+.noProductInscription
+{
+  text-align: center;
+  font-size: 23px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 92px;
+
+}
+
+.getInvoiceButton
+{
+  font-weight: 600;
+}
+.getInvoiceButton:hover
+
+{
+  cursor: pointer;
+  color: black;
+
+}
+
+
+tr:nth-child(2n) {background: #CCC;}
+tr:nth-child(2n+1) {background: #EFEFEF;}
+
+
+thead th
+{
+  color: black;
+  font-weight: 600;
+  text-align: center;
+  background-color: grey;
+}
+
+tbody td
+{
+  color: black;
+  font-weight: 400;
+  text-align: center;
+}
+td
+{
+  word-break: break-all;
+}

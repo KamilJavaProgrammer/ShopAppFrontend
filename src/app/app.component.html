@@ -1,10 +1,11 @@
+<!--<button (click)="add()">Dynamically Add Component</button>-->
+<!--&lt;!&ndash; insert the dynamic components &ndash;&gt;-->
+<!--<ng-container #container></ng-container>-->
+
 
 <div class="container-fluid" id="mainAnchor">
-<!--  <div>-->
-<!--    <ngx-ui-loader fgsColor="black" loaderId="1"  fgsType="square-jelly-box" overlayColor="white"></ngx-ui-loader>-->
 
-<!--    <ngx-ui-loader  [hasProgressBar]="false" loaderId="3"  fgsColor="black" fgsType="ball-spin" overlayColor="white"></ngx-ui-loader>-->
-<!--  </div>-->
+  <ngx-ui-loader [text]="''" [hasProgressBar]="false" fgsColor="black"   fgsType="rotating-plane" overlayColor="white"></ngx-ui-loader>
   <router-outlet></router-outlet>
 </div>
 

@@ -1,0 +1,485 @@
+
+
+<section id="home"></section>
+<header class="header fixed-top" id="header">
+  <div class="header__top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-7">
+          <div class="header__top__left">
+            <p>{{headerBarDataLeft}}</p>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-5">
+          <div class="header__top__right">
+            <div class="header__top__links">
+              <a style="color: #ffffff;">{{headerBarDataCenter}}</a>
+              <a style="color: #ffffff;">{{headerBarDataRight}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-2 col-md-2">
+        <div class="header__logo">
+          <a [routerLink]="['/sklep']"><img  style="padding-left: 20px; margin-top: 4px;" [src]="'assets/img/123456.PNG'" alt=""></a>
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-8">
+        <nav class="header__menu mobile-menu">
+
+
+          <ul>
+            <ng-container *ngFor="let section of sections;let i = index;" >
+              <li><a [routerLink]="['/sklep',{ outlets: {'route4': ['produkty',section.name] }}]">{{section.name}}</a>
+                <ul *ngIf="section.sectionCategoriesList.length>0" class="dropdown">
+                  <ng-container *ngFor="let sectionCategories of section.sectionCategoriesList; let i = index;">
+                    <li class="dropdown-submenu"><a class="section"  [routerLink]="['/sklep', { outlets: {'route4': ['produkty',sectionCategories.name] }}]">{{sectionCategories.name}}</a>
+
+                      <ul *ngIf="sectionCategories.sectionSubCategoriesList.length>0" class="dropdown-menu" style="  background: #111111!important;">
+                        <ng-container *ngFor="let sectionSubCategories of sectionCategories.sectionSubCategoriesList;let i = index;">
+                          <li  class="dropdown-item itemListSubmenu"> <a class="section"  style="color: white;" [routerLink]="['/sklep', { outlets: {'route4': ['produkty',sectionSubCategories.name] }}]">{{sectionSubCategories.name}}</a></li>
+                        </ng-container>
+                      </ul>
+                    </li>
+                  </ng-container>
+                </ul>
+              </li>
+            </ng-container>
+          </ul>
+
+        </nav>
+      </div>
+
+
+<mobile-menu>
+
+
+
+      <div class="mobile-only">
+        <div class="navbar-inverse side-collapse in">
+          <nav role="navigation" class="navbar-collapse">
+
+
+
+            <div style="font-size: 30px; text-align: center; padding-top: 50px;"  class="">
+                  <span title="Szukaj"  (click)="SwitchMenu()"   class="icon-span"><a href="#search"  class="icon-span"  ><i style="color: #f3f3f3;"  class="la la-search iconStart"></i></a></span>
+                  <span  title="Logowanie" (click)="Login()" class="icon-span icon-span-next"><i style="color: #f3f3f3; padding-left: 15px; padding-right: 15px;" class="la la-user iconStart"></i></span>
+                  <span title="Koszyk" (click)="SwitchMenu()" [routerLink]="['/sklep', { outlets: {'route4': ['koszyk']}}]" class="icon-span icon-span-next iconStart" ><i style="color: #f3f3f3;" class="la la-shopping-bag"></i>
+            <ng-container *ngIf="basketSum > 0">
+            <span  style="color: #f3f3f3;" class="basket-shop">{{basketSum}} zł</span>
+              </ng-container>
+
+          </span>
+
+            </div>
+
+
+            <div  style="padding-top: 20px; padding-left: 50px; font-family: Raleway;">
+            <ul style="list-style: none;">
+              <ng-container *ngFor="let section of sections;let i = index;" >
+              <li  style="color: #f3f3f3;"   class="navlistLi listElement waves-light" (click)="test.toggle()" mdbWavesEffect >{{section.name}}</li>
+
+              <div [isCollapsed]="value" mdbCollapse #test="bs-collapse">
+                <ul style="list-style: none;" *ngIf="section.sectionCategoriesList.length>0">
+                  <ng-container *ngFor="let sectionCategories of section.sectionCategoriesList; let i = index;">
+                    <li (click)="SwitchMenu()"   style="padding-left: 30px; font-size: 18px;" class=""><a class="section"  [routerLink]="['/sklep', { outlets: {'route4': ['produkty',sectionCategories.name] }}]">{{sectionCategories.name}}</a>
+                  </ng-container>
+                </ul>
+              </div>
+              </ng-container>
+            </ul>
+            </div>
+
+            <div style="padding-top: 20px; text-align: center; color: dodgerblue; font-size: 18px; font-family: Raleway;">
+                {{headerBarDataLeft}}
+            </div>
+
+
+
+          </nav>
+        </div>
+      </div>
+
+</mobile-menu>
+
+
+
+
+
+      <div class="col-lg-2 col-md-2">
+        <div class="header__nav__option">
+
+          <span title="Szukaj"  class="icon-span"><a href="#search"  class="icon-span"  ><i  class="la la-search iconStart"></i></a></span>
+          <span title="Logowanie" (click)="Login()" class="icon-span icon-span-next"><i class="la la-user iconStart"></i></span>
+          <span title="Koszyk" [routerLink]="['/sklep', { outlets: {'route4': ['koszyk']}}]" class="icon-span icon-span-next iconStart" ><i class="la la-shopping-bag"></i>
+            <ng-container *ngIf="basketSum > 0">
+            <span class="basket-shop">{{basketSum}} zł</span>
+              </ng-container>
+
+          </span>
+        </div>
+      </div>
+    </div>
+<!--    <a class="get-started-btn fa fa-bars"><i id="iconMenu" data-toggle="collapse-side" data-target=".side-collapse"  data-target-2=".side-collapse-container" class=" las la-bars bars_icon_mobile " ></i></a>-->
+
+
+    <a > <div (click)="ChangeState()" class="canvas__open"><i id="iconMenu" data-toggle="collapse-side" data-target=".side-collapse"  data-target-2=".side-collapse-container"  class="fa fa-bars"></i></div></a>
+  </div>
+</header>
+<!-- Header Section End -->
+
+<!-- Hero Section Begin -->
+<div id="articleRouter" >
+
+
+  <section class="hero">
+    <div class="hero__slider owl-carousel">
+
+      <div class="small-devices-carousel-container">
+        <ngb-carousel [showNavigationArrows]="false" [pauseOnHover]="true">
+
+        <ng-container *ngFor="let link of smallDevicesCarouselLinks">
+          <ng-template ngbSlide >
+            <div  class="hero__items set-bg  main-background carousel-item active"  style="background-image: url({{link}}); ">
+              <div class="container">
+                <div class="row startPicture">
+                  <div class="col-xl-5 col-lg-7 col-md-8" >
+                    <h2 class="" data-aos="fade-left" data-aos-delay="0" style="color: pink;font-family:'Nunito Sans' ; user-select: none;">Przyjemność która</h2>
+
+                    <div class="" data-aos="fade-left" data-aos-delay="350">
+                      <h2 style="color: violet; padding-top: 10px;">mieści się w filiżance kawy</h2>
+                      <p style="color: #f3f3f3; font-family: 'DejaVu Serif';">Stwórz kawiarnię we własnym domu.</p>
+                      <a (click)="RedirectToProductSection()" style="border: 1px solid white; color: #f3f3f3; font-family: Raleway;" class="btn">Sprawdź ofertę<i style="margin-left: 5px;" class="la la-arrow-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ng-container>
+
+          <ng-template ngbSlide >
+            <div  class="hero__items set-bg  main-background carousel-item active"  style="background-image: url('https://images.unsplash.com/photo-1512568400610-62da28bc8a13?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y29mZmVlJTIwY3VwfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80'); ">
+            </div>
+          </ng-template>
+
+        </ngb-carousel>
+      </div>
+
+      <div class="big-devices-carousel-container">
+      <ngb-carousel [showNavigationArrows]="false" [pauseOnHover]="true">
+
+          <ng-template ngbSlide>
+
+            <div  class="hero__items set-bg  main-background carousel-item active"  style="background-image: url('/assets/img/testy.jpg');">
+              <div class="container">
+                <div class="row" style="margin-top: 120px;">
+                  <div class="col-xl-5 col-lg-7 col-md-8" style="margin-left: 700px;" >
+                    <h2 class="" data-aos="zoom-in-right"  style="color: pink;font-family:'Nunito Sans' ; user-select: none;">Najwyższa jakość </h2>
+
+                    <div class="" data-aos="fade-left" data-aos-delay="350">
+                      <h2 style="color: violet; padding-top: 10px;">dla najbardziej wymagających klientów</h2>
+                      <p style="color: #f3f3f3; font-family: 'DejaVu Serif';">Stwórz kawiarnię we własnym domu.</p>
+                      <a (click)="RedirectToProductSection()" style="border: 1px solid white; color: #f3f3f3; font-family: Raleway;" class="btn">Zobacz najnowsze promocję<i style="margin-left: 5px;" class="la la-arrow-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+
+        <ng-template ngbSlide>
+          <div  class="hero__items set-bg  main-background carousel-item active"  style="background-image: url('/assets/img/kawa9.jpg');">
+            <div class="container">
+              <div class="row" style="margin-top: 120px;">
+                <div class="col-xl-5 col-lg-7 col-md-8" >
+                  <h2 class="" data-aos="zoom-in-right"  style="color: pink;font-family:'Nunito Sans' ; user-select: none;">Przyjemność która</h2>
+
+                  <div class="" data-aos="fade-left" data-aos-delay="350">
+                    <h2 style="color: violet; padding-top: 10px;">mieści się w filiżance kawy</h2>
+                    <p style="color: #f3f3f3; font-family: 'DejaVu Serif';">Stwórz kawiarnię we własnym domu.</p>
+                    <a (click)="RedirectToProductSection()"  style="border: 1px solid white; color: #f3f3f3; font-family: Raleway;" class="btn">Sprawdź ofertę<i style="margin-left: 5px;" class="la la-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template ngbSlide>
+            <div  class="hero__items set-bg  main-background carousel-item active"  style="background-image: url('/assets/img/kawa3.jpg');"></div>
+          </ng-template>
+
+      </ngb-carousel>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+  <div id="productSection"></div>
+  <!-- Product Section Begin -->
+  <section  class="product spad"  style="margin-top: 50px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <ul class="filter__controls" >
+
+            <ng-container *ngFor="let articleLine of articleLines; let i = index;">
+
+              <li  class="listElement" id="articleLine"  (click)="SwitchProductsSection(i,$event)">
+                {{articleLine.name}}
+              </li>
+
+            </ng-container>
+
+          </ul>
+        </div>
+      </div>
+      <div class="row product__filter">
+
+        <ng-container *ngIf="articleLines.length > 0">
+          <ng-container *ngFor="let product of articleLines[articleLineIndex].productList; let i=index;">
+            <div data-aos="fade-up" data-aos-delay="150" class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
+
+              <div class="product__item" >
+                <div  (click)="RedirectToTechnicalDataComponent(product.id)" class="product__item__pic set-bg" style="background-image: url({{product.imageByte}});">
+                </div>
+                <div class="product__item__text">
+                  <h6 id="nameproduct">{{product.productName}}</h6>
+                  <a  id="test" class="add-cart"><span class="button "  (click)="AddToBasket(product)">+ Dodaj do koszyka</span> <span  style="color: black; margin-left: 5px;" >|</span><span class="button "  (click)="RedirectToTechnicalDataComponent(product.id)" style="color: blue; margin-left: 5px;" >Szczegóły</span> </a>
+                 <div class="row" style="padding-bottom: 4px;" >
+                  <div class=" col-4 " style=" text-align: left; line-height: 20px; font-size: 13px; ">
+                    <i style="color: #f7941d;" class="la la-star"></i>
+                    <i style="color: #f7941d;" class="la la-star"></i>
+                    <i  style="color: #f7941d;" class="la la-star"></i>
+                    <i  style="color: #f7941d;" class="la la-star"></i>
+                    <i  style="color: #f7941d;" class="la la-star"></i>
+                  </div>
+                  <div id="sss" class="button12 col-8" style="text-align: right; line-height: 20px;"  (click)="AddToBasket(product)">+ Dodaj do koszyka</div>
+
+                 </div>
+                  <h5>{{product.productPrice}} zł</h5>
+                  <div class="product__color__select">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </ng-container>
+        </ng-container>
+
+
+      </div>
+    </div>
+  </section>
+  <!-- Product Section End -->
+
+  <!-- Categories Section Begin -->
+  <section class="categories spad">
+    <div class="container"  data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="1000">
+      <div class="row">
+        <div class="col-lg-1">
+          <!--        <div class="categories__text">-->
+          <!--          <h2>Clothings Hot <br /> <span>Shoe Collection</span> <br /> Accessories</h2>-->
+          <!--        </div>-->
+        </div>
+        <div class="col-lg-4">
+          <div class="categories__hot__deal">
+            <img [src]="'/assets/img/2.png'" alt="">
+            <div class="hot__deal__sticker">
+              <span>Promocja</span>
+              <h5>39.99 zł</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 offset-lg-1">
+          <div class="categories__deal__countdown">
+            <span>Oferta tygodnia</span>
+            <h2>Lavazza Crema 1kg</h2>
+            <div class="categories__deal__countdown__timer" id="countdown">
+              <div class="cd-item">
+                <span>{{days|time}}</span>
+                <p>Dni</p>
+              </div>
+              <div class="cd-item">
+                <span>{{hours|time}}</span>
+                <p>Godzin</p>
+              </div>
+              <div class="cd-item">
+                <span>{{minutes|time}}</span>
+                <p>Minut</p>
+              </div>
+              <div class="cd-item">
+                <span>{{seconds|time}}</span>
+                <p>Sekund</p>
+              </div>
+            </div>
+            <a href="#" class="primary-btn">Kup teraz</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Categories Section End -->
+
+
+  <!-- Latest Blog Section Begin -->
+  <section class="latest spad">
+    <div class="container" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay="500">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-title">
+            <span></span>
+            <h2>Blog Kawowy</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-6">
+          <div class="blog__item">
+            <div class="blog__item__pic set-bg" style="background-image: url('assets/img/blok.PNG')"></div>
+            <div class="blog__item__text">
+              <span><i class="la la-calendar"></i>  25 Maja 2021</span>
+              <h5>Konserwacja bloku zaparzającego</h5>
+              <a href="#">Czytaj wpis</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+          <div class="blog__item">
+            <div class="blog__item__pic set-bg" style="background-image: url('assets/img/jurae8.jpg')"></div>
+            <div class="blog__item__text">
+              <span><i class="la la-calendar"></i>  27 Maja 2021</span>
+              <h5>Test ekspresu Jura E8 Cappucino</h5>
+              <a href="#">Czytaj wpis</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+          <div class="blog__item">
+            <div class="blog__item__pic set-bg" style="background-image: url('assets/img/kawablog.jpg')"></div>
+            <div class="blog__item__text">
+              <span><i class="la la-calendar"></i>   31 Maja 2021</span>
+              <h5>Jak wybrać kawę, żeby smakowała?</h5>
+              <a href="#">Czytaj wpis</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Latest Blog Section End -->
+
+  <!-- Footer Section Begin -->
+
+
+  <!--  articlerouter-->
+</div>
+<!---->
+
+
+<router-outlet name="route4">
+</router-outlet>
+
+
+<div id="footer"></div>
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+
+
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="footer__widget">
+          <h6>Kawomix</h6>
+          <ul>
+
+            <li><a href="#">Poznaj nas bliżej</a></li>
+            <li><a href="#">Współpraca</a></li>
+            <li><a href="#">Regulamin kart podarunkowych</a></li>
+            <li><a href="#">Polityka prywatności</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+        <div class="footer__widget">
+          <h6>Informacje</h6>
+          <ul>
+
+            <li><a href="#">Regulamin</a></li>
+            <li><a href="#">Metody Płatności</a></li>
+            <li><a href="#">Dostawa</a></li>
+            <li><a href="#">Zwroty</a></li>
+          </ul>
+        </div>
+      </div>
+
+
+      <div class="col-lg-2 col-md-3 col-sm-6">
+        <div class="footer__widget">
+          <h6>Kontakt</h6>
+          <ul>
+            <li style="color: #b7b7b7;"><i class="la la-map-marker"><span style="margin-left: 4px;">{{footerContactTown}}</span></i></li>
+            <li style="color: #b7b7b7;"><i class="la la-envelope"><span style="margin-left: 4px;">{{footerContactEmail}}</span></i></li>
+            <li style="color: #b7b7b7;"><i class="la la-phone"><span style="margin-left: 4px;">{{footerContactPhone}}</span></i></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+        <div class="footer__widget">
+          <h6>NewsLetter</h6>
+          <div class="footer__newslatter">
+            <p>Zapisz się do newslettera i bądź na bieżąco z nowościami!</p>
+            <form ngNativeValidate (ngSubmit)="AttachNewSubcriber()">
+              <input name="email" [(ngModel)]="subscriberEmail" type="email" placeholder="Twój e-mail" style="color: #727883; font-family: 'Nunito Sans';">
+              <button type="submit"><span><i style="color: #f3f3f3;" class="la la-envelope"></i></span></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div class="footer__copyright__text">
+          <p>
+            CafeKam 2021
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a (click)="ScrollToTop()"  class="back-to-top"><i class="la la-arrow-up"></i></a>
+
+
+
+
+<div id="search">
+  <input (keydown.enter)="RedirectToSearchingComponent()" [(ngModel)]="search" name="search" type="search" value="" placeholder="Szukaj.." autocomplete="off" />
+  <button type="submit"  (click)="RedirectToSearchingComponent()" style="color: #ffffff; letter-spacing: 1px; font-family: 'Nunito Sans',sans-serif; background-color:#000000; border: none; text-transform: uppercase; " class="btn btn-outline-primary">Szukaj</button>
+</div>
+
+
+
+
+
+
+<ng-template  #alert>
+  <app-amount-product-alert [maxValue]="maxValue"></app-amount-product-alert>
+</ng-template>
+
+<ng-template  #addProductBasket>
+  <app-add-basket-alert [product]="product"></app-add-basket-alert>
+</ng-template>
+

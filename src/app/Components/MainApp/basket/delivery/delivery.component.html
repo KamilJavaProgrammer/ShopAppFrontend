@@ -1,0 +1,194 @@
+<div class="container" id="anchor">
+
+  <ng-container *ngIf="tokenJwt === true,else absent,then present"></ng-container>
+
+  <ng-template #absent >
+   <div id="options">
+    <div class="row buttonDiv">
+      <div class="col-lg-4 " >
+        <a (click)="RedirectToLogin()"> <button class="btn-outline-dark btn button" >Zaloguj się</button></a>
+      </div>
+
+      <div class="col-lg-4 buttonsDiv_col" >
+        <button (click)="BuyNoRegister()" class="btn-outline-dark btn button">Kup bez rejestracji</button>
+      </div>
+
+      <div class="col-lg-4 buttonsDiv_col">
+        <a  (click)="RedirectToRegister()"> <button  class="btn-outline-dark btn button">Rejestracja</button></a>
+      </div>
+    </div>
+   </div>
+
+    <div id="OrderForm" style="display: none;">
+      <ng-container *ngTemplateOutlet="form"></ng-container>
+    </div>
+  </ng-template>
+
+  <ng-template #present>
+    <ng-container *ngTemplateOutlet="form"></ng-container>
+  </ng-template>
+
+</div>
+
+<!--Form Start-->
+
+<ng-template #form>
+
+
+  <div class="container my-5" style="height: 100%;">
+    <h1 class="display-2 text-center mb-5"></h1>
+    <ul id="progressbar" class="text-center" style="display: flex; justify-content: center;">
+      <li (click)="ChangeView($event)" [attr.data-step] = '1'  class="step active" id="step1"><div class="d-none d-md-block">Dane odbiorcy</div></li>
+      <li (click)="ChangeView($event)" [attr.data-step] = '2'  class="step" id="step2"><div class="d-none d-md-block">Adres dostawy</div></li>
+      <li (click)="ChangeView($event)" [attr.data-step] = '3'  class="step" id="step3"><div class="d-none d-md-block">Dane do faktury</div></li>
+      <li (click)="ChangeView($event)" [attr.data-step] = '4'  class="step" id="step4"><div class="d-none d-md-block">Dostawa</div></li>
+      <li (click)="ChangeView($event)" [attr.data-step] = '5'  class="step" id="step5"><div class="d-none d-md-block">Płatność</div></li>
+    </ul>
+
+    <div class="row formContainer">
+      <div class="col-12 " [ngSwitch]="test">
+
+        <!-- RecipientForm Start-->
+        <div *ngSwitchCase="1" class="switch">
+          <div class="row">
+            <div class="col-lg"></div>
+            <div class="col-lg">
+              <input type="text" class="form-control colForm" placeholder="Imie" name="name"  [(ngModel)]="this.shopClient.name" autocomplete="off">
+            </div>
+            <div class="col-lg">
+              <input type="text" class="form-control colForm" placeholder="Nazwisko"  name="surname"  [(ngModel)]="this.shopClient.surname" autocomplete="off">
+            </div>
+            <div class="col-lg">
+              <input type="email" class="form-control colForm" placeholder="E-mail" name="email"  [(ngModel)]="this.shopClient.email" autocomplete="off">
+            </div>
+            <div class="col-lg"></div>
+          </div>
+        </div>
+
+<!-- AddressForm Start-->
+        <div *ngSwitchCase="2" class="switch">
+         <div class="row">
+           <div class="col-lg"></div>
+           <div class="col-lg">
+             <input type="text" class="form-control colForm" placeholder="Adres" name="address" [(ngModel)]="this.shopClient.address.placeOfresident"  autocomplete="off">
+           </div>
+           <div class="col-lg">
+             <input type="text" class="form-control colForm" placeholder="Kod Pocztowy" name="postCode" [(ngModel)]="this.shopClient.address.postCode"  autocomplete="off">
+           </div>
+           <div class="col-lg">
+             <input type="text" class="form-control colForm" placeholder="Miejscowość" name="town" [(ngModel)]="this.shopClient.address.town"  autocomplete="off">
+           </div>
+           <div class="col-lg"></div>
+         </div>
+        </div>
+
+        <!-- InvoiceForm Start-->
+
+        <div *ngSwitchCase="3" class="switch">
+
+          <div class="row InvoiceButtonContainer">
+              <input class="invoiceCheckbox" #invoiceForm id="checkboxInvoice" type="checkbox" name="InvoiceCheckbox" [(ngModel)]="invoiceCheckbox" (change)="AddFormInvoice()">
+               <span style="padding-left: 5px;"> Chcę otrzymać fakturę </span>
+          </div>
+
+          <div *ngIf="invoiceCheckbox">
+            <div class="row inputInvoiceRow">
+              <div class="col-lg"></div>
+              <div class="col-lg">
+                <input type="text" class="form-control colForm" placeholder="Nazwa Firmy" name="businessName" [(ngModel)]="this.shopClient.business.name"  autocomplete="off">
+              </div>
+              <div class="col-lg">
+                <input type="text" class="form-control colForm" placeholder="NIP" name="NIP" (input)="Check()" [(ngModel)]="this.shopClient.business.nip"  autocomplete="off">
+              </div>
+              <div class="col-lg">
+                <input type="email" class="form-control colForm" placeholder="E-mail" name="businessEmail" [(ngModel)]="this.shopClient.business.email"  autocomplete="off">
+              </div>
+              <div class="col-lg"></div>
+            </div>
+
+
+            <div class="row inputInvoiceRow">
+              <div class="col-lg"></div>
+              <div class="col-lg">
+                <input type="text" class="form-control colForm" placeholder="Adres" name="businessAddress" [(ngModel)]="this.shopClient.business.address.placeOfresident"  autocomplete="off">
+              </div>
+              <div class="col-lg">
+                <input type="text" class="form-control colForm" placeholder="Kod pocztowy" name="businessPostCode" [(ngModel)]="this.shopClient.business.address.postCode"  autocomplete="off">
+              </div>
+              <div class="col-lg">
+                <input type="text" class="form-control colForm" placeholder="Miejscowość" name="town" [(ngModel)]="this.shopClient.business.address.town"   autocomplete="off">
+              </div>
+              <div class="col-lg"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- DeliverySection Start-->
+
+        <div *ngSwitchCase="4" class="switch">
+          <div class="row">
+            <div class="deliveryOption" id="personalPickupButton"  (click)="ChangeStyleForPersonalPickup()">
+              Odbiór osobisty
+            </div>
+          </div>
+          <div class="row">
+            <div class="deliveryOption" id="parcelCourierButton"  (click)="ChangeStyleForParcelCourier()">
+              Przesyłka Kurierska
+            </div>
+          </div>
+        </div>
+
+        <!-- PaymentSection Start-->
+        <div *ngSwitchCase="5" class="switch">
+
+        <div *ngIf="delivery === true; then conditionMet; else conditionUnmet"></div>
+
+        <ng-template #conditionMet >
+          <div class="row">
+            <div class=" paymentMethodOption">
+              <input class="paymentMethodRadioInput" type="radio" name="paymentMethod" value="Pobranie" (click)="ChangePaymentMethodToHome()"> Za pobraniem
+            </div>
+          </div>
+
+          <div class="row">
+            <div class=" paymentMethodOption">
+              <input class="paymentMethodRadioInput" type="radio" name="paymentMethod" value="Przelew Bankowy" (click)="ChangePaymentMethodOnTransfer()"> Przelew Bankowy
+            </div>
+          </div>
+
+          <div class="row">
+            <div class=" colButtonOrder">
+              <button (click)="Order()"  class="btn btn-outline-primary buttonOrder">Zamawiam z obowiązkiem zapłaty</button>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template #conditionUnmet >
+          <div class="row">
+            <div class="personalPickupOptionDiv">
+              Nowy Sącz
+              <br>
+              ul.Elektrodowa 34
+            </div>
+          </div>
+          <div class="row">
+            <div class="colButtonOrder">
+              <button  (click)="Order()" class="btn btn-outline-danger buttonOrder">Zamawiam z obowiązkiem zapłaty</button>
+            </div>
+          </div>
+        </ng-template>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</ng-template>
+
+<!--Form End-->
+
+
+<ng-template #orderAlert>
+  <app-order-alert></app-order-alert>
+</ng-template>

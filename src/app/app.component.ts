@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, ComponentFactoryResolver, ViewChild, ViewContainerRef} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {NavigationEnd, Router} from '@angular/router';
+import {TestService} from './test.service';
+import {TestDynamicComponentComponent} from './test-dynamic-component/test-dynamic-component.component';
 declare const ga: (...args: any[]) => () => void;
 
 @Component({
@@ -11,6 +13,18 @@ declare const ga: (...args: any[]) => () => void;
 
 export class AppComponent {
   title = 'Aplikacja';
+
+
+
+  @ViewChild('container', { read: ViewContainerRef })
+  container!: ViewContainerRef;
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+  add(): void {
+    // create the component factory
+    const dynamicComponentFactory = this.componentFactoryResolver.resolveComponentFactory(TestDynamicComponentComponent);
+    // add the component to the view
+    const componentRef = this.container.createComponent(dynamicComponentFactory);
+  }
 
   // constructor(public router: Router, private titleApp: Title) {
   //   titleApp.setTitle(this.title);
@@ -30,14 +44,14 @@ export class AppComponent {
 
 
 
-  constructor(public router: Router) {
-    // this.router.events.subscribe(event => {
-    //   if (event instanceof NavigationEnd) {
-    //     ga('set', 'page', event.urlAfterRedirects);
-    //     ga('send', 'pageview');
-    //   }
-    // });
-  }
+  // constructor(public router: Router) {
+  //   // this.router.events.subscribe(event => {
+  //   //   if (event instanceof NavigationEnd) {
+  //   //     ga('set', 'page', event.urlAfterRedirects);
+  //   //     ga('send', 'pageview');
+  //   //   }
+  //   // });
+  // }
 
 
 }

@@ -1,0 +1,61 @@
+<ng-container *ngIf="orders.length > 0, else empty,then contains "></ng-container>
+
+<ng-template #contains>
+
+
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Numer</th>
+      <th>Data</th>
+      <th>Status</th>
+      <th>Dostawa</th>
+      <th>Płatność</th>
+      <th>Kwota</th>
+      <th>Dowód zakupu</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <tr *ngFor="let order of orders| paginate:{id:'listing_pagination',itemsPerPage:6, currentPage:page,totalItems:totalRecords}">
+      <td>12/23.12.2020</td>
+      <td>{{order.date}}</td>
+      <td>{{order.state}}</td>
+      <td>{{order.deliveryOption}}</td>
+      <td>{{order.paymentMethod}}</td>
+      <td>{{order.sumPaid}} zł</td>
+      <td class="getInvoiceButton"  (click)="GetInvoice(order.id)">Pobierz fakturę</td>
+    </tr>
+
+    </tbody>
+
+
+  </table>
+
+
+
+<ng-container *ngIf="orders.length > 6; then exists; else noexists"></ng-container>
+
+<ng-template #exists >
+  <div class="paginationContainer">
+    <pagination-controls [nextLabel]="'Następny'" [previousLabel]="'Poprzedni'" id="listing_pagination" maxSize="6" directionLinks="true" (pageChange)="page=$event"></pagination-controls>
+  </div>
+</ng-template>
+
+  <ng-template #noexists></ng-template>
+
+
+</div>
+</ng-template>
+
+
+
+<ng-template  #empty>
+  <div class="col-12 noProductInscription">
+    Brak zamówień
+  </div>
+</ng-template>
+
+

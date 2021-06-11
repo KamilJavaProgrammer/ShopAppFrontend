@@ -1,0 +1,63 @@
+<section class="shopping-cart spad">
+
+<div class="container-fluid">
+  <div class="row">
+
+     <div class="img_container col-md" >
+       <div>
+         <img class="colImg" id="img" [src]="product.imageByte" alt="ImageProblem">
+       </div>
+     </div>
+
+    <div class="descriptionContainer col-md" >
+      <div class="nameProduct">{{product.productName}}</div>
+      <div class="priceProduct">{{productPrice}} PLN</div>
+
+      <ng-container [ngSwitch]="product.status">
+      <div class="data" id="state" style="color:green; " *ngSwitchCase="'Dostępny'"> Status: {{product.status}} </div>
+      <div class="data" id="state1" style="color:red;" *ngSwitchCase="'Niedostępny'"> Status: {{product.status}} </div>
+      <div class="data" id="state2" style="color:#0000ff;" *ngSwitchDefault > Status: {{product.status}} </div>
+      </ng-container>
+
+
+      <div class="data" > Liczba dostępnych sztuk : {{numberOfItems}} </div>
+
+    <div class="data">
+      <div *ngIf="product.manufacturer !== 'undefined' && product.manufacturer !=='null' && product.manufacturer !==null; then exists"></div>
+      <ng-template #exists >Producent: {{product.manufacturer}} </ng-template>
+    </div>
+
+    <div class="data">
+      <div *ngIf="product.model !== 'undefined' && product.model !=='null' && product.model !==null; then correct"></div>
+      <ng-template #correct>Model: {{product.model}} </ng-template>
+    </div>
+
+    <div class="descriptionData" >Dane Techniczne: </div>
+     <ng-container *ngFor="let data of description">
+       <div>
+      <span>{{data}}</span>
+      <br>
+       </div>
+     </ng-container>
+      <button (click)="AddToBasket(product)" class="btn btn-outline-danger addToBasketButton" style="background-color: dodgerblue; border-radius: 0px;">Dodaj do koszyka</button>
+
+      <button [routerLink]="['/sklep']" class=" addToBasketButton">Powrót</button>
+  </div>
+
+  </div>
+</div>
+
+
+
+<ng-template  #alert>
+  <app-amount-product-alert [maxValue]="maxValue"></app-amount-product-alert>
+</ng-template>
+
+<ng-template  #addProductBasket>
+  <app-add-basket-alert [product]="product"></app-add-basket-alert>
+</ng-template>
+
+
+
+
+</section>
