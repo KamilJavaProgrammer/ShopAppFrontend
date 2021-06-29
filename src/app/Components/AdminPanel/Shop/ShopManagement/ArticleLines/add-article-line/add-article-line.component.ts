@@ -1,10 +1,12 @@
 import {Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
-import {ArticleLine, SectionService} from '../../../../../../Services/section.service';
+import { SectionService} from '../../../../../../Services/section.service';
 import {Product, ProductServiceService} from '../../../../../../Services/product-service.service';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {NgxCaptureService} from 'ngx-capture';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {ClientServiceService} from '../../../../../../Services/client-service.service';
+import {Role} from '../../../../../../Enums/role.enum';
+import {ArticleLine} from '../../../../../../Classes/article-line';
 
 @Component({
   selector: 'app-add-article-line',
@@ -50,7 +52,7 @@ export class AddArticleLineComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.ngxService.start();
     this.GetAllProducts();
   }
 
@@ -92,13 +94,16 @@ export class AddArticleLineComponent implements OnInit {
 
   GetAllProducts(): void {
     this.products = [];
-    this.productService.GetAllProducts().subscribe(arrayProducts => {
-      arrayProducts.forEach(product => {
+    this.productService.GetAllProducts(Role.ADMIN).subscribe(async arrayProducts => {
+      await arrayProducts.forEach(product => {
 
-        this.productService.getImageFromService(product).subscribe(blob => {
+        this.productService.GetImageByPathFromService(product.pathToFile).subscribe(blob => {
           this.createImageFromBlob(blob, product);
         });
       });
+
+      await this.ngxService.stop();
+
     });
   }
 

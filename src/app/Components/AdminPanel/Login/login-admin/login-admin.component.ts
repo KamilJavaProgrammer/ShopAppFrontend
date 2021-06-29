@@ -4,6 +4,7 @@ import {BsModalService} from 'ngx-bootstrap/modal';
 import {ProductServiceService} from '../../../../Services/product-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../../Services/auth.service';
+import {NgxUiLoaderService} from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-login-admin',
@@ -21,10 +22,11 @@ export class LoginAdminComponent implements OnInit {
               private userService: UserService,
               private productServiceService: ProductServiceService,
               private router: Router, private route: ActivatedRoute,
-              private authService: AuthService,
+              private authService: AuthService, private ngxService: NgxUiLoaderService,
   ) {  }
 
   ngOnInit(): void {
+
 
   }
 
@@ -39,6 +41,7 @@ export class LoginAdminComponent implements OnInit {
   }
 
   Login(): void {
+    this.ngxService.start();
     this.user = ({
       password : this.adminPassword,
       username : this.adminLogin
@@ -48,15 +51,20 @@ export class LoginAdminComponent implements OnInit {
       if (value === true){
 
         this.router.navigate(['/admin']);
+
+
       }
       else
       {
         this.text = 'Niepoprawne dane logowania!';
         this.modalService.show(this.alert, {class: 'modal-lg'});
         this.Clear();
+        this.ngxService.stop();
+
       }
     }, error => {
-      console.log('error');
+      console.log(error);
+      this.ngxService.stop();
     });
   }
 }

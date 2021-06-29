@@ -1,7 +1,6 @@
-
-import {Component, ElementRef, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {BsModalService} from 'ngx-bootstrap/modal';
-import {CompleteOrder, ProductBasket, OrderService} from '../../../../Services/order.service';
+import {CompleteOrder, OrderService, ProductBasket} from '../../../../Services/order.service';
 import {AuthGuard} from '../../../../Guard/auth.guard';
 import {UserService} from '../../../../Services/user.service';
 import {ShopClient} from '../../../../Services/client-service.service';
@@ -9,6 +8,7 @@ import {Product, ProductServiceService} from '../../../../Services/product-servi
 import {HomeComponent} from '../../start/home/home.component';
 import {BasketShopComponent} from '../basket-shop/basket-shop.component';
 import {Router} from '@angular/router';
+import {Role} from '../../../../Enums/role.enum';
 
 @Component({
   selector: 'app-delivery',
@@ -24,6 +24,9 @@ export class DeliveryComponent implements OnInit {
   tokenJwt: boolean;
 
 
+
+  @Output()
+  eventEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   shopClient: ShopClient = ({
     name: '',
@@ -93,7 +96,7 @@ export class DeliveryComponent implements OnInit {
   }
 
   GetShopClient(): void{
-    this.userService.GetShopClient().subscribe(value => {
+    this.userService.GetShopClient(Role.USER).subscribe(value => {
       this.shopClient = value;
     });
   }
@@ -101,11 +104,13 @@ export class DeliveryComponent implements OnInit {
 
   BuyNoRegister(): void {
     document.getElementById('options').style.display = 'none';
+    document.getElementById('steps').style.display = 'block';
+
 
     const element = document.getElementById('OrderForm');
     element.style.display = 'block';
     element.scrollIntoView({behavior: 'smooth', block: 'start'});
-    element.style.marginTop = '150px';
+    element.style.marginTop = '180px';
 
 
     const numberStep = 1;
@@ -142,7 +147,6 @@ export class DeliveryComponent implements OnInit {
     document.getElementById('parcelCourierButton').style.border = '3px solid black';
     this.delivery = true;
     this.AddCourierParcelToOrders();
-
     this.deliveryOption = 'Przesyłka Kurierska';
   }
 
@@ -164,7 +168,7 @@ export class DeliveryComponent implements OnInit {
       this.parcel = product;
       this.basketComponent.parcelPrice = +product.productPrice;
       this.basketComponent.sumMoney = this.basketComponent.sumMoney + +product.productPrice;
-      this.productService.getImageFromService(product).subscribe(blob => {
+      this.productService.GetImageByPathFromService(product.pathToFile).subscribe(blob => {
         this.createImageFromBlob(blob, product);
       });
     });
@@ -173,6 +177,7 @@ export class DeliveryComponent implements OnInit {
   AddCourierParcelToOrders(): void{
     this.orderService.CheckExistsOrder(this.parcel, result => {
       if (result === false){
+        this.eventEmitter.emit(true);
 
         const promise = new Promise(resolve => {
           const productBasket: ProductBasket = ({
@@ -201,9 +206,11 @@ export class DeliveryComponent implements OnInit {
 
 
   DeleteCourierParcelToOrders(): void{
+
     this.orderService.CheckExistsOrder(this.parcel, result => {
       if (result === true){
 
+        this.eventEmitter.emit(false);
         const promise = new Promise(resolve => {
           const productBasket: ProductBasket = ({
             nameOfProduct: this.parcel.productName,
@@ -310,22 +317,22 @@ export class DeliveryComponent implements OnInit {
     document.getElementById('mainAnchor').scrollIntoView({behavior:  'smooth'});
   }
 
-  ChangeView(event): void {
-    const numberStep = event.currentTarget.dataset.step;
-    this.test = numberStep;
-    const list: NodeListOf<HTMLElement> = document.querySelectorAll('.step');
+  ChangeView(event: number): void {
+    // const numberStep = event.currentTarget.dataset.step;
 
-    list.forEach((value, index) => {
-           if (value.dataset.step <= numberStep)
-           {
-             value.classList.add('active');
-           }
-           else
-           {
-             value.classList.remove('active');
-           }
-    });
+    if (event >= 1 && event <= 5) {
+      this.test = event;
+      const list: NodeListOf<HTMLElement> = document.querySelectorAll('.step');
 
+      list.forEach((value, index) => {
+        // @ts-ignore
+        if (value.dataset.step <= event) {
+          value.classList.add('active');
+        } else {
+          value.classList.remove('active');
+        }
+      });
 
+    }
   }
 }

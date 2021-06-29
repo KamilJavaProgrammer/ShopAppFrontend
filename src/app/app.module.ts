@@ -61,7 +61,6 @@ import { AddSectionComponent } from './Components/AdminPanel/Shop/ShopManagement
 import {AuthAdminGuard} from './Guard/auth-admin.guard';
 import { SalesDocumentStateComponent } from './Components/AdminPanel/Bookkeeping/Invoices/sales-document-state/sales-document-state.component';
 import {MessageService} from './Services/message.service';
-import {CustomUrlSerializer, InterceptorService} from './Services/interceptor.service';
 import { MessagesComponent } from './Components/AdminPanel/Messages/messages/messages.component';
 import { MessageComponentComponent } from './Components/MainApp/rest/message-component/message-component.component';
 import { DatePipe } from './Pipes/date.pipe';
@@ -77,6 +76,12 @@ import { BasketShopComponent } from './Components/MainApp/basket/basket-shop/bas
 import { DeliveryComponent } from './Components/MainApp/basket/delivery/delivery.component';
 import {MongoServiceService} from './Services/mongo-service.service';
 import { TestDynamicComponentComponent } from './test-dynamic-component/test-dynamic-component.component';
+import { SortOptionPipe } from './Pipes/sort-option.pipe';
+import { SafeHtmlPipe } from './Pipes/safe-html.pipe';
+import {Section} from './Classes/section';
+import { StartAlertComponent } from './Components/MainApp/alerts/start-alert/start-alert.component';
+import { RoundNumberPipe } from './Pipes/round-number.pipe';
+
 
 
 
@@ -138,6 +143,7 @@ export function JwtTokenGetter(): any {
 }
 
 
+
 @NgModule({
 
   exports: [RouterModule],
@@ -190,6 +196,10 @@ export function JwtTokenGetter(): any {
     BasketShopComponent,
     DeliveryComponent,
     TestDynamicComponentComponent,
+    SortOptionPipe,
+    SafeHtmlPipe,
+    StartAlertComponent,
+    RoundNumberPipe,
   ],
   imports: [
     BrowserModule,
@@ -214,11 +224,13 @@ export function JwtTokenGetter(): any {
     JwtModule.forRoot({
       config: {
 
-        tokenGetter: JwtTokenGetter,
+        // tokenGetter: JwtTokenGetter,
         allowedDomains: [],
-        disallowedRoutes: ['http://localhost:8088/login', 'http://localhost:8088/products/name']
+        disallowedRoutes: [],
       }
     }),
+
+
     AccordionModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -226,7 +238,11 @@ export function JwtTokenGetter(): any {
 
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  providers: [ { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }, MongoServiceService, CustomUrlSerializer, ProductServiceService, OrderService, AuthService, AuthAdminGuard, AuthGuard, EditProductComponent, ClientServiceService, WarehouseComponent, HomeComponent, MessageService],
+  providers: [MongoServiceService, ProductServiceService, OrderService, AuthService, AuthAdminGuard, AuthGuard, EditProductComponent, ClientServiceService, WarehouseComponent, HomeComponent, MessageService],
   bootstrap: [AppComponent],
+
 })
-export class AppModule { }
+
+
+export class AppModule {
+}

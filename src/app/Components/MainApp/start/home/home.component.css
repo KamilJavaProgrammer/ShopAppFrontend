@@ -2046,8 +2046,8 @@ ol {
 
 }
 .carousel-item.active {
-  -webkit-animation: flip-in-ver-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-  animation: flip-in-ver-left 1.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  -webkit-animation: flip-in-ver-left 0.9s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: flip-in-ver-left 0.9s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 @-webkit-keyframes flip-in-ver-left {
@@ -2483,4 +2483,9 @@ ol, ul {
 }
 
 
+.header__logo:hover
+
+{
+  cursor: pointer;
+}
 

@@ -25,6 +25,7 @@ export class RegistrationUserComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
 
     this.setFront();
+    window.scrollTo(0, 0);
 
   }
   ngOnDestroy(): void {
@@ -36,6 +37,7 @@ export class RegistrationUserComponent implements OnInit, OnDestroy{
     document.getElementById('articleRouter').style.display = 'none';
   }
 
+
   public RegisterUser(): void{
     this.user = ({
       username: this.username,
@@ -46,40 +48,17 @@ export class RegistrationUserComponent implements OnInit, OnDestroy{
 
     this.authService.RegistrationUser(this.user).subscribe(value => {
 
-    if (value === true){
+      if (value === true){
+        alert('Rejestracja powiodła się. Teraz Zaloguj się');
+        this.Clear();
+        this.router.navigate(['/sklep', {outlets: {route4: ['logowanie']}}]);
 
-      this.result = prompt('Podaj kod weryfikacyjny wysłany na adres e-mail');
-
-      if (this.result != null) {
-        this.user = ({
-          username: this.username,
-          password: this.password,
-          email: this.email,
-          codeVerification: this.result
-        });
-
-        this.authService.SendVerificationCode(this.user).subscribe(response => {
-          if (response === true) {
-            alert('Udało się! Zaloguj się!');
-            this.router.navigate(['/sklep', {outlets: {route4: ['logowanie']}}]);
-          }
-          else {
-
-            alert('Nie Udało się! Spróbuj ponownie!');
-            this.RepeatSendCode();
-            this.Clear();
-          }
-        });
       }
-      else {
-        alert('Wpisz kod!');
+      else
+      {
+        alert('Login lub E-mail juz istnieje.');
+        this.Clear();
       }
-    }
-    else
-    {
-      alert('Login lub E-mail juz istnieje.');
-      this.Clear();
-    }
     }, error => {
       console.log(error);
       alert('Rejestracja nie powiodła się');
@@ -87,6 +66,58 @@ export class RegistrationUserComponent implements OnInit, OnDestroy{
 
     });
   }
+
+  // public RegisterUser(): void{
+  //   this.user = ({
+  //     username: this.username,
+  //     password: this.password,
+  //     email : this.email
+  //
+  //   });
+  //
+  //   this.authService.RegistrationUser(this.user).subscribe(value => {
+  //
+  //   if (value === true){
+  //
+  //     this.result = prompt('Podaj kod weryfikacyjny wysłany na adres e-mail');
+  //
+  //     if (this.result != null) {
+  //       this.user = ({
+  //         username: this.username,
+  //         password: this.password,
+  //         email: this.email,
+  //         codeVerification: this.result
+  //       });
+  //
+  //       this.authService.SendVerificationCode(this.user).subscribe(response => {
+  //         if (response === true) {
+  //           alert('Udało się! Zaloguj się!');
+  //           this.router.navigate(['/sklep', {outlets: {route4: ['logowanie']}}]);
+  //         }
+  //         else {
+  //
+  //           alert('Nie Udało się! Spróbuj ponownie!');
+  //           this.RepeatSendCode();
+  //           this.Clear();
+  //         }
+  //       });
+  //     }
+  //     else {
+  //       alert('Wpisz kod!');
+  //     }
+  //   }
+  //   else
+  //   {
+  //     alert('Login lub E-mail juz istnieje.');
+  //     this.Clear();
+  //   }
+  //   }, error => {
+  //     console.log(error);
+  //     alert('Rejestracja nie powiodła się');
+  //     this.Clear();
+  //
+  //   });
+  // }
 
 
   public RepeatSendCode(): void {

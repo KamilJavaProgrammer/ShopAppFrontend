@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MongoServiceService {
 
-  port = '8088';
-  url = 'http://localhost:' + this.port + '/data';
+  url = AuthService.ADDRESS_SERVER + '/data';
 
 
   constructor(private httpClient: HttpClient) {

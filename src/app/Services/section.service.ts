@@ -1,25 +1,36 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Product} from './product-service.service';
+import {Role} from '../Enums/role.enum';
+import {AuthService} from './auth.service';
+import {ArticleLine} from '../Classes/article-line';
+import {SectionCategories} from '../Classes/section-categories';
+import {Section} from '../Classes/section';
+
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class SectionService {
 
-  httpHeaders: HttpHeaders;
-  port = '8088';
-  urlSections = 'http://localhost:' + this.port + '/sections';
-  urlArticleLines = 'http://localhost:' + this.port + '/articleLine';
+  urlSections =  AuthService.ADDRESS_SERVER + '/sections';
+  urlArticleLines = AuthService.ADDRESS_SERVER + '/articleLine';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private authService: AuthService) {}
+
+  public AddSectionToDatabase(section: Section): Observable<any> {
+
+    return this.httpClient.post(this.urlSections, section, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE)});
   }
 
-  public GetAllSectionsFromBackend(): Observable<Array<Section>> {
-    this.httpHeaders  = new HttpHeaders();
-    return this.httpClient.get<any>(this.urlSections, {headers: this.httpHeaders, observe: 'response'})
+
+   GetAllSectionsFromBackend(): Observable<Array<Section>> {
+
+    return this.httpClient.get<any>(this.urlSections, {observe: 'response'})
                           .pipe(map(value => {
                             if (value.status === 200){
                               return value.body;
@@ -29,8 +40,7 @@ export class SectionService {
 
 
   public AddOneArticleLine(articleLine: ArticleLine): Observable<boolean> {
-    this.httpHeaders  = new HttpHeaders();
-    return this.httpClient.post<any>(this.urlArticleLines, articleLine, {headers: this.httpHeaders, observe: 'response'})
+    return this.httpClient.post<any>(this.urlArticleLines, articleLine, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
       .pipe(map(value => {
         return value.status === 200;
       }));
@@ -38,24 +48,21 @@ export class SectionService {
 
 
   public DeleteOneArticle(id: number): Observable<boolean> {
-    this.httpHeaders  = new HttpHeaders();
-    return this.httpClient.delete<any>(this.urlArticleLines + '/' + id, {headers: this.httpHeaders, observe: 'response'})
+    return this.httpClient.delete<any>(this.urlArticleLines + '/' + id, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
       .pipe(map(value => {
         return value.status === 200;
       }));
   }
 
   public DeleteOneSection(id: number): Observable<boolean> {
-    this.httpHeaders  = new HttpHeaders();
-    return this.httpClient.delete<any>(this.urlSections + '/' + id, {headers: this.httpHeaders, observe: 'response'})
+    return this.httpClient.delete<any>(this.urlSections + '/' + id, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
       .pipe(map(value => {
         return value.status === 200;
       }));
   }
 
   public GetAllArticleLinesFromBackend(): Observable<Array<ArticleLine>> {
-    this.httpHeaders  = new HttpHeaders();
-    return this.httpClient.get<any>(this.urlArticleLines, {headers: this.httpHeaders, observe: 'response'})
+    return this.httpClient.get<any>(this.urlArticleLines, {observe: 'response'})
       .pipe(map(value => {
         if (value.status === 200){
           return value.body;
@@ -63,37 +70,31 @@ export class SectionService {
       }));
   }
 
-  Test(section: Section): Observable<any> {
-    console.log('zpstaje wyslane' + section);
-    return this.httpClient.post(this.urlSections, section);
-  }
-
-
 }
 
 
-
-export interface Section {
-  id?: number;
-  name?: string;
-  sectionCategoriesList?: Array<SectionCategories>;
-}
-
-export interface SectionCategories {
-  id?: number;
-  name?: string;
-  sectionSubCategoriesList?: Array<SectionSubCategories>;
-}
-
-export interface SectionSubCategories {
-  id?: number;
-  name?: string;
-}
-export interface ArticleLine {
-  id?: number;
-  name?: string;
-  productList?: Array<Product>;
-
-}
+//
+// export interface Section {
+//   id?: number;
+//   name?: string;
+//   sectionCategoriesList?: Array<SectionCategories>;
+// }
+//
+// export interface SectionCategories {
+//   id?: number;
+//   name?: string;
+//   sectionSubCategoriesList?: Array<SectionSubCategories>;
+// }
+//
+// export interface SectionSubCategories {
+//   id?: number;
+//   name?: string;
+// }
+// export interface ArticleLine {
+//   id?: number;
+//   name?: string;
+//   productList?: Array<Product>;
+//
+// }
 
 

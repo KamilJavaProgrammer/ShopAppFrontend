@@ -21,7 +21,9 @@ export class EditProductComponent implements OnInit {
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => {
       this.id = params.id;
+
       this.productServiceService.GetOneProduct(this.id).subscribe(value => {
+
         value.productCategory = value.productCategory[0].toUpperCase() + value.productCategory.substr(1).toLowerCase();
         value.wareHouseplace = value.wareHouseplace[0].toUpperCase() + value.wareHouseplace.substr(1).toLowerCase();
 
@@ -32,8 +34,9 @@ export class EditProductComponent implements OnInit {
 
 
   EditProduct(event: FormData): void{
+
     this.productServiceService.EditProduct(event, this.id).subscribe(value => {
-      alert('udalo sie wyedytować');
+      alert('Produkt został edytowany');
     });
   }
 }

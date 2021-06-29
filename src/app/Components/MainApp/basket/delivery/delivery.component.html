@@ -38,11 +38,11 @@
   <div class="container my-5" style="height: 100%;">
     <h1 class="display-2 text-center mb-5"></h1>
     <ul id="progressbar" class="text-center" style="display: flex; justify-content: center;">
-      <li (click)="ChangeView($event)" [attr.data-step] = '1'  class="step active" id="step1"><div class="d-none d-md-block">Dane odbiorcy</div></li>
-      <li (click)="ChangeView($event)" [attr.data-step] = '2'  class="step" id="step2"><div class="d-none d-md-block">Adres dostawy</div></li>
-      <li (click)="ChangeView($event)" [attr.data-step] = '3'  class="step" id="step3"><div class="d-none d-md-block">Dane do faktury</div></li>
-      <li (click)="ChangeView($event)" [attr.data-step] = '4'  class="step" id="step4"><div class="d-none d-md-block">Dostawa</div></li>
-      <li (click)="ChangeView($event)" [attr.data-step] = '5'  class="step" id="step5"><div class="d-none d-md-block">Płatność</div></li>
+      <li (click)="ChangeView(1)" [attr.data-step] = '1'  class="step active" id="step1"><div class="d-none d-md-block">Dane odbiorcy</div></li>
+      <li (click)="ChangeView(2)" [attr.data-step] = '2'  class="step" id="step2"><div class="d-none d-md-block">Adres dostawy</div></li>
+      <li (click)="ChangeView(3)" [attr.data-step] = '3'  class="step" id="step3"><div class="d-none d-md-block">Dane do faktury</div></li>
+      <li (click)="ChangeView(4)" [attr.data-step] = '4'  class="step" id="step4"><div class="d-none d-md-block">Dostawa</div></li>
+      <li (click)="ChangeView(5)" [attr.data-step] = '5'  class="step" id="step5"><div class="d-none d-md-block">Płatność</div></li>
     </ul>
 
     <div class="row formContainer">
@@ -167,9 +167,9 @@
         <ng-template #conditionUnmet >
           <div class="row">
             <div class="personalPickupOptionDiv">
-              Nowy Sącz
+                    Kraków
               <br>
-              ul.Elektrodowa 34
+              ul.Krakowska 34AB
             </div>
           </div>
           <div class="row">
@@ -185,6 +185,44 @@
   </div>
 
 </ng-template>
+
+
+<div style="display:none;" id="steps" class="container" [ngSwitch]="test">
+
+  <div class="row" *ngSwitchCase="1">
+    <div class="col-md-6">
+      <button (click)="ChangeView(test+1)" class=" addToBasketButton">Następny krok</button>
+    </div>
+  </div>
+
+
+  <div class="row" *ngSwitchCase="5">
+    <div class="col-md-6">
+      <button (click)="ChangeView(test-1)" class=" addToBasketButton">Poprzedni krok</button>
+    </div>
+  </div>
+
+
+
+  <div class="row" *ngSwitchDefault>
+    <div class="col-md-6  previousStep">
+      <button (click)="ChangeView(test-1)" class=" addToBasketButton">Poprzedni krok</button>
+    </div>
+
+    <div class="col-md-6 nextStep">
+      <button (click)="ChangeView(test+1)" class=" addToBasketButton">Następny krok</button>
+    </div>
+  </div>
+
+
+
+
+
+</div>
+
+
+
+
 
 <!--Form End-->
 

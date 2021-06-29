@@ -26,7 +26,7 @@
 
                 <td class="product__cart__item">
                   <div class="product__cart__item__pic">
-                    <img class="productImage" [src]="order.image" alt="">
+                    <img class="productImage" [src]="order.image|safeHtml" alt="">
                   </div>
                   <div class="product__cart__item__text">
                     <h6>{{order.nameOfProduct}}</h6>
@@ -72,8 +72,8 @@
           <div class="cart__total">
             <h6>Podsumowanie</h6>
             <ul>
-              <li>Przesyłka <span>+18 zł</span></li>
-              <li>Suma <span>67 zł</span></li>
+              <li *ngIf="parcelState === true">Przesyłka <span>+ {{parcelPrice}} zł</span></li>
+              <li>Suma <span>{{new3.basketSum|roundNumber}}zł</span></li>
             </ul>
             <a (click)="ShowDeliveryDiv()" class="primary-btn">Dostawa i Płatność</a>
           </div>
@@ -82,7 +82,7 @@
     </div>
 
     <div style="display: none;" id="delivery-payment">
-      <app-delivery  [orders]="orders" [sumMoney]="sumMoney"></app-delivery>
+      <app-delivery (eventEmitter)="ChangeParcelState($event)"  [orders]="orders" [sumMoney]="sumMoney"></app-delivery>
     </div>
   </ng-template>
 </section>

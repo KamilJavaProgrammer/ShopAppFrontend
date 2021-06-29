@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CompleteOrder, OrderService} from '../../../Services/order.service';
-import {NgxUiLoaderModule, NgxUiLoaderService} from 'ngx-ui-loader';
+import {NgxUiLoaderService} from 'ngx-ui-loader';
+import {Role} from '../../../Enums/role.enum';
 
 @Component({
   selector: 'app-user-orders',
@@ -25,13 +26,13 @@ export class UserOrdersComponent implements OnInit, OnDestroy {
       this.ngxService.stopLoader('2');
     }, 200);
 
-    this.orderService.GetAllOrdersForUser().subscribe(value => {
+    this.orderService.GetAllOrdersForUser(Role.USER).subscribe(value => {
          this.orders = value;
       });
   }
 
   GetInvoice(id: number): void{
-    this.orderService.GetInvoiceByUserId(id).subscribe(value => {
+    this.orderService.GetInvoiceByUserId(id, Role.USER).subscribe(value => {
       const fileURL = URL.createObjectURL(value);
       window.open(fileURL);
     });

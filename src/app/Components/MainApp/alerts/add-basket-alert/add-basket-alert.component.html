@@ -15,7 +15,7 @@
 
   <div class="row" style="margin-top: 30px;">
     <div class="col-6">
-      <img [src]="product.imageByte" style="width: 140px;height: 140px;">
+      <img [src]="product.imageByte|safeHtml" style="width: 140px;height: 140px;">
     </div>
 
 

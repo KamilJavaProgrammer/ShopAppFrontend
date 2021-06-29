@@ -5,6 +5,7 @@ import {ProductServiceService} from '../../../../../Services/product-service.ser
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {NgxCaptureService} from 'ngx-capture';
 import {BsModalService} from 'ngx-bootstrap/modal';
+import {Role} from '../../../../../Enums/role.enum';
 
 @Component({
   selector: 'app-sales-document-state',
@@ -54,7 +55,7 @@ export class SalesDocumentStateComponent implements OnInit {
 
 
   public GetAllOrders(): void{
-    this.orderService.GetAllOrders().subscribe(value => {
+    this.orderService.GetAllOrders(Role.ADMIN).subscribe(value => {
       this.orders = value;
     });
   }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ClientServiceService, ShopClient} from '../../../../../../Services/client-service.service';
+import {Role} from '../../../../../../Enums/role.enum';
 
 @Component({
   selector: 'app-shop-client-add',
@@ -19,6 +20,6 @@ export class ShopClientADDComponent implements OnInit {
   }
 
   SaveClientInDatabase(event: ShopClient): void {
-    this.clientService.AddClient(event).subscribe();
+    this.clientService.AddClient(event, Role.ADMIN).subscribe();
   }
 }

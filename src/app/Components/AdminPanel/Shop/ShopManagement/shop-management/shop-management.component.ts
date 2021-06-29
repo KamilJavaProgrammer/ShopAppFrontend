@@ -5,7 +5,7 @@ import {NgxCaptureService} from 'ngx-capture';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {ClientServiceService, ShopClient} from '../../../../../Services/client-service.service';
 import {CompleteOrder, OrderService} from '../../../../../Services/order.service';
-import {ArticleLine, Section, SectionService} from '../../../../../Services/section.service';
+import {SectionService} from '../../../../../Services/section.service';
 
 @Component({
   selector: 'app-shop-management',

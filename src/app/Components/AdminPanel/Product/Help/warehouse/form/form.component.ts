@@ -27,7 +27,6 @@ export class FormComponent implements OnInit {
   @Output() eventEmiter: EventEmitter<any> = new EventEmitter<any>();
 
 
-
   constructor(private productServiceService: ProductServiceService) {
   }
 
@@ -58,7 +57,7 @@ export class FormComponent implements OnInit {
     this.fileInput.nativeElement.value = '';
   }
 
-  AddDynamicallyForm(): void{
+  AddDynamicallyForm(): void {
     if (this.product.productCategory === 'Ekspresy automatyczne' || this.product.productCategory === 'Ekspresy kolbowe' || this.product.productCategory === 'Części zamienne') {
       document.getElementById('dataCofeMachine').style.display = 'block';
     } else {
@@ -67,72 +66,19 @@ export class FormComponent implements OnInit {
   }
 
 
-
-  // SendProductToDatabase(): void {
-  //
-  //   const promise = new Promise(resolve => {
-  //
-  //   const formData = new FormData();
-  //
-  //   try {
-  //     formData.append('fileupload', this.filesToUpload.item(0), this.filesToUpload.item(0).name);
-  //   }
-  //   catch (e) {
-  //     console.log(e);
-  //   }
-  //   finally {
-  //     formData.append('productCategory', this.product.productCategory.toLowerCase());
-  //     formData.append('productSubCategory', this.product.productSubCategory.toLowerCase());
-  //     formData.append('productName', this.product.productName);
-  //     formData.append('manufacturer', this.product.manufacturer);
-  //     formData.append('serialNumber', this.product.serialNumber);
-  //     formData.append('model', this.product.model);
-  //     formData.append('productPrice', this.product.productPrice);
-  //     formData.append('numberOfItems', this.product.numberOfItems);
-  //     formData.append('location', this.product.location);
-  //     formData.append('cod', this.product.cod);
-  //     formData.append('status', this.product.status);
-  //     formData.append('description', this.product.description);
-  //     formData.append('placeWarehouse', this.product.wareHouseplace);
-  //     resolve(formData);
-  //   }
-  //
-  //   });
-  //
-  //   promise.then(value => {
-  //     this.eventEmiter.emit(value);
-  //     this.Clear();
-  //     this.ngOnInit();
-  //   });
-  // }
-
-
   SendProductToDatabase(): void {
 
-    const promise = new Promise(resolve => {
+    const formData = new FormData();
 
-      const formData = new FormData();
-
-      try {
-        formData.append('fileupload', this.filesToUpload.item(0), this.filesToUpload.item(0).name);
-      }
-      catch (e) {
-        console.log(e);
-      }
-      finally {
-        formData.append('product', JSON.stringify(this.product));
-        resolve(formData);
-      }
-
-    });
-
-    promise.then(value => {
-      this.productServiceService.AddProduct2(value).subscribe(value1 => {
-        alert('Dodano produkt do bazdy');
-      });
+    try {
+      formData.append('fileupload', this.filesToUpload.item(0), this.filesToUpload.item(0).name);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      formData.append('product', JSON.stringify(this.product));
+      this.eventEmiter.emit(formData);
       // this.Clear();
-      // this.ngOnInit();
-    });
-  }
+    }
 
+  }
 }

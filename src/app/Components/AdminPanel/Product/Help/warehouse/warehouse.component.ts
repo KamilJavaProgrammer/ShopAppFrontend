@@ -1,4 +1,16 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  QueryList,
+  TemplateRef,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import {Product, ProductServiceService} from '../../../../../Services/product-service.service';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {NgxCaptureService} from 'ngx-capture';
@@ -7,14 +19,16 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import {Router} from '@angular/router';
 import {EditProductComponent} from './edit-product/edit-product.component';
-import {callbackify} from 'util';
+import {DomSanitizer} from '@angular/platform-browser';
+import {Role} from '../../../../../Enums/role.enum';
+import {AuthService} from '../../../../../Services/auth.service';
 
 @Component({
   selector: 'app-warehouse',
   templateUrl: './warehouse.component.html',
   styleUrls: ['./warehouse.component.css']
 })
-export class WarehouseComponent implements OnInit {
+export class WarehouseComponent implements OnInit, AfterViewInit {
 
 
   @Input() warehouseplace: string;
@@ -34,7 +48,7 @@ export class WarehouseComponent implements OnInit {
 
   products: Array<Product> = [];
   productPrices = [];
-  path = 'http://localhost:8088/image';
+  path = AuthService.ADDRESS_SERVER + '/image';
   page = 1;
   totalRecords: number;
   checkboxSelected: Array<boolean> = [];
@@ -61,53 +75,46 @@ export class WarehouseComponent implements OnInit {
 
   constructor(private productService: ProductServiceService, private ngxService: NgxUiLoaderService,
               private ngxCaptureService: NgxCaptureService, private bsModalService: BsModalService,
-              private router: Router, public editProductComponent: EditProductComponent) {
+              private router: Router, public editProductComponent: EditProductComponent,
+              private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
-    this.ngxService.startLoader('3');
-    setTimeout(() => {
-      this.ngxService.stopLoader('3');
-    }, 200);
-    this.GetImages();
+    this.ngxService.start();
     this.sorting = 'Sortuj wg';
+    this.GetImages();
+
+
+   }
+  ngAfterViewInit(): void {
 
   }
 
 
+  GetImages(): void{
 
-  GetImages(): void {
-
-    this.productService.GetAllProductsParts(this.warehouseplace).subscribe(value => {
+    this.productService.GetAllProductsParts(this.warehouseplace, Role.ADMIN).subscribe( async value => {
         this.products = [];
-        this.productPrices = [];
-
-
-        value.forEach(value1 => {
+        await  value.forEach( value1 => {
           this.getImageFromService(value1);
-          this.productPrices.push(+value1.productPrice);
         });
-
-        const prices: Array<number> = this.productPrices.sort((a, b) => this.compare(a, b));
-
+        await  this.ngxService.stop();
       },
       error => {
         console.log(error);
+        this.ngxService.stop();
       });
+
   }
 
-  getImageFromService(product): void {
+  async getImageFromService(product): Promise<void> {
 
-    const pathImage = product.pathToFile.replace('C:/ZdjęciaBaza/Upload', '');
-
-
-      this.productService.GetPhotos(this.path + pathImage).subscribe(data => {
+    await this.productService.GetImageByPathFromService(product.pathToFile).subscribe(data => {
         this.createImageFromBlob(data, product);
+
       }, error => {
-        console.log('error');
+        console.log(error);
       });
-
-
 
   }
 
@@ -286,8 +293,7 @@ export class WarehouseComponent implements OnInit {
 
   }
 
-  EditProduct(product: Product): void {
-  }
+
 
   ShowAlertDeleteOneProductModal(product: Product): void {
     this.bsModalService.show(this.deleteOneProductAlert, this.config);

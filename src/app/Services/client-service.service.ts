@@ -1,90 +1,81 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Client, Product} from './product-service.service';
-import {Address, Business, CompleteOrder} from './order.service';
+import {Client} from './product-service.service';
+import {Business, CompleteOrder} from './order.service';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import {AuthService} from './auth.service';
+import {Role} from '../Enums/role.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientServiceService {
 
-  constructor(private httpClient: HttpClient ){}
+  constructor(private httpClient: HttpClient, private authService: AuthService){}
 
-  port = '8088';
-  urlClientService = 'http://localhost:' + this.port + '/shopClients';
-  urlBusiness = 'http://localhost:' + this.port + '/businesses';
-
-  httpHeaders: HttpHeaders;
+  urlClientService = AuthService.ADDRESS_SERVER + '/shopClients';
+  urlBusiness =  AuthService.ADDRESS_SERVER + '/businesses';
 
 
+  public GetAllBusiness(role: Role): Observable<Array<Business>>{
 
-  public GetAllBusiness(): Observable<Array<Business>>{
-
-    this.httpHeaders = new HttpHeaders();
-    return this.httpClient.get<any>(this.urlBusiness, {observe: 'response'}).pipe(map(value => {
-      return value.body.body;
+    return this.httpClient.get<any>(this.urlBusiness, {headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE), observe: 'response'} )
+      .pipe(map(response => {
+      return response.body;
     }));
 
   }
 
-   public GetAllShopClients(): Observable<Array<ShopClient>>{
+   public GetAllShopClients(role: Role): Observable<Array<ShopClient>>{
 
-     this.httpHeaders = new HttpHeaders();
-     return this.httpClient.get<any>(this.urlClientService + '/all', {observe: 'response'}).pipe(map(value => {
-       console.log(value.body.body);
-       return value.body.body;
+     return this.httpClient.get<any>(this.urlClientService + '/all', {headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
+       .pipe(map(response => {
+       return response.body;
      }));
 
    }
 
-  public GetOneClientById(id: number): Observable<any>{
+  public GetOneClientById(id: number, role: Role): Observable<any>{
 
-    this.httpHeaders = new HttpHeaders();
-    return this.httpClient.get<any>(this.urlClientService + '/' + id, {observe: 'response'}).pipe(map(value => {
-      console.log(value.body.body);
-      return value.body.body;
+    return this.httpClient.get<any>(this.urlClientService + '/' + id, {headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
+      .pipe(map(response => {
+      return response.body;
     }));
 
   }
-  EditShopClient(event: ShopClient, id: any): Observable<any> {
-    this.httpHeaders = new HttpHeaders();
-    return this.httpClient.patch<any>(this.urlClientService + '/' + id , event, {observe: 'response'}).pipe(map(value => {
-      console.log(value.body.body);
-      return value.body.body;
+  EditShopClient(event: ShopClient, id: any, role: Role): Observable<any> {
+    return this.httpClient.patch<any>(this.urlClientService + '/' + id , event, {headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
+      .pipe(map(response => {
+      return response.body;
     }));
   }
 
 
+  public AddClient(shopClient: ShopClient, role: Role): Observable<any>{
 
-
-
-
-
-  public AddClient(shopClient: ShopClient): Observable<any>{
-
-    this.httpHeaders = new HttpHeaders();
-    return this.httpClient.post<any>(this.urlClientService, shopClient, {observe: 'response'}).pipe(map(value => {
-      console.log(value.body.body);
-      return value.body.body;
+    return this.httpClient.post<any>(this.urlClientService, shopClient, {headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
+      .pipe(map(response => {
+      return response.body;
     }));
 
   }
 
   DeleteClients(clients: Array<ShopClient>): Observable<any>{
-    return this.httpClient.request('delete', this.urlClientService, {body: clients, observe: 'response'})
-      .pipe(map(value => {
-        console.log(value);
+    return this.httpClient.request('delete', this.urlClientService, {body: clients, headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
+      .pipe(map(response => {
       }));
 
   }
 
   DeleteShopClientById(id: number): Observable<any> {
-    return this.httpClient.delete<any>(this.urlClientService + '/' + id, {observe: 'response'});
+    return this.httpClient.delete<any>(this.urlClientService + '/' + id, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE), observe: 'response'});
   }
+
+
+
 
   compareName(a: Client, b: Client): number {
     return a.name.localeCompare(b.name);

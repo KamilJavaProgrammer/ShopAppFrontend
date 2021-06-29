@@ -1,4 +1,5 @@
 
+
   <div  style="text-align: center;" >
 
     <div class="row">
@@ -43,7 +44,7 @@
             <tbody>
             <tr class="tr-data" *ngFor="let product of products| paginate:{id:'listing_pagination',itemsPerPage:3, currentPage:page,totalItems:totalRecords};let i = index">
               <td><label  class="checkbox"> <input #checkboxSelectedInput [(ngModel)]="checkboxSelected[((page-1)*itemsPerPage)+i]"  type="checkbox" name="selectedInput" (click)="SelectRow(product,i)"> </label></td>
-              <td><img style="height: 60px; width: 60px;" [src]="product.imageByte"></td>
+              <td><img style="height: 60px; width: 60px;" [src]="product.imageByte|safeHtml"></td>
               <td><span> {{product.productName}}</span></td>
             </tr>
 

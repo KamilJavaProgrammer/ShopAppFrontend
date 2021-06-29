@@ -3,6 +3,7 @@ import {Message, MessageService, MessageState} from '../../../../Services/messag
 import {User, UserService} from '../../../../Services/user.service';
 import {DatePipe} from '@angular/common';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
+import {Role} from '../../../../Enums/role.enum';
 
 @Component({
   selector: 'app-message-component',
@@ -27,16 +28,17 @@ export class MessageComponentComponent implements OnInit {
   constructor(private ngxService: NgxUiLoaderService, private messageService: MessageService, private userService: UserService) {}
 
   ngOnInit(): void {
-
+    window.scrollTo(0, 0);
 
     this.ngxService.startLoader('2');
 
-    this.userService.GetAdminData(this.name).subscribe( value => {
+    // this.userService.GetAdminData(this.name, Role.ADMIN).subscribe( value => {
+    this.userService.GetAdminData(Role.ADMIN).subscribe( value => {
 
       this.admin = value;
 
 
-      this.userService.GetAllUsers().subscribe(users => {
+      this.userService.GetAllUsers(Role.ADMIN).subscribe(users => {
 
           users.forEach((user, index) => {
             if (user.id === this.admin.id)

@@ -12,6 +12,7 @@ import {Client, Product, ProductServiceService} from '../../../../Services/produ
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {NgxCaptureService} from 'ngx-capture';
 import {BsModalService} from 'ngx-bootstrap/modal';
+import {Role} from '../../../../Enums/role.enum';
 
 
 @Component({
@@ -62,7 +63,7 @@ export class ShopClientsComponent implements OnInit {
 
 
   public GetShopClients(): void{
-    this.clientService.GetAllShopClients().subscribe(value => {
+    this.clientService.GetAllShopClients(Role.ADMIN).subscribe(value => {
       this.shopClients = value;
     });
   }

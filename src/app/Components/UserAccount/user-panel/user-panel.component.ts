@@ -2,9 +2,10 @@ import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/cor
 import {Router, Scroll} from '@angular/router';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {AuthGuard} from '../../../Guard/auth.guard';
-import {AccountOption, AuthService} from '../../../Services/auth.service';
+import {AuthService} from '../../../Services/auth.service';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {HomeComponent} from '../../MainApp/start/home/home.component';
+import {AccountOption} from '../../../Enums/account-option.enum';
 
 @Component({
   selector: 'app-user-panel',

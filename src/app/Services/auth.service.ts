@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {User} from './user.service';
 import {Router} from '@angular/router';
+import {Role} from '../Enums/role.enum';
 
 
 @Injectable({
@@ -11,18 +12,37 @@ import {Router} from '@angular/router';
 })
 export class AuthService {
 
-  port = 'http://localhost:8088/users';
 
-  urlLogin = this.port + '/login';
-  urlLoginAdmin = this.port + '/login/admin';
-  urlRegistration = this.port + '/registration';
-  urlVerfication = this.port + '/verification';
-  urlPassword =  this.port + '/passwords';
+  public static ADDRESS_SERVER = '******';
+     private headers: HttpHeaders;
+      public JSON_CONTENT_TYPE = 'application/json';
+     urlLogin = AuthService.ADDRESS_SERVER + '/users/login';
+     urlLoginAdmin = AuthService.ADDRESS_SERVER + '/users/login/admin';
+     urlRegistration = AuthService.ADDRESS_SERVER + '/users/registration';
+     urlVerfication = AuthService.ADDRESS_SERVER + '/users/verification';
+     urlPassword = AuthService.ADDRESS_SERVER + '/users/passwords';
 
 
+     constructor(private httpClient: HttpClient, private router: Router) { }
 
 
-  constructor(private httpClient: HttpClient, private router: Router) { }
+  public SetJWTToken(userRole: Role, contentType: string): HttpHeaders{
+
+    this.headers = new HttpHeaders();
+    this.headers.append('Content-Type', contentType);
+
+    if (userRole === Role.ADMIN)
+    {
+      this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('adminAccessToken')}`);
+    }
+    else
+    {
+      this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
+    }
+    return  this.headers;
+  }
+
+
 
   public RegistrationUser(user: User): Observable<boolean>{
     return this.httpClient.post<any>(this.urlRegistration, user, {observe: 'response'}).pipe(map(response => {
@@ -56,6 +76,7 @@ export class AuthService {
 
       if (response.body.status === 200)
       {
+        sessionStorage.clear();
         sessionStorage.setItem('accessToken', response.body.message);
       }
       return response.body.status;
@@ -63,6 +84,7 @@ export class AuthService {
   }
 
   loginAdmin(user: User): Observable<boolean> {
+
     return this.httpClient.post<any>(this.urlLoginAdmin, user, {observe: 'response'}).
     pipe(map(value => {
       if (value.body.status === 200){
@@ -142,6 +164,4 @@ export class AuthService {
 
 }
 
-export enum AccountOption {
-  'Zaloguj się', 'Twoje konto'
-}
+

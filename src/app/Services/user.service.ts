@@ -1,31 +1,27 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {Client, Product} from './product-service.service';
 import {ShopClient} from './client-service.service';
 import {map} from 'rxjs/operators';
 import {error} from '@angular/compiler/src/util';
 import {Message} from './message.service';
+import {AuthService} from './auth.service';
+import {Role} from '../Enums/role.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  port = '8088';
+  urlShopClient = AuthService.ADDRESS_SERVER + '/shopClients';
+  test = AuthService.ADDRESS_SERVER + '/users/auth';
+  urlUsersAll = AuthService.ADDRESS_SERVER + '/users/all';
+  test2 = AuthService.ADDRESS_SERVER + '/names';
+  urlNewsletter = AuthService.ADDRESS_SERVER + '/news';
 
 
-  urlShopClient = 'http://localhost:' + this.port + '/shopClients';
-  test = 'http://localhost:' + this.port + '/users/auth';
-  urlUsersAll = 'http://localhost:' + this.port + '/users/all';
-  test2 = 'http://localhost:' + this.port + '/names';
-  urlNewsletter = 'http://localhost:' + this.port + '/news';
-  headers: any;
 
-
-  constructor(private httpClient: HttpClient) {
-    this.httpClient = httpClient;
-  }
+  constructor(private httpClient: HttpClient, private authService: AuthService) {}
 
 
   public AddNewSubscriber(email: string): Observable<any>{
@@ -36,54 +32,30 @@ export class UserService {
   }
 
 
-  public GetUserFromServerWithJwt(): Observable<User>{
+  public GetUserFromServerWithJwt(role: Role): Observable<User>{
 
-    this.headers = new HttpHeaders();
-    this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
-    this.headers = this.headers.append('Content-Type', 'application/json');
 
-    return this.httpClient.get<any>(this.test, {headers: this.headers, observe: 'response'})
-      .pipe(map(value => {
-
-        if (value.status === 200){
-          console.log('start');
-          console.log(value);
-          return value.body;
+    return this.httpClient.get<any>(this.test, {headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
+      .pipe(map(response => {
+        if (response.status === 200){
+          return response.body;
         }
         else {
-          throwError(error('Faul'));
+          throwError(error('error'));
         }
       }));
   }
 
 
 
+    GetAdminData(role: Role): Observable<User>{
 
 
-
-    GetAdminData(name: string): Observable<User>{
-
-      this.headers = new HttpHeaders();
-      this.headers = this.headers.append('Content-Type', 'application/json');
-
-      if (name === 'admin')
-    {
-      this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('adminAccessToken')}`);
-    }
-
-      else if (name === 'user')
-      {
-        this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
-      }
-
-
-      return this.httpClient.get<any>(this.test, {headers: this.headers, observe: 'response'})
+    return this.httpClient.get<any>(this.test, {headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
       .pipe(map(  value => {
         console.log(value);
         if (value.status === 200){
-
           return value.body;
-
         }
         else {
           throwError(error('Faul'));
@@ -91,30 +63,28 @@ export class UserService {
       }));
   }
 
-  GetAllUsers(): Observable<Array<User>>{
-    // this.headers = new HttpHeaders();
-    // this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
-    // this.headers = this.headers.append('Content-Type', `application/json`);
-    return this.httpClient.get<any>(this.urlUsersAll, { observe: 'response'}).pipe(map(value => {
-        return value.body;
-    }));
+  GetAllUsers(role: Role): Observable<Array<User>>{
+
+    return this.httpClient.get<any>(this.urlUsersAll, {headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
+      .pipe(map(  value => {
+        console.log(value);
+        if (value.status === 200){
+          return value.body;
+        }
+        else {
+          throwError(error('Faul'));
+        }
+      }));
   }
 
-  GetAllNamesOfUsers(): Observable<Array<string>>{
-    return this.httpClient.get<any>(this.test2, {observe: 'response'}).pipe(map(value => {
-      return value.body.body;
-    }));
-  }
 
-  public ChangeShopClientAddress(shopClient: ShopClient): Observable<ShopClient>{
-    this.headers = new HttpHeaders();
-    this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
-    this.headers = this.headers.append('Content-Type', `application/json`);
 
-    return this.httpClient.patch<any>(this.urlShopClient, shopClient, {observe: 'response', headers: this.headers})
+  public ChangeShopClientAddress(shopClient: ShopClient, role: Role): Observable<ShopClient>{
+
+    return this.httpClient.patch<any>(this.urlShopClient, shopClient, {headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE), observe: 'response'} )
       .pipe(map(response => {
         if (response.status === 200){
-          return response.body.body;
+          return response.body;
         }
         else
         {
@@ -124,17 +94,13 @@ export class UserService {
   }
 
 
-  public GetShopClient(): Observable<ShopClient>{
+  public GetShopClient(role: Role): Observable<ShopClient>{
 
-    this.headers = new HttpHeaders();
-    this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
-    this.headers = this.headers.append('Content-Type', 'application/json');
 
-    return this.httpClient.get<any>(this.urlShopClient, {headers: this.headers, observe: 'response'})
-      .pipe(map(value => {
-        if (value.status === 200){
-          console.log(value);
-          return value.body.body;
+    return this.httpClient.get<any>(this.urlShopClient, {headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
+      .pipe(map(response => {
+        if (response.status === 200){
+          return response.body;
         }
         else {
           throwError(error('Faul'));
@@ -155,7 +121,6 @@ export interface User{
   authorization?: boolean;
   role?: string;
   messages?: Array<Message>;
-
 
 }
 

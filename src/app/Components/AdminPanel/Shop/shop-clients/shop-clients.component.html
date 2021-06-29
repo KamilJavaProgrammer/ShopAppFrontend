@@ -75,7 +75,7 @@
 
     <ng-template #exists >
       <div class="paginationContainer">
-        <pagination-controls id="listing_pagination" maxSize="3" directionLinks="true" (pageChange)="page=$event"></pagination-controls>
+        <pagination-controls [nextLabel]="'Następny'" [previousLabel]="'Poprzedni'" id="listing_pagination" maxSize="3" directionLinks="true" (pageChange)="page=$event"></pagination-controls>
       </div>
     </ng-template>
 

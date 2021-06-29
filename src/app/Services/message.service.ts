@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpEvent, HttpHandler, HttpRequest} from '@angular/common/http';
 import {User} from './user.service';
 import {Observable} from 'rxjs';
+import {AuthService} from './auth.service';
 const SockJs = require('sockjs-client');
 const Stomp = require('stompjs');
 
@@ -12,8 +13,8 @@ const Stomp = require('stompjs');
 export class MessageService {
 
 
-  port = '8088';
-  urlMessages = 'http://localhost:' + this.port + '/messages';
+
+  urlMessages = AuthService.ADDRESS_SERVER + '/messages';
 
 
   constructor(private httpClient: HttpClient) {
@@ -22,7 +23,7 @@ export class MessageService {
 
 
   public connect(): any {
-    const socket = new SockJs(`http://localhost:8088/socket`);
+    const socket = new SockJs(AuthService.ADDRESS_SERVER + `/socket`);
     const stompClient = Stomp.over(socket);
     return stompClient;
   }

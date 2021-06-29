@@ -1,8 +1,9 @@
-import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
-import {Client, InvoiceInterface, Product, ProductServiceService} from '../../../../../Services/product-service.service';
+import {Component, OnInit} from '@angular/core';
+import {InvoiceInterface, Product, ProductServiceService} from '../../../../../Services/product-service.service';
 import {Invoice} from '../../../../../Models/invoice.model';
 import {ClientServiceService} from '../../../../../Services/client-service.service';
 import {Business, OrderService, ProductBasket} from '../../../../../Services/order.service';
+import {Role} from '../../../../../Enums/role.enum';
 
 @Component({
   selector: 'app-fvform',
@@ -102,13 +103,13 @@ export class FVformComponent implements OnInit {
   }
 
   GetAllProduct(): void {
-    this.productService.GetAllProducts().subscribe(products => {
+    this.productService.GetAllProducts(Role.ADMIN).subscribe(products => {
       this.products = products;
     });
   }
 
   GetAllBusiness(): void {
-    this.clientService.GetAllBusiness().subscribe(businesses => {
+    this.clientService.GetAllBusiness(Role.ADMIN).subscribe(businesses => {
       this.businesses = businesses;
     });
   }
@@ -256,7 +257,7 @@ export class FVformComponent implements OnInit {
     });
 
     console.log(this.invoiceObject);
-    this.orderService.AddOneInvoice(this.invoiceObject).subscribe();
+    this.orderService.AddOneInvoice(this.invoiceObject, Role.ADMIN).subscribe();
   }
 
 

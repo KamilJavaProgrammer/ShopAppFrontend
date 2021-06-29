@@ -1,10 +1,12 @@
 import {Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
-import {ArticleLine, Section, SectionService} from '../../../../../../Services/section.service';
+import { SectionService} from '../../../../../../Services/section.service';
 import {Product, ProductServiceService} from '../../../../../../Services/product-service.service';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {NgxCaptureService} from 'ngx-capture';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {ClientServiceService} from '../../../../../../Services/client-service.service';
+import {ArticleLine} from '../../../../../../Classes/article-line';
+import {Section} from '../../../../../../Classes/section';
 
 @Component({
   selector: 'app-section-component',

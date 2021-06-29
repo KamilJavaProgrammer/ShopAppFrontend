@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ClientServiceService, ShopClient} from '../../../../../../Services/client-service.service';
 import {ActivatedRoute} from '@angular/router';
+import {Role} from '../../../../../../Enums/role.enum';
 
 @Component({
   selector: 'app-client-edit',
@@ -20,14 +21,14 @@ export class ClientEditComponent implements OnInit {
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => {
       this.id = params.id;
-      this.clientService.GetOneClientById(this.id).subscribe(value => {
+      this.clientService.GetOneClientById(this.id, Role.ADMIN).subscribe(value => {
         this.shopClient = value;
       });
     });
   }
   EditShopClient(event: ShopClient): void{
-    this.clientService.EditShopClient(event, this.id).subscribe(value => {
-      alert('udalo sie wyedytować');
+    this.clientService.EditShopClient(event, this.id, Role.ADMIN).subscribe(value => {
+      alert('udalo sie edytowac');
     });
   }
 }

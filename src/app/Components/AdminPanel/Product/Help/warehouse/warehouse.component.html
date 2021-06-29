@@ -60,7 +60,7 @@
           <tbody>
           <tr #tableRow class="tr-data" *ngFor="let product of products| paginate:{id:'listing_pagination',itemsPerPage:itemsPerPage, currentPage:page,totalItems:totalRecords}; let i = index">
             <td><label  class="checkbox"> <input #checkboxSelectedInput [(ngModel)]="checkboxSelected[((page-1)*itemsPerPage)+i]"  type="checkbox" name="selectedInput" (click)="SelectRow(product,i)"> </label></td>
-            <td><img [src]="product.imageByte" class="productImg"></td>
+            <td><img [src]="product.imageByte|safeHtml" class="productImg"></td>
             <td>{{product.productName}}</td>
             <td>{{product.numberOfItems}}</td>
             <td>
@@ -72,10 +72,10 @@
             </td>
             <td>{{product.cod}}</td>
             <td>{{product.location}}</td>
-            <td>{{product.productPrice}}</td>
+            <td>{{product.productPrice}} zł</td>
             <td><span style="font-weight: 700;" (click)="ViewTechnicalDataProduct(product)">Dane Techniczne</span></td>
             <td>
-             <span [routerLink]="['/admin', { outlets: {'administrator': ['asortyment','edytuj',product.id]}}]" (click)="EditProduct(product)"> <i style="color:#FFC107; margin-right: 8px; font-size: 17px;" class="la la-pencil" aria-hidden="true"></i></span>
+             <span [routerLink]="['/admin', { outlets: {'administrator': ['asortyment','edytuj',product.id]}}]"> <i style="color:#FFC107; margin-right: 8px; font-size: 17px;" class="la la-pencil" aria-hidden="true"></i></span>
              <span (click)="ShowAlertDeleteOneProductModal(product)"> <i style="color:#E34724; margin-left: 8px; font-size: 17px;" class="la la-trash" aria-hidden="true"></i></span>
             </td>
 
@@ -164,12 +164,12 @@
 
     <div class="row" style="margin-top: 30px;">
       <div class="col-6">
-        <img [src]="product.imageByte" style="width: 220px;height: 220px;">
+        <img [src]="product.imageByte|safeHtml" style="width: 220px;height: 220px;">
       </div>
 
 
-      <div class="col-6 " style="text-align: left; color: #3b3b3b;  font-size: 22px; font-weight: 600;">
-        <span>{{product.productName}}</span>
+      <div class="col-6 " style="font-family:'Nunito Sans'; text-align: left; color: #3b3b3b;  font-size: 22px; font-weight: 600;">
+        <span style="color: blue;">{{product.productName}}</span>
         <br>
         <span>Cena: {{product.productPrice}} zł</span>
         <br>

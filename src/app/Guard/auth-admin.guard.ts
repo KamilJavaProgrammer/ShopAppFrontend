@@ -8,6 +8,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 export class AuthAdminGuard implements CanActivate {
 
   constructor(private router: Router, public jwtHelperService: JwtHelperService,
+
   ) { }
 
 

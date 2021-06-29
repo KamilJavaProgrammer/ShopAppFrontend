@@ -1,12 +1,14 @@
-import {Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren, ViewContainerRef} from '@angular/core';
-import {ArticleLine, Section, SectionCategories, SectionService, SectionSubCategories} from '../../../../../../Services/section.service';
-import {Product, ProductServiceService} from '../../../../../../Services/product-service.service';
+import {Component, OnInit} from '@angular/core';
+import {SectionService} from '../../../../../../Services/section.service';
+import {ProductServiceService} from '../../../../../../Services/product-service.service';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {NgxCaptureService} from 'ngx-capture';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {ClientServiceService} from '../../../../../../Services/client-service.service';
-import {element} from 'protractor';
-import {Renderer} from '@angular/compiler-cli/ngcc/src/rendering/renderer';
+import {Role} from '../../../../../../Enums/role.enum';
+import {SectionSubCategories} from '../../../../../../Classes/section-sub-categories';
+import {Section} from '../../../../../../Classes/section';
+import {SectionCategories} from '../../../../../../Classes/section-categories';
 
 @Component({
   selector: 'app-add-section',
@@ -54,10 +56,9 @@ export class AddSectionComponent implements OnInit {
   }
 
 
-  savetoDatabase(): void {
-    this.sectionService.Test(this.section).subscribe(value1 => {
-      console.log(value1);
-      console.log(value1);
+  SaveSection(): void {
+    this.sectionService.AddSectionToDatabase(this.section).subscribe(value1 => {
+
     });
   }
 }

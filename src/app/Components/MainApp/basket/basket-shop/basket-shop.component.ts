@@ -16,7 +16,7 @@ export class BasketShopComponent implements OnInit, OnDestroy {
   sumMoney = 0;
   orders: Array<ProductBasket> = [];
   parcelPrice = 18;
-
+  parcelState = true;
 
   constructor( private productServiceService: ProductServiceService,
                private orderService: OrderService,
@@ -27,10 +27,7 @@ export class BasketShopComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-
-    // this.ngxService.startLoader('1');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    // document.getElementById('mainAnchor').scrollIntoView({behavior: 'smooth'});
+    window.scrollTo(0, 0);
     this.setFront();
 
     if (this.orderService.table.length < 1)
@@ -64,6 +61,7 @@ export class BasketShopComponent implements OnInit, OnDestroy {
 
 
   Count(order: ProductBasket): void {
+
 
     this.productServiceService.GetOneProduct(order.idProduct).subscribe(product => {
       this.new3.productAmount = 0;
@@ -158,5 +156,19 @@ export class BasketShopComponent implements OnInit, OnDestroy {
   ShowDeliveryDiv(): void {
     document.getElementById('delivery-payment').style.display = 'block';
     document.getElementById('delivery-payment').scrollIntoView({behavior: 'smooth', block: 'end'});
+  }
+
+  ChangeParcelState(event: boolean): void{
+    if(event === true)
+    {
+      this.parcelState = true;
+      this.new3.basketSum += this.parcelPrice;
+    }
+    else
+    {
+      this.parcelState = false;
+      this.new3.basketSum -= this.parcelPrice;
+
+    }
   }
 }

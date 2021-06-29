@@ -40,7 +40,7 @@ export class LoginUserComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.setFront();
-
+    window.scrollTo(0, 0);
   }
 
   ngOnDestroy(): void {

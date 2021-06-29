@@ -5,7 +5,7 @@
 
      <div class="img_container col-md" >
        <div>
-         <img class="colImg" id="img" [src]="product.imageByte" alt="ImageProblem">
+         <img class="colImg" id="img" [src]="product.imageByte|safeHtml" alt="ImageProblem">
        </div>
      </div>
 

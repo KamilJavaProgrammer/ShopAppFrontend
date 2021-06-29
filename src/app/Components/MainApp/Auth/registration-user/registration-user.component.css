@@ -1,3 +1,50 @@
+
+.optionDescription
+{
+  padding: 0;
+  color: #333333;
+  font-family: "Nunito Sans";
+  text-align: left;
+  margin-left: -10px;
+}
+
+
+.menuOption
+{
+  color: #333333;
+  font-family: "Nunito Sans";
+}
+.menuOption:hover
+{
+  color: #333333;
+  font-family: "Nunito Sans";
+}
+
+
+
+@media (max-width: 576px) {
+
+
+  .optionDescription {
+    color: #333333;
+    font-family: "Nunito Sans";
+    text-align: left;
+    padding-left: 15px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 576px) {
   .header-description
   {

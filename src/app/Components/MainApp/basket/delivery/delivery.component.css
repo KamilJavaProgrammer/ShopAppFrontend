@@ -1,4 +1,31 @@
 
+
+
+
+
+
+.addToBasketButton
+{
+  /*margin-top: 30px;*/
+  width: 250px;
+  height: 50px;
+  display: block;
+  background-color: #000000;
+  letter-spacing: 2px;
+  color: #ffffff;
+  border: none;
+  text-transform: uppercase;
+  font-family: "Nunito Sans";
+  font-weight: 600;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+
+
+
+
 .invoiceCheckbox
 {
   display: inline;
@@ -125,7 +152,7 @@
   width: 33%;
   margin-left: auto;
   margin-right: auto;
-  text-align: left;
+  text-align: center;
 }
 
 
@@ -193,12 +220,36 @@
   width: 33%;
   margin-left: auto;
   margin-right: auto;
+
 }
 
 
 
 @media (max-width: 576px) {
 
+  .nextStep
+  {
+    margin-top: -150px;
+  }
+  .previousStep
+  {
+  }
+
+  .addToBasketButton
+  {
+    width: 250px;
+    height: 50px;
+    display: block;
+    background-color: #000000;
+    letter-spacing: 2px;
+    color: #ffffff;
+    border: none;
+    text-transform: uppercase;
+    font-family: "Nunito Sans";
+    font-weight: 600;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
     .container
     {

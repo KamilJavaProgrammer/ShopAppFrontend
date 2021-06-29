@@ -2,6 +2,7 @@ import {Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angu
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 
 import {User, UserService} from '../../../Services/user.service';
+import {Role} from '../../../Enums/role.enum';
 
 @Component({
   selector: 'app-user-adresses',
@@ -62,7 +63,7 @@ export class UserAdressesComponent implements OnInit, OnDestroy {
       this.ngxService.stopLoader('2');
     }, 500);
 
-    this.userService.GetUserFromServerWithJwt().subscribe(value => {
+    this.userService.GetUserFromServerWithJwt(Role.USER).subscribe(value => {
       this.user = value;
     },
       error => {
@@ -92,7 +93,7 @@ export class UserAdressesComponent implements OnInit, OnDestroy {
 
   SaveData(): void {
 
-    this.userService.ChangeShopClientAddress(this.user.shopClient).subscribe(value => {
+    this.userService.ChangeShopClientAddress(this.user.shopClient, Role.USER).subscribe(value => {
       this.user.shopClient = value;
     });
     document.getElementById('adressSquares').style.display = 'block';

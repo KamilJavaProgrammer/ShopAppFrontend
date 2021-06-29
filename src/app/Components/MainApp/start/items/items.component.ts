@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, Optional, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
 import {Product, ProductServiceService} from '../../../../Services/product-service.service';
 import {OrderService, ProductBasket} from '../../../../Services/order.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
@@ -6,11 +6,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {Test2Pipe} from '../../../../Pipes/test2.pipe';
 import {HomeComponent} from '../home/home.component';
-import {CustomUrlSerializer} from '../../../../Services/interceptor.service';
 import { CollapseComponent } from 'angular-bootstrap-md';
-
-
-
+import {SortOption} from '../../../../Enums/sort-option.enum';
+import {AccountOption} from '../../../../Enums/account-option.enum';
+import {AuthService} from '../../../../Services/auth.service';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-items',
@@ -22,32 +23,38 @@ import { CollapseComponent } from 'angular-bootstrap-md';
 
 export class ItemsComponent implements OnInit , OnDestroy, AfterViewInit{
 
+
+  minPrice = 0;
+  maxPrice = 100000;
+  id: string;
+  page = 1;
+  sortEnumIndex = 0;
+
   @ViewChildren(CollapseComponent) collapses: CollapseComponent[];
-
-
   @ViewChild('alert') alert: TemplateRef<any>;
   @ViewChild('addProductBasket') addProductToBasket: TemplateRef<any>;
   sub: any;
-  id: string;
   products: Array<Product> = [];
   productBasket: ProductBasket;
   productPrices = [];
-  path = 'http://localhost:8088/image';
+  path = AuthService.ADDRESS_SERVER + '/image/';
   categories: Map<Map<string, number>, Map<string, number>> = new Map<Map<string, number>, Map<string, number>>();
   keys: Array<string> = [];
   values = [];
-  page = 0;
-  totalRecords: number;
+  totalRecords = 0;
   checked = false;
   product: Product;
-  countAllProducts: number;
   productsCount = 0;
-
-
   modalRef: BsModalRef;
   sorting: any;
   maxValue: any;
-
+  filterManufacturersList: Array<string> = [];
+  filterStatesList: Array<string> = [];
+  valueReady = [];
+  searchPhrase = '';
+  collapseState = false;
+  itemsPerPage = 9;
+  sortOptions: Array<string> = ['Sortuj wg', SortOption[0], SortOption[1], SortOption[2]];
   config = {
     animated: true,
     keyboard: true,
@@ -56,14 +63,6 @@ export class ItemsComponent implements OnInit , OnDestroy, AfterViewInit{
     class: 'modal-lg'
   };
 
-  mapLength = 0;
-
-  filterManufacturersList: Array<string> = [];
-  filterStatesList: Array<string> = [];
-  valueReady = [];
-  searchPhrase = '';
-
-
 
   constructor(private router: Router, private productService: ProductServiceService,
               private route: ActivatedRoute,
@@ -71,11 +70,17 @@ export class ItemsComponent implements OnInit , OnDestroy, AfterViewInit{
               private modalService: BsModalService,
               private orderService: OrderService,
               private new1: HomeComponent,
+              private httClient: HttpClient,
             ){
 
 
-    document.getElementById('articleRouter').style.display = 'none';
-    this.productService.GetAllCategories().subscribe(value => {
+
+     const x = window.matchMedia('(max-width: 500px)');
+     this.collapseState = x.matches;
+
+
+     document.getElementById('articleRouter').style.display = 'none';
+     this.productService.GetAllProductCategories().subscribe(value => {
 
       this.categories = value;
 
@@ -89,28 +94,31 @@ export class ItemsComponent implements OnInit , OnDestroy, AfterViewInit{
         this.valueReady.push(array);
       });
 
-      this.mapLength = this.categories.size;
+      // this.mapLength = this.categories.size;
 
 
     });
 
   }
 
-  ngAfterViewInit(): void {
-    // Promise.resolve().then(() => {
-    //   this.collapses.forEach((collapse: CollapseComponent) => {
-    //     collapse.toggle();
-    //   });
-    // });
-    }
 
   ngOnInit(): void {
 
+
     this.sub = this.route.params.subscribe(params => {
+
+      window.scrollTo(0, 0);
       this.ngxService.start();
+      setTimeout(() => {
+        this.ngxService.stop();
+      }, 1000);
       this.id = params.name;
+      this.minPrice = 0;
+      this.maxPrice = 100000;
+      this.page = 1;
+      this.sortEnumIndex = 0;
       this.sorting = 'Sortuj wg';
-      this.GetImages(this.page, this.id, 0, 100000);
+      this.GetImagesMainFunction(this.page , this.id, this.minPrice, this.maxPrice, this.sortEnumIndex);
     });
   }
 
@@ -120,28 +128,7 @@ export class ItemsComponent implements OnInit , OnDestroy, AfterViewInit{
     this.sub.unsubscribe();
   }
 
-
-  GetImages(id: number, name: string, minPrice: number, maxPrice: number): void{
-    this.products = [];
-    this.productPrices = [];
-    this.productsCount = 0;
-
-    this.productService.GetProductsCurrentItem(id, name, minPrice, maxPrice).subscribe(productsArray => {
-      this.productsCount = productsArray.length;
-      productsArray.forEach(product => {
-        this.productService.getImageFromService(product).subscribe(blob => {
-          this.createImageFromBlob(blob, product);
-        });
-        this.productPrices.push(+product.productPrice);
-      });
-
-      this.AssignNamesToTables(productsArray);
-      this.ngxService.stop();
-
-    });
-  }
-
-
+  ngAfterViewInit(): void {}
 
   createImageFromBlob(image: Blob, product: Product): void {
     const reader = new FileReader();
@@ -157,20 +144,8 @@ export class ItemsComponent implements OnInit , OnDestroy, AfterViewInit{
   }
 
 
-
-  compare(a, b): number {
-    if ( a < b) {
-      return -1;
-    }
-    if ( a > b) {
-      return 1;
-    }
-    return 0;
-  }
-
-
   RedirectToTechnicalDataComponent(id: number): void {
-    this.router.navigate(['/shop', {outlets: {route4: ['technicalData', id]}}]);
+    this.router.navigate(['/sklep', {outlets: {route4: ['produkt', 'dane', id]}}]);
   }
 
 
@@ -214,6 +189,7 @@ export class ItemsComponent implements OnInit , OnDestroy, AfterViewInit{
     this.new1.productAmount++;
     this.productBasket = ({
       image: product.imageByte,
+      idProduct: product.id,
       nameOfProduct: product.productName,
       bruttoPrice: +product.productPrice,
       numberOfItems: 1
@@ -246,77 +222,11 @@ export class ItemsComponent implements OnInit , OnDestroy, AfterViewInit{
     this.CountProducts();
   }
 
-  ReadValues(lowValue: number, highValue: number): void{
 
-    this.products = [];
-    this.productPrices = [];
+  Sort(i: number): void {
 
-    this.productService.GetProductsCurrentItem(this.page, this.id, lowValue, highValue).subscribe(value => {
-
-      value.forEach(product => {
-
-        this.productPrices.push(+product.productPrice);
-        this.productService.getImageFromService(product).subscribe(blob => {
-          this.createImageFromBlob(blob, product);
-        });
-
-      });
-      this.productsCount = this.productPrices.length;
-    });
-  }
-
-
-
-  comparePrice(a: Product, b: Product): number {
-    if ( +a.productPrice < +b.productPrice) {
-      return -1;
-    }
-    if ( +a.productPrice > +b.productPrice) {
-      return 1;
-    }
-    return 0;
-  }
-
-
-  compareName(a: Product, b: Product): number {
-    if ( a.productName < b.productName) {
-      return -1;
-    }
-    if ( a.productName > b.productName) {
-      return 1;
-    }
-    return 0;
-  }
-
-
-  Sort(): void {
-
-    switch (this.sorting) {
-
-      case 'Cena rosnąco':
-      {
-        this.products.sort((a, b) => this.comparePrice(a, b));
-        break;
-      }
-      case 'Cena malejąco':
-      {
-        this.products.sort((a, b) => this.comparePrice(a, b));
-        this.products.reverse();
-        break;
-      }
-
-      case 'Alfabetycznie':
-      {
-        this.products.sort((a, b) => this.compareName(a, b));
-        break;
-      }
-      default:
-      {
-        this.products.sort();
-      }
-
-    }
-
+    this.sortEnumIndex = i - 1;
+    this.GetImagesMainFunction(this.page, this.id, this.minPrice , this.maxPrice, this.sortEnumIndex);
   }
 
   CloseAlertModal(): void {
@@ -325,10 +235,19 @@ export class ItemsComponent implements OnInit , OnDestroy, AfterViewInit{
 
   SortingPriceRanges(event: any): void{
 
-    const lowValue: number = event.currentTarget.dataset.low;
-    const highvalue: number = event.currentTarget.dataset.high;
+   this.minPrice = event.currentTarget.dataset.low;
+   this.maxPrice = event.currentTarget.dataset.high;
 
-    this.ReadValues(lowValue, highvalue);
+   this.GetImagesMainFunction(this.page, this.id, this.minPrice , this.maxPrice, this.sortEnumIndex);
+
+
+   document.getElementById('productStart').scrollIntoView({behavior: 'smooth'});
+   document.querySelectorAll<HTMLElement>('.priceValues').forEach(value => {
+      value.style.color = '#727883';
+      value.style.fontWeight  = 'inherit';
+    });
+   event.target.style.color  = 'black';
+   event.target.style.fontWeight  = '600';
 
   }
 
@@ -350,11 +269,70 @@ export class ItemsComponent implements OnInit , OnDestroy, AfterViewInit{
   }
 
 
-  GetGivenProducts(d: any): void {
+  GetGivenProducts(d: any, event): void {
+
     const b = Test2Pipe.transform(d);
     this.router.navigate(['/sklep', {outlets: {route4: ['produkty', b]}}]);
     document.getElementById('productStart').scrollIntoView({behavior: 'smooth'});
 
+    document.querySelectorAll<HTMLElement>('.productCategoryName').forEach(value => {
+    value.style.color = '#727883';
+    value.style.fontWeight  = 'inherit';
+    });
+    event.target.style.color  = 'black';
+    event.target.style.fontWeight  = '600';
 
   }
-}
+
+  ChangePage(event): void {
+    this.ngxService.start();
+    this.page = event;
+    this.GetImagesMainFunction(this.page, this.id, this.minPrice , this.maxPrice, this.sortEnumIndex);
+    this.ngxService.stop();
+
+  }
+
+  Check(): void {
+    this.ngxService.start();
+    this.GetImagesMainFunction(this.page, this.id, this.minPrice , this.maxPrice, this.sortEnumIndex);
+    document.getElementById('productStart').scrollIntoView({behavior: 'smooth'});
+    // this.maxPrice = '';
+    // this.minPrice = '';
+    document.querySelectorAll<HTMLElement>('.priceValues').forEach(value => {
+      value.style.color = '#727883';
+      value.style.fontWeight  = 'inherit';
+    });
+    this.ngxService.stop();
+
+  }
+
+
+  GetImagesMainFunction(page: number, id: string, minPrice: number, maxPrice: number, sortEnumIndex?: number): void{
+    this.products = [];
+
+    this.productService.GetProductsCurrentItem(page - 1, id, minPrice, maxPrice, sortEnumIndex).subscribe(result => {
+      const map: Map<number, Array<Product>> = result;
+
+      this.productsCount = +Object.keys(map);
+      this.totalRecords =  +Object.keys(map);
+
+      Array.from(Object.values(map)).forEach(async productsArray => {
+        await productsArray.forEach(product => {
+          this.productService.GetImageByPathFromService(product.pathToFile).subscribe(value => {
+            this.createImageFromBlob(value, product);
+          });
+
+        });
+
+        await this.AssignNamesToTables(productsArray);
+        // await this.ngxService.stop();
+      });
+    });
+
+  }
+
+
+  }
+
+
+

@@ -14,7 +14,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {OrderService, ProductBasket} from '../../../../Services/order.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
-import {ArticleLine, Section, SectionService} from '../../../../Services/section.service';
+import {SectionService} from '../../../../Services/section.service';
 import {HttpClient} from '@angular/common/http';
 import {AuthGuard} from '../../../../Guard/auth.guard';
 import {NgbCarousel, NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
@@ -23,7 +23,9 @@ import {UserService} from '../../../../Services/user.service';
 import {MongoServiceService} from '../../../../Services/mongo-service.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import { CollapseComponent } from 'angular-bootstrap-md';
-
+import {AuthService} from '../../../../Services/auth.service';
+import {ArticleLine} from '../../../../Classes/article-line';
+import {Section} from '../../../../Classes/section';
 
 // tslint:disable-next-line:typedef
 function CloseSearchingInput() {
@@ -59,6 +61,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('basket') koszyk: ElementRef;
   @ViewChild('alert') alert: TemplateRef<any>;
   @ViewChild('addProductBasket') addProductToBasket: TemplateRef<any>;
+  @ViewChild('startAlert') startAlert: TemplateRef<any>;
   sections: Array<Section> = [];
   products: Array<Product> = [];
   articleLines: Array<ArticleLine> = [];
@@ -66,7 +69,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   basketSum = 0;
   search: string;
   productAmount: number;
-  path = 'http://localhost:8088/image';
+  path = AuthService.ADDRESS_SERVER + '/image/';
   table = [];
   sub: any;
   orders: Array<ProductBasket> = [];
@@ -74,9 +77,9 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   product: Product;
   byk: BsModalRef;
   account = 'Zaloguj się';
-  headerBarDataLeft = '';
-  headerBarDataCenter = '';
-  headerBarDataRight = '';
+  headerBarDataLeft = 'Darmowa dostawa tylko w lipcu!';
+  headerBarDataCenter = 'Zadzwoń do nas: +48 184446563';
+  headerBarDataRight = 'biuro@kawomix.pl';
 
   counter = 0;
 
@@ -101,29 +104,9 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   searchIndex = 0;
   subscriberEmail = '';
-  footerContactTown = '';
-  footerContactEmail = '';
-  footerContactPhone = '';
-  text = '          <div  class="hero__items set-bg  main-background carousel-item active"  style="background-image: url(\'/assets/img/kawa9.jpg\');">\n' +
-    '            <div class="container">\n' +
-    '              <div class="row" style="margin-top: 120px;">\n' +
-    '                <div class="col-xl-5 col-lg-7 col-md-8" >\n' +
-    '                  <h2 class="" data-aos="fade-left" data-aos-delay="0" style="color: pink;font-family:\'Nunito Sans\' ; user-select: none;">Przyjemność która</h2>\n' +
-    '\n' +
-    '                  <div class="" data-aos="fade-left" data-aos-delay="350">\n' +
-    '                    <h2 style="color: violet; padding-top: 10px;">mieści się w filiżance kawy</h2>\n' +
-    '                    <p style="color: #f3f3f3; font-family: \'DejaVu Serif\';">Stwórz kawiarnię we własnym domu.</p>\n' +
-    '                    <a   (click)="RedirectToProductSection()" style="border: 1px solid white; color: #f3f3f3; font-family: Raleway;" class="btn cyc">Sprawdź ofertę<i style="margin-left: 5px;" class="la la-arrow-right"></i></a>\n' +
-    '                  </div>\n' +
-    '                </div>\n' +
-    '              </div>\n' +
-    '            </div>\n' +
-    '          </div>';
-
-   text21: any;
-
-
-
+  footerContactTown = 'Nowy Sącz';
+  footerContactEmail = 'biuro@kawomix.pl';
+  footerContactPhone = '182224432';
 
 
   smallDevicesCarouselLinks: Array<string> = ['https://mfiles.alphacoders.com/792/792419.jpg', 'https://i.pinimg.com/originals/9b/1a/a0/9b1aa04c4beb7fe049d71b5fe8e56376.jpg'];
@@ -138,20 +121,14 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
                private authGuard: AuthGuard,
                private userService: UserService,
                private mongoService: MongoServiceService,
-               protected sanitizer: DomSanitizer,
                config: NgbCarouselConfig,
                private elementRef: ElementRef)
 
   {
-    config.interval = 12000;
+    config.interval = 15000;
     config.keyboard = true;
     config.pauseOnHover = true;
     config.wrap = true;
-    this.text21  = this.sanitizer.bypassSecurityTrustHtml(this.text);
-
-    // document.addEventListener('load', () => document.append(this.dzik2));
-    this.StartClock();
-
 
   }
 
@@ -160,8 +137,17 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
 
-    // this.StartClock();
+    this.StartClock();
+    window.scrollTo(0, 0);
+    this.ngxService.start();
+    setTimeout(() => {
+      this.ngxService.stop();
+    }, 2600);
 
+    setTimeout(() => {
+      this.modalService.show(this.startAlert, {class: 'modal-md'});
+
+    }, 3200);
     this.ngxService.start();
     this.orders = JSON.parse(sessionStorage.getItem('tableOrders'));
     this.basketSum = 0;
@@ -185,10 +171,13 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
 
-    this.GetHeaderData();
-    this.GetFooterData();
+
+    // this.GetHeaderData();
+    // this.GetFooterData();
     this.GetImages();
     this.GetSectionsFromServer();
+
+
 
 
   }
@@ -257,11 +246,11 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public GetSectionsFromServer(): void{
 
-    this.sectionService.GetAllSectionsFromBackend().subscribe(value => {
-      this.sections = value;
-      this.ngxService.stop();
-
+    this.sectionService.GetAllSectionsFromBackend().subscribe(value1 => {
+       this.sections = value1;
+       // this.ngxService.stop();
     });
+
   }
 
 
@@ -290,14 +279,13 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
         await this.articleLines.push(articleLineObject);
         this.products = [];
       }
-      document.getElementById('articleLine').style.color = 'rgb(17, 17, 17)';
+      // document.getElementById('articleLine').style.color = 'rgb(17, 17, 17)';
 
     });
   }
 
-  async getImageFromService(product): Promise<any> {
-    const pathImage = product.pathToFile.replace('C:/ZdjęciaBaza/Upload', '');
-    await this.httpClient.get(this.path + pathImage, {responseType: 'blob'}).toPromise()
+  async getImageFromService(product: Product): Promise<any> {
+    await this.httpClient.get(this.path + product.pathToFile, {responseType: 'blob'}).toPromise()
       .then(image => this.createImageFromBlob(image, product).then(value => {
         this.products.push(product);
       }));
@@ -558,6 +546,12 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     document.getElementById('test').style.opacity = '1';
     document.getElementById('nameproduct').style.display = 'none';
 
+
+  }
+
+  RedirectToHome(): void{
+    this.router.navigate(['/sklep']);
+    window.scrollTo(0, 0);
 
   }
 }

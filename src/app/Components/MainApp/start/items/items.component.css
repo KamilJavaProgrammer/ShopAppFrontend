@@ -1688,3 +1688,45 @@ ol {
 {
   cursor: pointer;
 }
+
+
+.productCategoryName:hover
+{
+  cursor: pointer;
+  color: blue !important;
+}
+
+.priceValues:hover
+{
+  cursor: pointer;
+  color: blue !important;
+}
+
+
+
+
+
+
+
+
+
+@media (max-width: 576px) {
+
+
+  #sss
+  {
+    font-size: 15px;
+    color: #e53637;
+    font-weight: 700;
+    display: block;
+  }
+
+}
+
+
+@media (min-width: 950px) {
+
+  #sss {
+    display: none;
+  }
+}

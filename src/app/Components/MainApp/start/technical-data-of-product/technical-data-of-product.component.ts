@@ -51,13 +51,13 @@ export class TechnicalDataOfProductComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+       window.scrollTo(0, 0);
+       this.ngxService.start();
+       document.getElementById('mainAnchor').scrollIntoView({behavior: 'smooth'});
 
-    // this.ngxService.startLoader('1');
-    document.getElementById('mainAnchor').scrollIntoView({behavior: 'smooth'});
+       document.getElementById('articleRouter').style.display = 'none';
 
-    document.getElementById('articleRouter').style.display = 'none';
-
-    this.sub = this.route.params.subscribe(params => {
+       this.sub = this.route.params.subscribe(params => {
 
       this.id = params.id;
       this.productService.GetOneProduct(this.id).subscribe(value => {
@@ -65,13 +65,15 @@ export class TechnicalDataOfProductComponent implements OnInit, OnDestroy {
         this.description =  value.description.split('.');
         this.productPrice = +value.productPrice;
         this.numberOfItems = value.numberOfItems;
-        this.productService.getImageFromService(value).subscribe(blob => {
+        this.productService.GetImageByPathFromService(value.pathToFile).subscribe(blob => {
           this.createImageFromBlob(blob);
           // this.ngxService.stopLoader('1');
 
         });
 
       });
+      this.ngxService.stop();
+
     });
   }
 

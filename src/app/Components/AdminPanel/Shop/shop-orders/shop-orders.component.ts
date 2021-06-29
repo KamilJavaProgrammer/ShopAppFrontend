@@ -5,6 +5,7 @@ import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {NgxCaptureService} from 'ngx-capture';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {CompleteOrder, OrderService} from '../../../../Services/order.service';
+import {Role} from '../../../../Enums/role.enum';
 
 @Component({
   selector: 'app-shop-orders',
@@ -54,7 +55,7 @@ export class ShopOrdersComponent implements OnInit {
 
 
   public GetAllOrders(): void{
-    this.orderService.GetAllOrders().subscribe(value => {
+    this.orderService.GetAllOrders(Role.ADMIN).subscribe(value => {
       this.orders = value;
     });
   }

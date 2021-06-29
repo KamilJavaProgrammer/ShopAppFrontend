@@ -1,252 +1,175 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Address, Business, ProductBasket} from './order.service';
 import {map} from 'rxjs/operators';
+import {SortOption} from '../Enums/sort-option.enum';
+import {Role} from '../Enums/role.enum';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductServiceService {
 
-
-  port = '8088';
-
-  urlProdctName = 'http://localhost:' + this.port + '/products/name';
-  path = 'http://localhost:' + this.port + '/image';
-  url = 'http://localhost:' + this.port + '/products';
-  urlExport = 'http://localhost:' + this.port + '/export';
-  url123 = 'http://localhost:' + this.port + '/products/parts';
-  urlList = 'http://localhost:' + this.port + '/products/list';
-  urlSubCatgory = 'http://localhost:' + this.port + '/subcategory';
-  urlCategoryProduct = 'http://localhost:' + this.port + '/categories';
-  urlManufacturers = 'http://localhost:' + this.port + '/manufacturers';
-  urlClient = 'http://localhost:' + this.port + '/client';
-  urlClient1 = 'http://localhost:' + this.port + '/client1';
-  urlInvoice = 'http://localhost:' + this.port + '/invoice';
+  urlProdctName = AuthService.ADDRESS_SERVER + '/products/name';
+  path = AuthService.ADDRESS_SERVER + '/image/';
+  url = AuthService.ADDRESS_SERVER + '/products';
+  urlExport = AuthService.ADDRESS_SERVER + '/export';
+  url123 = AuthService.ADDRESS_SERVER + '/products/parts';
+  urlSubCatgory = AuthService.ADDRESS_SERVER + '/subcategories';
+  urlCategoryProduct = AuthService.ADDRESS_SERVER + '/categories';
+  urlClient = AuthService.ADDRESS_SERVER + '/client';
+  urlClient1 = AuthService.ADDRESS_SERVER + '/client1';
+  urlInvoice = AuthService.ADDRESS_SERVER + '/invoice';
 
 
-  httpOptions: any;
-  headers: any;
-  sub: any;
-  id: number;
+  constructor(private httpClient: HttpClient, private authService: AuthService) {}
 
 
 
-  constructor(private httpClient: HttpClient) {
-
-  }
-  getImageFromService(product: Product): Observable<any> {
-    const pathImage  = product.pathToFile.replace('C:/ZdjęciaBaza/Upload', '');
-    return this.httpClient.get(this.path + pathImage, {responseType: 'blob'});
-
+  GetImageByPathFromService(pathImage: string): Observable<any> {
+    return this.httpClient.get( this.path + pathImage, {responseType: 'blob'});
   }
 
-  GetAllProducts(): Observable<Array<Product>>{
-    return this.httpClient.get<any>(this.url + '/all', {observe: 'response'})
-      .pipe(map(value => {
-        if (value.body.statusCodeValue === 200)
+
+
+  GetAllProducts(role: Role): Observable<Array<Product>>{
+
+    return this.httpClient.get<any>(this.url + '/all', { headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
+      .pipe(map(response => {
+        if (response.status === 200)
         {
-          return value.body.body;
+          return response.body;
         }
       }));
   }
 
-  GetAllProductsParts(warehouseplace: string): Observable<Array<Product>>{
-    return this.httpClient.get<any>(this.url123 + '?place=' + warehouseplace,  {observe: 'response'})
-      .pipe(map(value => {
-        if (value.body.statusCodeValue === 200)
-        {
-              return value.body.body;
-        }
+  GetAllProductsParts(wareHousePlace: string, role: Role): Observable<Array<Product>>{
+
+    return this.httpClient.get<any>(this.url123 + '?place=' + wareHousePlace,  {headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
+      .pipe(map(response => {
+
+         if (response.status === 200){
+           return response.body;
+         }
       }));
   }
 
 
-  GetProductsCurrentItem(id: number, name: string, minPrice: number, maxPrice: number): Observable<Array<Product>>{
+  GetProductsCurrentItem(id: number, name: string, minPrice: number, maxPrice: number, index?: number): Observable<Map<number, Array<Product>>>{
 
-    this. headers = new HttpHeaders();
-    // this.headers = this. headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
-    return this.httpClient.get<any>(this.urlProdctName + '/' + id + '?name=' + name + '&minPrice=' + minPrice  + '&maxPrice=' + maxPrice, {headers: this.headers, observe: 'response'}).pipe(map(value => {
-      if (value.status === 200){
-        return value.body;
-      }
-    }));
-  }
+    let url = '';
+    if (index === undefined)
+    {
+      url = this.urlProdctName + '/' + id + '?name=' + name + '&minPrice=' + minPrice  + '&maxPrice=' + maxPrice;
+    }
+    else
+    {
+      url   = this.urlProdctName + '/' + id + '?name=' + name + '&minPrice=' + minPrice  + '&maxPrice=' + maxPrice  + '&sort=' + SortOption[index];
+    }
 
-  GetProducts(formData: FormData): Observable<Array<Product>>{
+    return this.httpClient.get<any>(url , {observe: 'response'}).pipe(map(value => {
+        if (value.status === 200){
+          return value.body;
+        }
+      }));
 
-
-    this. headers = new HttpHeaders();
-    // this.headers = this. headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
-    return this.httpClient.post<any>(this.urlProdctName, formData, {headers: this.headers, observe: 'response'}).pipe(map(value => {
-       if (value.status === 200){
-         return value.body.body;
-       }
-    }));
-  }
-
-  GetListAllCategories(): Observable<Array<string>>{
-    return this.httpClient.get<Array<string>>(this.urlSubCatgory);
   }
 
 
-
-  GetAllCategories(): Observable<Map<Map<string, number>, Map<string, number>>>{
+  GetAllProductCategories(): Observable<Map<Map<string, number>, Map<string, number>>>{
     return this.httpClient.get<any>(this.urlCategoryProduct, {observe: 'response'}).pipe(map(value => {
-         console.log(value);
          return value.body;
     }));
-  }
-
-
-  AddProductTest(photo: any): Observable<Blob> {
-    this.headers = new HttpHeaders();
-
-    this.headers = this.headers.append('Content-Type', 'multipart/form-data');
-    this.headers = this.headers.append('X-Api-Key', 'MyzyRUinBEsi7QpXLMZbTD7R');
-    return this.httpClient.post('https://api.remove.bg/v1.0/removebg', photo, {responseType: 'blob', headers: this.headers});
-  }
-
-
-
-
-  GetCategories(formData: FormData): Observable<Map<string, number>>{
-    return this.httpClient.post<Map<string, number>>(this.urlSubCatgory, formData);
   }
 
   GetAllSubCategories(): Observable<Array<string>>{
     return this.httpClient.get<Array<string>>(this.urlSubCatgory);
   }
 
-   AddProduct(formData: FormData): Observable<string> {
-      this.headers = new HttpHeaders();
 
-     // this.headers = this.headers.append('Content-Type', 'multipart/form-data');
-     // this.headers = this.headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
-      return this.httpClient.post(this.url, formData, {responseType: 'text', headers: this.headers});
+  AddProduct(formData: any): Observable<any> {
+    return this.httpClient.post(this.url, formData, { headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE)});
   }
 
-  AddProduct2(formData: any): Observable<any> {
-    this.headers = new HttpHeaders();
 
 
+  EditProduct(formData: any, productId: number): Observable<any> {
 
-    // const param = new HttpParams();
-    // param.append('x1', JSON.stringify(product));
+     return this.httpClient.patch(this.url + '/' + productId, formData, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE)});
 
-    // const params = {x1: product, y1: formData};
-    // this.headers = this.headers.append('Content-Type', 'multipart/mixed stream');
-
-    // this.headers = this.headers.append('Content-Type', 'multipart/form-data');
-    // this.headers = this.headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
-    return this.httpClient.post(this.url, formData , {headers: this.headers});
-  }
-
-  EditProduct(formData: FormData, id: number): Observable<any> {
-    this.headers = new HttpHeaders();
-
-    // this.headers = this.headers.append('Content-Type', 'multipart/form-data');
-    // this.headers = this.headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
-    return this.httpClient.patch(this.url + '/' + this.id , formData, {observe: 'response'});
   }
 
   ExportProduct(products: Array<Product>, routeExport: string): Observable<any>{
-    return this.httpClient.post<any>(this.urlExport + '?route=' + routeExport , products, {observe: 'response'})
+    return this.httpClient.post<any>(this.urlExport + '?route=' + routeExport , products, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
       .pipe(map(value => {
-        if (value.body.statusCodeValue === 200)
+        if (value.status === 200)
         {
-          return value.body.body;
+          return value.body;
         }
       }));
   }
 
 
-
-  GetPhotos(path: string): Observable<Blob>{
-    return this.httpClient.get(path, {responseType: 'blob'});
-
-  }
-
-
-
   DeleteProducts(products: Array<Product>): Observable<any>{
-    return this.httpClient.request('delete', this.url, {body: products, observe: 'response'})
-      .pipe(map(value => {
-             console.log(value);
-      }));
-
+    return this.httpClient.request('delete', this.url, {body: products, headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE), observe : 'response'});
   }
-
-
-  GetManufacturersBySubCategoryFromServer(formData: FormData): Observable<Map<string, number>>{
-     return this.httpClient.post<Map<string, number>>(this.urlManufacturers, formData);
-  }
-
-
-  GetAllSearchingProduct(searchText: string): Observable<Array<Product>>{
-    return this.httpClient.get<any>(this.url + '/search?searchText=' + searchText, {observe: 'response'}).pipe(map(value => {
-       if (value.status === 200)
-       {
-         console.log(value);
-         return value.body.body;
-       }
-    }));
-  }
-
 
 
   GetOneProduct(id: number): Observable<Product>{
     return this.httpClient.get<Product>(this.url + '/' + id);
   }
 
-  DeleteProduct(id: number): Observable<any>{
-    return this.httpClient.delete<any>('http://localhost:8088/products/' + id).pipe(map(value => {
-      console.log(value);
-    }));
+  DeleteProduct(id: number): Observable<any> {
+    return this.httpClient.delete<any>(AuthService.ADDRESS_SERVER + '/products/' + id, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE)});
   }
+
+
   PutProduct(id: number, product: Product): Observable<Product>{
-    return this.httpClient.put('http://localhost:8088/products/' + id, product);
+    return this.httpClient.put(AuthService.ADDRESS_SERVER + '/products/' + id, product, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE)});
   }
   PatchProduct(id: number, product: Product): Observable<Product>{
-    return this.httpClient.patch('http://localhost:8088/products/' + id, product);
-  }
-  GetCount(): Observable<number>{
-    return this.httpClient.get<number>('http://localhost:8088/quantity');
+    return this.httpClient.patch(AuthService.ADDRESS_SERVER + '/products/' + id, product, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE)});
   }
 
 
   GetAllClients(): Observable<Array<Client>>{
-    return this.httpClient.get<Array<Client>>(this.urlClient);
+    return this.httpClient.get<any>(this.urlClient, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
+      .pipe(map(response => {
+        if (response.status === 200)
+        {
+          return response.body;
+        }
+      }));
   }
 
   GetOneClient(id: number): Observable<Client>{
-    return this.httpClient.get<Client>(this.urlClient + '/' + id);
+    return this.httpClient.get<Client>(this.urlClient + '/' + id,  {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE)});
   }
   PostOneClientByName(client: Client): Observable<Client>{
-    return this.httpClient.post<Client>(this.urlClient1, client);
+    return this.httpClient.post<Client>(this.urlClient1, client, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE)});
   }
   AddClient(client: Client): Observable<Client>{
-    return this.httpClient.post(this.urlClient, client);
+    return this.httpClient.post(this.urlClient, client, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE)});
   }
   DeleteClient(id: number): Observable<Client>{
-    return this.httpClient.delete(this.urlClient + '/' + id);
+    return this.httpClient.delete(this.urlClient + '/' + id, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE)});
   }
   PatchClient(id: number, client: Client): Observable<Client>{
-    return this.httpClient.patch(this.urlClient + '/' + id, client);
+    return this.httpClient.patch(this.urlClient + '/' + id, client, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE)});
   }
-  ////
-  ///
+
 
 
   AddInvoice(invoice: InvoiceInterface): Observable<InvoiceInterface>{
-    return this.httpClient.post(this.urlInvoice, invoice);
+    return this.httpClient.post(this.urlInvoice, invoice, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE)});
   }
   GetAllInvoices(): Observable<Array<InvoiceInterface>>{
-    return this.httpClient.get<Array<InvoiceInterface>>(this.urlInvoice);
+    return this.httpClient.get<Array<InvoiceInterface>>(this.urlInvoice, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE)});
   }
   GetOneInvoice(id: number): Observable<InvoiceInterface>{
-    return this.httpClient.get<InvoiceInterface>(this.urlInvoice + '/' + id );
+    return this.httpClient.get<InvoiceInterface>(this.urlInvoice + '/' + id, {headers: this.authService.SetJWTToken(Role.ADMIN, this.authService.JSON_CONTENT_TYPE)});
   }
 }
 

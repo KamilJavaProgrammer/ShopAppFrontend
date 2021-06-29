@@ -4,6 +4,8 @@ import {Client, InvoiceInterface, Product} from './product-service.service';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {ServiceClient, ShopClient} from './client-service.service';
+import {AuthService} from './auth.service';
+import {Role} from '../Enums/role.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -12,29 +14,22 @@ export class OrderService {
 
   table: Array<ProductBasket> = [];
   check: boolean;
-  headers: HttpHeaders;
 
-  port = '8088';
-  urlOrders = 'http://localhost:' + this.port + '/orders';
-  urlInvoice = 'http://localhost:' + this.port + '/invoices';
-  urlParcel = 'http://localhost:' + this.port + '/products/parcel';
-  urlRepairOrder = 'http://localhost:' + this.port + '/orders/repair';
+  urlOrders = AuthService.ADDRESS_SERVER + '/orders';
+  urlInvoice = AuthService.ADDRESS_SERVER + '/invoices';
+  urlParcel = AuthService.ADDRESS_SERVER + '/products/parcel';
 
 
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private authService: AuthService) {}
 
 
+  AddOneInvoice(invoiceObject: InvoiceInterface, role: Role): Observable<any>{
 
-
-  AddOneInvoice(invoiceObject: InvoiceInterface): Observable<any>{
-
-    // this.headers = new HttpHeaders();
-    // this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
-    return this.httpClient.post<any>(this.urlInvoice, invoiceObject, {headers: this.headers, observe: 'response'})
+    return this.httpClient.post<any>(this.urlInvoice, invoiceObject, {headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
       .pipe(map(response => {
         if (response.status === 200){
-          return response.body.body;
+          return response.body;
         }
         else {
           throwError('Fault');
@@ -42,60 +37,46 @@ export class OrderService {
       }));
   }
 
-  GetAllOrdersForUser(): Observable<Array<CompleteOrder>>{
+  GetAllOrdersForUser(role: Role): Observable<Array<CompleteOrder>>{
 
-    this.headers = new HttpHeaders();
-    this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('accessToken')}`);
-    return this.httpClient.get<any>(this.urlOrders, {headers: this.headers, observe: 'response'})
+
+    return this.httpClient.get<any>(this.urlOrders, {headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE), observe: 'response'})
       .pipe(map(response => {
         if (response.status === 200){
-          return response.body.body;
+          return response.body;
         }
         else {
           throwError('Fault');
         }
       }));
   }
-
-
-
-
-
-
-
 
 
   SendCompleteOrderToServer(completeOrder: CompleteOrder): Observable<any>{
-    this.headers = new HttpHeaders();
-    // this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('tokenJwt')}`);
-    // this.headers = this.headers.append('Content-Type', 'application/json');
-    return this.httpClient.post<any>(this.urlOrders, completeOrder, {headers: this.headers});
+    return this.httpClient.post<any>(this.urlOrders, completeOrder);
   }
 
 
+  GetAllOrders(role: Role): Observable<Array<CompleteOrder>>{
 
-
-  GetAllOrders(): Observable<Array<CompleteOrder>>{
-
-    this.headers = new HttpHeaders();
-    // this.headers = this.headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
-    return this.httpClient.get<any>(this.urlOrders + '/all', {observe: 'response'} ).pipe(map(value => {
-
-       return value.body;
-
-    }));
+    return this.httpClient.get<any>(this.urlOrders + '/all', {headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE), observe: 'response'} )
+      .pipe(map(response => {
+        if (response.status === 200){
+          return response.body;
+        }
+        else {
+          throwError('Fault');
+        }
+      }));
   }
 
-    GetInvoiceByUserId(id: number): Observable<Blob>{
-      this.headers = new HttpHeaders();
-      this.headers = this.headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
-      return this.httpClient.get(this.urlInvoice + '/' + id, {responseType: 'blob'});
+    GetInvoiceByUserId(id: number, role: Role): Observable<Blob>{
+
+      return this.httpClient.get(this.urlInvoice + '/' + id, {responseType: 'blob', headers: this.authService.SetJWTToken(role, this.authService.JSON_CONTENT_TYPE)});
     }
 
 
-
-
-  CheckExistsOrder(product: Product, callback): void {
+    CheckExistsOrder(product: Product, callback): void {
 
     callback(this.table.some(el => el.nameOfProduct === product.productName));
   }
@@ -107,7 +88,7 @@ export class OrderService {
 
   GetNumberOfItemsFromOrder(product: Product): number {
 
-     let result;
+     let result = 0;
      this.table.forEach(value => {
         if (value.nameOfProduct === product.productName)
         {
@@ -179,7 +160,7 @@ export class OrderService {
   GetParcelData(): Observable<Product> {
 
     return this.httpClient.get<any>(this.urlParcel, {observe: 'response'}).pipe(map(value => {
-      return value.body.body;
+      return value.body;
     }));
 
   }
@@ -246,11 +227,4 @@ export interface Business{
   address?: Address;
 }
 
-export interface RepairOrder {
-  id?: number;
-  serviceClient?: ServiceClient;
-  description?: string;
-  pathToFile?: string;
-
-}
 

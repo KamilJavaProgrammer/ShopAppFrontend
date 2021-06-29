@@ -1,11 +1,12 @@
 import {Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
-import {ArticleLine, Section, SectionService} from '../../../../../../Services/section.service';
+import {SectionService} from '../../../../../../Services/section.service';
 import {Product, ProductServiceService} from '../../../../../../Services/product-service.service';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {NgxCaptureService} from 'ngx-capture';
 import {BsModalService} from 'ngx-bootstrap/modal';
-import {ClientServiceService, ShopClient} from '../../../../../../Services/client-service.service';
-import {CompleteOrder} from '../../../../../../Services/order.service';
+import {ClientServiceService} from '../../../../../../Services/client-service.service';
+import {Role} from '../../../../../../Enums/role.enum';
+import {ArticleLine} from '../../../../../../Classes/article-line';
 
 @Component({
   selector: 'app-article-line',
@@ -75,7 +76,7 @@ export class ArticleLineComponent implements OnInit {
   OpenProductsModal(articleLine: ArticleLine): void {
     this.products = [];
     articleLine.productList.forEach(product => {
-        this.productService.getImageFromService(product).subscribe(blob => {
+        this.productService.GetImageByPathFromService(product.pathToFile).subscribe(blob => {
           this.createImageFromBlob(blob, product);
         });
     });
@@ -139,10 +140,10 @@ export class ArticleLineComponent implements OnInit {
   OpenAddArticleLinesModal(): void {
     this.products = [];
     this.bsModalService.show(this.addArticleLineModal, this.config);
-    this.productService.GetAllProducts().subscribe(arrayProducts => {
+    this.productService.GetAllProducts(Role.ADMIN).subscribe(arrayProducts => {
       arrayProducts.forEach(product => {
 
-        this.productService.getImageFromService(product).subscribe(blob => {
+        this.productService.GetImageByPathFromService(product.pathToFile).subscribe(blob => {
           this.createImageFromBlob(blob, product);
         });
       });

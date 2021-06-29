@@ -12,6 +12,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {WarehouseComponent} from '../../Product/Help/warehouse/warehouse.component';
+import {WareHousePlace} from '../../../../Enums/ware-house-place.enum';
 
 
 
@@ -32,7 +33,7 @@ export class ShopWarehouseComponent implements OnInit {
   constructor(private productService: ProductServiceService, private ngxService: NgxUiLoaderService,
               private ngxCaptureService: NgxCaptureService, private bsModalService: BsModalService, private warehouseComponent: WarehouseComponent) {
   }
-   warehouseplace = 'sklep';
+   warehouseplace = WareHousePlace[0];
    tableTitle = 'Asortyment Sklepu';
 
   ngOnInit(): void {

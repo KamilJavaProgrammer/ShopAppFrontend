@@ -18,6 +18,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     document.getElementById('articleRouter').style.display = 'none';
+    window.scrollTo(0, 0);
   }
 
   ngOnDestroy(): void {
